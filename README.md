@@ -1,6 +1,6 @@
 # concertmaster_ios
 
-[Concertmaster](https://getconcertmaster.com) is a classical music front-end for Spotify.
+[Concertmaster](https://getconcertmaster.com) is a classical music front-end for Spotify
 
 It's splitted in several projects. **This one provides only the iOS app.** (There's a [web player](https://github.com/openopus-org/concertmaster_player) as well!) All data comes from an API which, in its turn, uses the Spotify API. Spotify doesn't allow multiple apps using the same API key, so you can't fork only the app and use the Concertmaster API - you have to fork both.
 
