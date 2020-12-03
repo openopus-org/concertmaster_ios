@@ -100,3 +100,6 @@ Carthage/Build.rbenv-vars
 ####
 # rbenv
 .rbenv-vars
+
+# VSCode
+.code-workspace
