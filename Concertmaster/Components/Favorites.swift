@@ -1,0 +1,37 @@
+//
+//  Favorites.swift
+//  Concertmaster
+//
+//  Created by Adriano Brandao on 29/01/20.
+//  Copyright © 2020 Open Opus. All rights reserved.
+//
+
+import SwiftUI
+
+struct Favorites: View {
+    @State private var playlistSwitcher = PlaylistSwitcher()
+    
+    var body: some View {
+        VStack {
+            NavigationView {
+                VStack {
+                    Spacer()
+                        .frame(height: UIDevice.current.isLarge ? 0 : 10)
+                    PlaylistsMenu(playlistSwitcher: $playlistSwitcher)
+                    PlaylistsRecordings(playlistSwitcher: $playlistSwitcher)
+                    Spacer()
+                }
+            }
+            .navigationViewStyle(StackNavigationViewStyle())
+            .padding(.top, paddingCalc())
+            .padding(.bottom, -8)
+        }
+        .clipped()
+    }
+}
+
+struct Favorites_Previews: PreviewProvider {
+    static var previews: some View {
+        EmptyView()
+    }
+}
