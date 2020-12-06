@@ -116,6 +116,7 @@
 		09E5442023FB87B7005B8AEE /* RecordingMini.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E5441F23FB87B7005B8AEE /* RecordingMini.swift */; };
 		09F417B3247989E8008CF53E /* Warning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F417B2247989E8008CF53E /* Warning.swift */; };
 		09F53EEC24527EBB00D312B9 /* AirPlayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F53EEB24527EBB00D312B9 /* AirPlayButton.swift */; };
+		09FA7F3A257AC972002DF21A /* SpotifyiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09FA7F39257AC972002DF21A /* SpotifyiOS.framework */; };
 		09FE9A5623F9E2D800599992 /* RecordingDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09FE9A5523F9E2D800599992 /* RecordingDetail.swift */; };
 		09FE9A5823F9E38A00599992 /* RecordingWorkPerformers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09FE9A5723F9E38A00599992 /* RecordingWorkPerformers.swift */; };
 /* End PBXBuildFile section */
@@ -231,6 +232,8 @@
 		09E5441F23FB87B7005B8AEE /* RecordingMini.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingMini.swift; sourceTree = "<group>"; };
 		09F417B2247989E8008CF53E /* Warning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Warning.swift; sourceTree = "<group>"; };
 		09F53EEB24527EBB00D312B9 /* AirPlayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirPlayButton.swift; sourceTree = "<group>"; };
+		09FA7F39257AC972002DF21A /* SpotifyiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyiOS.framework; sourceTree = "<group>"; };
+		09FA7F3B257ACC99002DF21A /* Concertmaster-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Concertmaster-Bridging-Header.h"; sourceTree = "<group>"; };
 		09FE9A5523F9E2D800599992 /* RecordingDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingDetail.swift; sourceTree = "<group>"; };
 		09FE9A5723F9E38A00599992 /* RecordingWorkPerformers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingWorkPerformers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -241,6 +244,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				094B25CC2537A45200A65113 /* SwiftyStoreKit in Frameworks */,
+				09FA7F3A257AC972002DF21A /* SpotifyiOS.framework in Frameworks */,
 				09AAD65823E62B74004CDAB6 /* URLImage in Frameworks */,
 				09002922252D0D7600AB44C4 /* StoreKit.framework in Frameworks */,
 			);
@@ -271,6 +275,8 @@
 		09E19F2823E24F1F0011D718 = {
 			isa = PBXGroup;
 			children = (
+				09FA7F3B257ACC99002DF21A /* Concertmaster-Bridging-Header.h */,
+				09FA7F39257AC972002DF21A /* SpotifyiOS.framework */,
 				09E19F3323E24F1F0011D718 /* Concertmaster */,
 				09E19F3223E24F1F0011D718 /* Products */,
 				09002920252D0D7600AB44C4 /* Frameworks */,
@@ -758,6 +764,10 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Concertmaster/Preview Content\"";
 				DEVELOPMENT_TEAM = TXW2W532B9;
 				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = Concertmaster/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -765,9 +775,11 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.20.1202;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = org.openopus.concertmaster.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "Concertmaster-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -783,6 +795,10 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Concertmaster/Preview Content\"";
 				DEVELOPMENT_TEAM = TXW2W532B9;
 				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = Concertmaster/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -790,9 +806,11 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.20.1202;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = org.openopus.concertmaster.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "Concertmaster-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

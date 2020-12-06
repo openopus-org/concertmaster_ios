@@ -19,6 +19,11 @@ struct Player: View {
     @EnvironmentObject var AppState: AppState
     @EnvironmentObject var settingStore: SettingStore
     @EnvironmentObject var radioState: RadioState
+    private var appRemote: SPTAppRemote? {
+        get {
+            return (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.appRemote
+        }
+    }
     
     func playMusic() {
         if self.currentTrack.count > 0 && !self.playState.keepQueue {
@@ -38,7 +43,7 @@ struct Player: View {
             }
         }
         
-        // apple now playing
+        // ios now playing
         
         let center = MPNowPlayingInfoCenter.default()
         var songInfo = [String: AnyObject]()
@@ -63,8 +68,36 @@ struct Player: View {
         
         self.settingStore.lastPlayState = self.playState.recording
         
-        // logging in apple music and concertino
+        // logging to spotify and to concertmaster
         
+        if (self.playState.autoplay) {
+            
+            print("is connected - \(self.appRemote?.isConnected)")
+            //print("playerstate - \(self.appRemote?.playerAPI?.getPlayerState())")
+            
+            if (!self.appRemote!.isConnected) {
+                self.appRemote?.authorizeAndPlayURI("spotify:track:2oZXPxub629b8fWxjOfSo1")
+                /*DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                    appRemote?.connect()
+                }*/
+            } else {
+                self.appRemote?.playerAPI?.enqueueTrackUri("spotify:track:3OZBrpGXKHuxy1wKUJ4dqe")
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                    self.appRemote?.playerAPI?.enqueueTrackUri("spotify:track:1k1JZoUYNYbJdk0t9dicPX")
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                        self.appRemote?.playerAPI?.enqueueTrackUri("spotify:track:5eq2kBtvY0WcWUb3suh0tH")
+                    }
+                }
+                
+                //
+                //
+                //self.appRemote?.playerAPI?.enqueueTrackUri("spotify:track:4KQJVAaUhl1BASzKcoq8dH")
+                //self.appRemote?.playerAPI?.play("spotify:track:4KQJVAaUhl1BASzKcoq8dH")
+            }
+        }
+        
+        /*
         userLogin(self.playState.autoplay) { country, canPlay, apmusEligible, loginResults in
             if let login = loginResults {
                 
@@ -288,7 +321,7 @@ struct Player: View {
             }
             
             self.settingStore.firstUsage = false
-        }
+        }*/
     }
     
     var body: some View {
