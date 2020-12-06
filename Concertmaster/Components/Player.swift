@@ -24,6 +24,11 @@ struct Player: View {
             return (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.appRemote
         }
     }
+    private var sessionManager: SPTSessionManager? {
+        get {
+            return (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.sessionManager
+        }
+    }
     
     func playMusic() {
         if self.currentTrack.count > 0 && !self.playState.keepQueue {
@@ -76,7 +81,9 @@ struct Player: View {
             //print("playerstate - \(self.appRemote?.playerAPI?.getPlayerState())")
             
             if (!self.appRemote!.isConnected) {
-                self.appRemote?.authorizeAndPlayURI("spotify:track:2oZXPxub629b8fWxjOfSo1")
+                self.sessionManager?.initiateSession(with: AppConstants.SpotifyAuthScopes, options: .default)
+                
+                //self.appRemote?.authorizeAndPlayURI("spotify:track:2oZXPxub629b8fWxjOfSo1")
                 /*DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                     appRemote?.connect()
                 }*/

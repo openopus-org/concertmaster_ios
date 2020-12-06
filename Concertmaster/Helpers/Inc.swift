@@ -32,4 +32,6 @@ struct AppConstants {
     static let minsToLogin = 2 * 60
     static let SpotifyClientID = "d51f903ebcac46d9a036b4a2da05b299"
     static let SpotifyRedirectURL = URL(string: "concertmaster-app://spotify-login-callback")!
+    static let concTokenAPI = "https://api.concertmaster.app/dyn/token/"
+    static let SpotifyAuthScopes: SPTScope = [.appRemoteControl, .userReadPlaybackState, .userModifyPlaybackState, .userReadCurrentlyPlaying, .streaming]
 }

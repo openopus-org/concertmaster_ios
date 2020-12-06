@@ -16,6 +16,26 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
     
     lazy var appState = AppState()
     
+    lazy var configuration: SPTConfiguration = {
+        let configuration = SPTConfiguration(clientID: AppConstants.SpotifyClientID, redirectURL: AppConstants.SpotifyRedirectURL)
+        configuration.playURI = "spotify:track:647hR0e3Rp07l8MtPSMu2s"
+        configuration.tokenSwapURL = URL(string: AppConstants.concTokenAPI)
+        configuration.tokenRefreshURL = URL(string: AppConstants.concTokenAPI)
+        return configuration
+    }()
+
+    lazy var sessionManager: SPTSessionManager = {
+        let manager = SPTSessionManager(configuration: configuration, delegate: self)
+        return manager
+    }()
+
+    lazy var appRemote: SPTAppRemote = {
+        let appRemote = SPTAppRemote(configuration: configuration, logLevel: .debug)
+        appRemote.delegate = self
+        return appRemote
+    }()
+    
+    /*
     lazy var appRemote: SPTAppRemote = {
         let configuration = SPTConfiguration(clientID: AppConstants.SpotifyClientID, redirectURL: AppConstants.SpotifyRedirectURL)
         let appRemote = SPTAppRemote(configuration: configuration, logLevel: .debug)
@@ -30,6 +50,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
             defaults.set(accessToken, forKey: SceneDelegate.kAccessTokenKey)
         }
     }
+    */
     
     func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
           guard userActivity.activityType == NSUserActivityTypeBrowsingWeb,
@@ -103,18 +124,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
             return
         }
 
+        self.sessionManager.application(UIApplication.shared, open: url, options: [:])
+        
+        /*
         let parameters = appRemote.authorizationParameters(from: url);
 
         if let access_token = parameters?[SPTAppRemoteAccessTokenKey] {
             appRemote.connectionParameters.accessToken = access_token
-            self.accessToken = access_token
-            print ("token - \(self.accessToken)")
+            //self.accessToken = access_token
+            //print ("token - \(self.accessToken)")
             
             //appRemote.connect()
             
         } else if let errorDescription = parameters?[SPTAppRemoteErrorDescriptionKey] {
             //
         }
+        */
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -159,14 +184,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
         //
     }
     
-    func sessionManager(manager: SPTSessionManager, didInitiate session: SPTSession) {
-      print("success", session)
-    }
     func sessionManager(manager: SPTSessionManager, didFailWith error: Error) {
       print("fail", error)
     }
     func sessionManager(manager: SPTSessionManager, didRenew session: SPTSession) {
       print("renewed", session)
+    }
+    
+    func sessionManager(manager: SPTSessionManager, didInitiate session: SPTSession) {
+        print ("access token - \(session.accessToken)")
+        appRemote.connectionParameters.accessToken = session.accessToken
+        appRemote.connect()
     }
 }
 
