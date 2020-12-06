@@ -103,3 +103,6 @@ Carthage/Build.rbenv-vars
 
 # VSCode
 .code-workspace
+
+# Spotify
+/SpotifyiOS.framework
