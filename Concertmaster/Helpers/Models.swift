@@ -364,3 +364,14 @@ struct TrackQueued: Codable {
 struct RecordingQueue: Codable {
     var recordings: [Recording]
 }
+
+struct Devices: Codable {
+    var devices: [Device]
+}
+
+struct Device: Codable {
+    var id: String
+    var is_active: Bool
+    var name: String
+    var type: String
+}

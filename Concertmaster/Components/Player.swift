@@ -76,31 +76,15 @@ struct Player: View {
         // logging to spotify and to concertmaster
         
         if (self.playState.autoplay) {
-            
             print("is connected - \(self.appRemote?.isConnected)")
             //print("playerstate - \(self.appRemote?.playerAPI?.getPlayerState())")
             
             if (!self.appRemote!.isConnected) {
                 self.sessionManager?.initiateSession(with: AppConstants.SpotifyAuthScopes, options: .default)
-                
-                //self.appRemote?.authorizeAndPlayURI("spotify:track:2oZXPxub629b8fWxjOfSo1")
-                /*DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                    appRemote?.connect()
-                }*/
             } else {
-                self.appRemote?.playerAPI?.enqueueTrackUri("spotify:track:3OZBrpGXKHuxy1wKUJ4dqe")
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                    self.appRemote?.playerAPI?.enqueueTrackUri("spotify:track:1k1JZoUYNYbJdk0t9dicPX")
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                        self.appRemote?.playerAPI?.enqueueTrackUri("spotify:track:5eq2kBtvY0WcWUb3suh0tH")
-                    }
+                APIBearerPut("\(AppConstants.SpotifyAPI)/me/player/play?device_id=\(self.settingStore.deviceId)", body: "{ \"uris\": [\"spotify:track:3Y5HdrMjQUhTyEynrweOvS\", \"spotify:track:0sJPCUnyjuQAKXpkUPeX1S\", \"spotify:track:0gTUHNRHdNkoIzNcMKNYWo\", \"spotify:track:3JuIQapBicr2Ez0aA0I7fM\",\"spotify:track:3VxMxFWY6de6ZE36Ljyrsh\"], \"offset\": { \"position\": 0 } }", bearer: self.settingStore.accessToken) { results in
+                    print(String(decoding: results, as: UTF8.self))
                 }
-                
-                //
-                //
-                //self.appRemote?.playerAPI?.enqueueTrackUri("spotify:track:4KQJVAaUhl1BASzKcoq8dH")
-                //self.appRemote?.playerAPI?.play("spotify:track:4KQJVAaUhl1BASzKcoq8dH")
             }
         }
         

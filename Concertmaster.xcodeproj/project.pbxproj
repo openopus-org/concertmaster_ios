@@ -47,6 +47,7 @@
 		09647BEF2545DEEA00B14DD0 /* AlbumDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09647BEE2545DEE900B14DD0 /* AlbumDetail.swift */; };
 		09647BF225460ABF00B14DD0 /* AlbumCoverTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09647BF125460ABF00B14DD0 /* AlbumCoverTitle.swift */; };
 		09647BFB2546144900B14DD0 /* RecordingDetailTracks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09647BFA2546144900B14DD0 /* RecordingDetailTracks.swift */; };
+		096BF96B257D8C530045C77E /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096BF96A257D8C530045C77E /* Utils.swift */; };
 		097325E823FC406E00A1C9E6 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097325E723FC406E00A1C9E6 /* ProgressBar.swift */; };
 		097325EA2404560900A1C9E6 /* RecordingProgressBars.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097325E92404560900A1C9E6 /* RecordingProgressBars.swift */; };
 		097325EC24047D0600A1C9E6 /* RecordingPlaybackControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097325EB24047D0600A1C9E6 /* RecordingPlaybackControl.swift */; };
@@ -100,7 +101,6 @@
 		09E19F3B23E24F210011D718 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09E19F3A23E24F210011D718 /* Assets.xcassets */; };
 		09E19F3E23E24F210011D718 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09E19F3D23E24F210011D718 /* Preview Assets.xcassets */; };
 		09E19F4123E24F210011D718 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09E19F3F23E24F210011D718 /* LaunchScreen.storyboard */; };
-		09E19F4A23E251320011D718 /* Lib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E19F4923E251320011D718 /* Lib.swift */; };
 		09E19F4D23E253780011D718 /* Structure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E19F4C23E253780011D718 /* Structure.swift */; };
 		09E19F4F23E2543E0011D718 /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E19F4E23E2543E0011D718 /* Header.swift */; };
 		09E19F5123E254480011D718 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E19F5023E254480011D718 /* Home.swift */; };
@@ -162,6 +162,7 @@
 		09647BEE2545DEE900B14DD0 /* AlbumDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDetail.swift; sourceTree = "<group>"; };
 		09647BF125460ABF00B14DD0 /* AlbumCoverTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCoverTitle.swift; sourceTree = "<group>"; };
 		09647BFA2546144900B14DD0 /* RecordingDetailTracks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingDetailTracks.swift; sourceTree = "<group>"; };
+		096BF96A257D8C530045C77E /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		097325E723FC406E00A1C9E6 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		097325E92404560900A1C9E6 /* RecordingProgressBars.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingProgressBars.swift; sourceTree = "<group>"; };
 		097325EB24047D0600A1C9E6 /* RecordingPlaybackControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingPlaybackControl.swift; sourceTree = "<group>"; };
@@ -216,7 +217,6 @@
 		09E19F3D23E24F210011D718 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		09E19F4023E24F210011D718 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		09E19F4223E24F210011D718 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		09E19F4923E251320011D718 /* Lib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lib.swift; sourceTree = "<group>"; };
 		09E19F4C23E253780011D718 /* Structure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Structure.swift; sourceTree = "<group>"; };
 		09E19F4E23E2543E0011D718 /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
 		09E19F5023E254480011D718 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
@@ -321,8 +321,8 @@
 			isa = PBXGroup;
 			children = (
 				09AAD65023E62120004CDAB6 /* Inc.swift */,
-				09E19F4923E251320011D718 /* Lib.swift */,
 				09AAD64E23E61E9F004CDAB6 /* Models.swift */,
+				096BF96A257D8C530045C77E /* Utils.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -537,6 +537,7 @@
 				0922D468240F1FAC001E8DFE /* PeriodBox.swift in Sources */,
 				09FE9A5623F9E2D800599992 /* RecordingDetail.swift in Sources */,
 				0919D09F244BE10700EF4B50 /* ExternalRecordingSheet.swift in Sources */,
+				096BF96B257D8C530045C77E /* Utils.swift in Sources */,
 				097325F42408A01B00A1C9E6 /* SearchField.swift in Sources */,
 				09E19F5523E2545B0011D718 /* TabMenu.swift in Sources */,
 				0922D46A240F1FBB001E8DFE /* PeriodDetailSearch.swift in Sources */,
@@ -609,7 +610,6 @@
 				090625682431910500E8FC3E /* RadioSwitcher.swift in Sources */,
 				09A6741D23F778C4000000D6 /* ErrorMessage.swift in Sources */,
 				0922D47024105973001E8DFE /* PlaylistsMenu.swift in Sources */,
-				09E19F4A23E251320011D718 /* Lib.swift in Sources */,
 				09FE9A5823F9E38A00599992 /* RecordingWorkPerformers.swift in Sources */,
 				097C15D9242D6511006FBBEE /* EditPlaylist.swift in Sources */,
 				093093652558B2D1005FB69E /* RecordingPlayButton.swift in Sources */,

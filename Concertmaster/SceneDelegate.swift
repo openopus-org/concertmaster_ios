@@ -11,14 +11,14 @@ import SwiftUI
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, SPTSessionManagerDelegate {
     
-    static private let kAccessTokenKey = "access-token-key"
     var window: UIWindow?
     
     lazy var appState = AppState()
+    let settingStore = SettingStore()
     
     lazy var configuration: SPTConfiguration = {
         let configuration = SPTConfiguration(clientID: AppConstants.SpotifyClientID, redirectURL: AppConstants.SpotifyRedirectURL)
-        configuration.playURI = "spotify:track:647hR0e3Rp07l8MtPSMu2s"
+        configuration.playURI = AppConstants.SpotifySilentTrack
         configuration.tokenSwapURL = URL(string: AppConstants.concTokenAPI)
         configuration.tokenRefreshURL = URL(string: AppConstants.concTokenAPI)
         return configuration
@@ -35,23 +35,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
         return appRemote
     }()
     
-    /*
-    lazy var appRemote: SPTAppRemote = {
-        let configuration = SPTConfiguration(clientID: AppConstants.SpotifyClientID, redirectURL: AppConstants.SpotifyRedirectURL)
-        let appRemote = SPTAppRemote(configuration: configuration, logLevel: .debug)
-        appRemote.connectionParameters.accessToken = self.accessToken
-        appRemote.delegate = self
-        return appRemote
-    }()
-    
-    var accessToken = UserDefaults.standard.string(forKey: kAccessTokenKey) {
-        didSet {
-            let defaults = UserDefaults.standard
-            defaults.set(accessToken, forKey: SceneDelegate.kAccessTokenKey)
-        }
-    }
-    */
-    
     func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
           guard userActivity.activityType == NSUserActivityTypeBrowsingWeb,
             let incomingURL = userActivity.webpageURL,
@@ -62,6 +45,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
         let comps = components.path!.components(separatedBy: "/")
         
         if comps[1] == "r" {
+            
             if let shortId = UInt32(comps[2], radix: 16) {
                 APIget(AppConstants.concBackend+"/recording/unshorten/\(shortId).json") { results in
                     if let recordingData: ShortRecordingDetail = safeJSON(results) {
@@ -125,21 +109,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
         }
 
         self.sessionManager.application(UIApplication.shared, open: url, options: [:])
-        
-        /*
-        let parameters = appRemote.authorizationParameters(from: url);
-
-        if let access_token = parameters?[SPTAppRemoteAccessTokenKey] {
-            appRemote.connectionParameters.accessToken = access_token
-            //self.accessToken = access_token
-            //print ("token - \(self.accessToken)")
-            
-            //appRemote.connect()
-            
-        } else if let errorDescription = parameters?[SPTAppRemoteErrorDescriptionKey] {
-            //
-        }
-        */
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -194,7 +163,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
     func sessionManager(manager: SPTSessionManager, didInitiate session: SPTSession) {
         print ("access token - \(session.accessToken)")
         appRemote.connectionParameters.accessToken = session.accessToken
+        self.settingStore.accessToken = session.accessToken
         appRemote.connect()
+        
+        if self.settingStore.deviceId == "" {
+            APIBearerGet("\(AppConstants.SpotifyAPI)/me/player/devices", bearer: session.accessToken) { results in
+                print(String(decoding: results, as: UTF8.self))
+                if let devicesData: Devices = safeJSON(results) {
+                    devicesData.devices.forEach() {
+                        if $0.is_active {
+                            self.settingStore.deviceId = $0.id
+                            print ("device id \($0.id)")
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
