@@ -19,14 +19,14 @@ struct RecordingRow: View {
                     Rectangle()
                         .fill(Color(hex: 0x2B2B2F))
                         .frame(width: 85, height: 85)
-                        .cornerRadius(20)
+                        //.cornerRadius(20)
                 }) { img in
                     img.image
                         .renderingMode(.original)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .clipped()
-                        .cornerRadius(20)
+                        //.cornerRadius(20)
                 }
                 .frame(width: 85, height: 85)
                 .padding(.trailing, 12)
@@ -37,7 +37,7 @@ struct RecordingRow: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 12, height: 12)
-                        .foregroundColor(Color(hex: 0xfe365e))
+                        .foregroundColor(Color(hex: 0xfce546))
                     }
                     .frame(width: 22, height: 22)
                     .background(Color.black)
@@ -50,13 +50,13 @@ struct RecordingRow: View {
                 if recording.work != nil {
                     if recording.work!.composer!.id != "0" {
                         Text(recording.work!.composer!.name.uppercased().trimmingCharacters(in: .whitespacesAndNewlines))
-                            .font(.custom("Nunito-ExtraBold", size: 13))
-                            .foregroundColor(Color(hex: 0xfe365e))
+                            .font(.custom("ZillaSlab-SemiBold", size: 13))
+                            .foregroundColor(Color(hex: 0xfce546))
                     } else if recording.work!.composer!.name != "None" {
                         ForEach(recording.work!.composer!.name.components(separatedBy: CharacterSet(charactersIn: "&,")), id: \.self) { composer in
                             Text(composer.uppercased().trimmingCharacters(in: .whitespacesAndNewlines))
-                            .font(.custom("Nunito-ExtraBold", size: 13))
-                            .foregroundColor(Color(hex: 0xfe365e))
+                            .font(.custom("ZillaSlab-SemiBold", size: 13))
+                            .foregroundColor(Color(hex: 0xfce546))
                         }
                     }
                     

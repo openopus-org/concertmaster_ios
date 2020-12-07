@@ -23,14 +23,14 @@ struct RecordingMini: View {
                     Rectangle()
                         .fill(Color(hex: 0x2B2B2F))
                         .frame(width: 50, height: 50)
-                        .cornerRadius(10)
+                        //.cornerRadius(10)
                 }) { img in
                     img.image
                         .renderingMode(.original)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .clipped()
-                        .cornerRadius(10)
+                        //.cornerRadius(10)
                 }
                 .frame(width: 50, height: 50)
                 .padding(.trailing, 8)
@@ -38,12 +38,13 @@ struct RecordingMini: View {
                 VStack(alignment: .leading) {
                     if recording.work!.composer!.name != "None" {
                         Text(recording.work!.composer!.name.uppercased())
-                            .font(.custom("Nunito-ExtraBold", size: 12))
-                            .foregroundColor(Color(hex: 0xfe365e))
+                            .font(.custom("ZillaSlab-SemiBold", size: 12))
+                            .foregroundColor(.black)
                     }
                     
                     Text(recording.work!.title)
                         .font(.custom("Barlow-Regular", size: 13))
+                        .foregroundColor(.black)
                         .padding(.bottom, 4)
                         .lineLimit(20)
                         .fixedSize(horizontal: false, vertical: true)
@@ -57,7 +58,7 @@ struct RecordingMini: View {
                     HStack {
                         Spacer()
                         ActivityIndicator(isAnimating: true)
-                            .configure { $0.color = Color(hex: 0xfe365e).uiColor(); $0.style = .medium }
+                            .configure { $0.color = Color(hex: 0xfce546).uiColor(); $0.style = .medium }
                         Spacer()
                     }
                     .padding(.top, 4)
@@ -77,7 +78,7 @@ struct RecordingMini: View {
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .frame(height: 22)
-                                .foregroundColor(Color(hex: 0xfe365e))
+                                .foregroundColor(Color(hex: 0xfce546))
                                 .padding(.leading, 18)
                                 .padding(.trailing, 22)
                         })
@@ -100,14 +101,14 @@ struct RecordingMini: View {
                                     .padding(.leading, 8)
                                     .padding(.trailing, 12)
                                     .background(Color.black)
-                                    .cornerRadius(14)
+                                    //.cornerRadius(14)
                                     .opacity(0.6)
                                 }
                             }
                             
                             Text(self.recording.readableLength)
                         }
-                        .font(.custom("Nunito-Regular", size: 11))
+                        .font(.custom("ZillaSlab-Light", size: 11))
                     }
                     .padding(.top, 4)
                 }
@@ -119,7 +120,7 @@ struct RecordingMini: View {
                     HStack {
                         Spacer()
                         ActivityIndicator(isAnimating: true)
-                            .configure { $0.color = Color(hex: 0xfe365e).uiColor(); $0.style = .medium }
+                            .configure { $0.color = Color(hex: 0xfce546).uiColor(); $0.style = .medium }
                         Spacer()
                     }
                     .padding(.top, 4)

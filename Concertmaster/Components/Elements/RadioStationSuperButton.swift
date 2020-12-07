@@ -77,7 +77,7 @@ struct RadioStationSuperButton: View {
                             Text(self.name)
                                 
                                 .foregroundColor(Color.white)
-                                .font(.custom("Nunito-Regular", size: UIDevice.current.isLarge ? 16 : 13))
+                                .font(.custom("ZillaSlab-Light", size: UIDevice.current.isLarge ? 17 : 14))
                                 .padding(12)
                         }
                     }
@@ -90,7 +90,7 @@ struct RadioStationSuperButton: View {
                             Rectangle()
                                 .fill(Color(hex: 0x2B2B2F))
                                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 138, maxHeight: 138, alignment: .topLeading)
-                                .cornerRadius(20)
+                                //.cornerRadius(20)
                         }) { img in
                             img.image
                                 .renderingMode(.original)
@@ -104,7 +104,7 @@ struct RadioStationSuperButton: View {
                             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 138, maxHeight: 138, alignment: .topLeading)
                     })
                 .padding(0)
-                .cornerRadius(20)
+                .clipped()
             })
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 138, maxHeight: 138, alignment: .topLeading)
     }

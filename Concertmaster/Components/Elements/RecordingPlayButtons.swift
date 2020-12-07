@@ -36,7 +36,7 @@ struct RecordingPlayButtons: View {
                                     DotsAnimation()
                                         .padding(.trailing, 3)
                                     Text("playing".uppercased())
-                                        .font(.custom("Nunito-Regular", size: 11))
+                                        .font(.custom("ZillaSlab-Light", size: 11))
                                 }
                                 else {
                                     Image("handle")
@@ -47,7 +47,7 @@ struct RecordingPlayButtons: View {
                                         .padding(.trailing, 6)
                                     Text("in the player".uppercased())
                                         .foregroundColor(Color(hex: 0x696969))
-                                        .font(.custom("Nunito-Regular", size: 10))
+                                        .font(.custom("ZillaSlab-Light", size: 10))
                                 }
                                 Spacer()
                             }
@@ -55,7 +55,7 @@ struct RecordingPlayButtons: View {
                         .padding(15)
                         .foregroundColor(.white)
                         .background(Color(hex: 0x4F4F4F))
-                        .cornerRadius(16)
+                        //.cornerRadius(16)
                 })
             } else {
                 Button(
@@ -78,15 +78,17 @@ struct RecordingPlayButtons: View {
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
                                     .frame(height: 20)
+                                    .foregroundColor(.black)
                                 Text("play".uppercased())
-                                    .font(.custom("Nunito-Regular", size: 14))
+                                    .font(.custom("ZillaSlab-SemiBold", size: 16))
+                                    .foregroundColor(.black)
                                 Spacer()
                             }
                         }
                         .padding(14)
                         .foregroundColor(.white)
-                        .background(Color(hex: 0xfe365e))
-                        .cornerRadius(16)
+                        .background(Color(hex: 0xfce546))
+                        //.cornerRadius(16)
                 })
             }
             
@@ -96,15 +98,15 @@ struct RecordingPlayButtons: View {
                 label: {
                     HStack {
                         Spacer()
-                        Image("applemusic")
+                        Image("listen-on-spotify")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .frame(height: 20)
+                            .frame(height: 22)
                         Spacer()
                     }
                     .padding(14)
                     .background(Color(hex: 0x2B2B2F))
-                    .cornerRadius(16)
+                    //.cornerRadius(16)
             })
         }
         .onAppear(perform: { self.isPlaying = self.playState.playing })

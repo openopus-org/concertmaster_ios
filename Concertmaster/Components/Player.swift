@@ -317,9 +317,11 @@ struct Player: View {
     
     var body: some View {
         ZStack(alignment: .top) {
-            LinearGradient(gradient: Gradient(colors: [Color(hex: 0x4F4F4F), Color(hex: 0x2B2B2F)]), startPoint: .top, endPoint: .bottom)
+            Rectangle()
+                .fill(Color(hex: 0xFCE546))
+            //LinearGradient(gradient: Gradient(colors: [Color(hex: 0xFCE546), Color(hex: 0xFCE546)]), startPoint: .top, endPoint: .bottom)
                 .frame(minHeight: 130, maxHeight: self.AppState.fullPlayer ? .infinity : 130)
-                .cornerRadius(25)
+                //.cornerRadius(25)
 
             VStack {
                 Button(
@@ -361,7 +363,7 @@ struct Player: View {
                                             .padding(.leading, 12)
                                             .padding(.trailing, 18)
                                             .background(Color.black)
-                                            .cornerRadius(24)
+                                            //.cornerRadius(24)
                                             .opacity(0.4)
                                             
                                             Spacer()

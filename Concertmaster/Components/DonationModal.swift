@@ -26,7 +26,7 @@ struct DonationModal: View {
                     self.presentationMode.wrappedValue.dismiss()
                 }, label: {
                     Text("Close")
-                        .foregroundColor(Color(hex: 0xfe365e))
+                        .foregroundColor(Color(hex: 0xfce546))
                         .font(.custom("Barlow-Regular", size: 14))
                 })
             }
@@ -34,33 +34,33 @@ struct DonationModal: View {
             
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 20) {
-                    Text("Thank you for using Concertino!")
-                        .foregroundColor(Color(hex: 0xfe365e))
-                        .font(.custom("Nunito-ExtraBold", size: 20))
+                    Text("Thank you for using Concertmaster!")
+                        .foregroundColor(Color(hex: 0xfce546))
+                        .font(.custom("ZillaSlab-Medium", size: 20))
                         .multilineTextAlignment(.center)
                         .lineLimit(20)
                     
-                    Text("We're very glad that Concertino is useful and fun for you. Now we need your help.")
+                    Text("We're very glad that Concertmaster is useful and fun for you. Now we need your help.")
                         .foregroundColor(Color.white)
                         .font(.custom("Barlow-SemiBold", size: 18))
                         .multilineTextAlignment(.center)
                         .lineLimit(20)
                     
-                    Text("Concertino is a completely free and open project based on sheer love for classical music. But it runs on web servers that cost money, and its maintenance takes a lot of time.")
+                    Text("Concertmaster is a completely free and open project based on sheer love for classical music. But it runs on web servers that cost money, and its maintenance takes a lot of time.")
                         .foregroundColor(Color.white)
-                        .font(.custom("Nunito-Regular", size: 14))
+                        .font(.custom("ZillaSlab-Light", size: 14))
                         .multilineTextAlignment(.center)
                         .lineLimit(20)
                     
-                    Text("Help keeping Concertino free. Please donate and back our development and hosting costs!")
-                        .foregroundColor(Color(hex: 0xfe365e))
+                    Text("Help keeping Concertmaster free. Please donate and back our development and hosting costs!")
+                        .foregroundColor(Color(hex: 0xfce546))
                         .font(.custom("Barlow-SemiBold", size: 14))
                         .multilineTextAlignment(.center)
                         .lineLimit(20)
                     
                     Text("Choose a tip value below".uppercased())
                         .foregroundColor(Color(hex: 0x717171))
-                        .font(.custom("Nunito-Regular", size: 12))
+                        .font(.custom("ZillaSlab-Light", size: 12))
                         .multilineTextAlignment(.center)
                         .lineLimit(20)
                         .padding(.top, 40)
@@ -78,7 +78,7 @@ struct DonationModal: View {
                             Image("favorites")
                                 .resizable()
                                 .scaledToFit()
-                                .foregroundColor(Color(hex: 0xfe365e))
+                                .foregroundColor(Color(hex: 0xfce546))
                                 .frame(height: 18)
                                 .padding(.trailing, 1)
                             
@@ -118,10 +118,10 @@ struct DonationModal: View {
                                     label: {
                                         Text("\(product.localizedPrice!)")
                                             .foregroundColor(.white)
-                                            .font(.custom("Nunito-Regular", size: 13))
+                                            .font(.custom("ZillaSlab-Light", size: 13))
                                             .padding(13)
-                                            .background(Color(hex: 0xfe365e))
-                                            .cornerRadius(16)
+                                            .background(Color(hex: 0xfce546))
+                                            //.cornerRadius(16)
                                     })
                                     .buttonStyle(BorderlessButtonStyle())
                             }
@@ -133,7 +133,7 @@ struct DonationModal: View {
                 .padding(.bottom, 60)
                 
                 Text("Tipping is optional. You will be charged only once and the transaction will be processed through Apple.")
-                    .font(.custom("Nunito-Regular", size: 10))
+                    .font(.custom("ZillaSlab-Light", size: 10))
                     .foregroundColor(Color(hex: 0xa7a6a6))
                     .multilineTextAlignment(.center)
             }

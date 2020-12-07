@@ -107,8 +107,8 @@ struct Settings: View {
                 Section(header:
                     VStack(alignment: .leading) {
                         Text("Library filters".uppercased())
-                            .font(.custom("Nunito-ExtraBold", size: 13))
-                            .foregroundColor(Color(hex: 0xfe365e))
+                            .font(.custom("ZillaSlab-Medium", size: 13))
+                            .foregroundColor(Color(hex: 0xfce546))
                         if #available(iOS 14.0, *) {
                             Text("Automatic filters that try to eliminate bad or undesirable recordings from the library. They are not perfect, but definitely can improve your playing experience.")
                                 .textCase(.none)
@@ -142,8 +142,8 @@ struct Settings: View {
                     Section(header:
                         VStack(alignment: .leading) {
                             Text("Device sync".uppercased())
-                                .font(.custom("Nunito-ExtraBold", size: 13))
-                                .foregroundColor(Color(hex: 0xfe365e))
+                                .font(.custom("ZillaSlab-Medium", size: 13))
+                                .foregroundColor(Color(hex: 0xfce546))
                             if #available(iOS 14.0, *) {
                                 Text("Signed-in users have their favorites, playlists and playing history synchronized between multiple devices.")
                                     .textCase(.none)
@@ -180,7 +180,7 @@ struct Settings: View {
                                             .foregroundColor(Color.black)
                                         }
                                         .frame(width: 22, height: 22)
-                                        .background(Color(hex: 0xfe365e))
+                                        .background(Color(hex: 0xfce546))
                                         .clipped()
                                         .clipShape(Circle())
                                         .padding(.trailing, 4)
@@ -199,16 +199,16 @@ struct Settings: View {
                 Section(header:
                     VStack(alignment: .leading) {
                         Text("Support us!".uppercased())
-                            .font(.custom("Nunito-ExtraBold", size: 13))
-                            .foregroundColor(Color(hex: 0xfe365e))
+                            .font(.custom("ZillaSlab-Medium", size: 13))
+                            .foregroundColor(Color(hex: 0xfce546))
                         if #available(iOS 14.0, *) {
-                            Text("Help us keeping Concertino free! Donate and back our development and hosting costs. Choose a tip value below. You will be charged only once and the transaction will be processed through Apple.")
+                            Text("Help us keeping Concertmaster free! Donate and back our development and hosting costs. Choose a tip value below. You will be charged only once and the transaction will be processed through Apple.")
                                 .textCase(.none)
                                 .font(.custom("Barlow-Regular", size: 13))
                                 .foregroundColor(.white)
                                 .lineLimit(20)
                         } else {
-                            Text("Help us keeping Concertino free! Donate and back our development and hosting costs. Choose a tip value below. You will be charged only once and the transaction will be processed through Apple.")
+                            Text("Help us keeping Concertmaster free! Donate and back our development and hosting costs. Choose a tip value below. You will be charged only once and the transaction will be processed through Apple.")
                                 .font(.custom("Barlow-Regular", size: 13))
                                 .foregroundColor(.white)
                                 .lineLimit(20)
@@ -227,7 +227,7 @@ struct Settings: View {
                             Image("favorites")
                                 .resizable()
                                 .scaledToFit()
-                                .foregroundColor(Color(hex: 0xfe365e))
+                                .foregroundColor(Color(hex: 0xfce546))
                                 .frame(height: 18)
                                 .padding(.trailing, 1)
                             
@@ -266,10 +266,10 @@ struct Settings: View {
                                         label: {
                                             Text("\(product.localizedPrice!)")
                                                 .foregroundColor(.white)
-                                                .font(.custom("Nunito-Regular", size: 13))
+                                                .font(.custom("ZillaSlab-Light", size: 13))
                                                 .padding(13)
-                                                .background(Color(hex: 0xfe365e))
-                                                .cornerRadius(16)
+                                                .background(Color(hex: 0xfce546))
+                                                //.cornerRadius(16)
                                         })
                                         .buttonStyle(BorderlessButtonStyle())
                                 }
@@ -284,8 +284,8 @@ struct Settings: View {
                 Section(header:
                     VStack(alignment: .leading) {
                         Text("Become our patron".uppercased())
-                            .font(.custom("Nunito-ExtraBold", size: 13))
-                            .foregroundColor(Color(hex: 0xFE365E))
+                            .font(.custom("ZillaSlab-Medium", size: 13))
+                            .foregroundColor(Color(hex: 0xfce546))
                             
                         if #available(iOS 14.0, *) {
                             Text("One-time tips are great, recurrent donations are amazing! Patrons receive early updates and get their names listed here.")
@@ -306,7 +306,7 @@ struct Settings: View {
                     ){
                         ForEach(supporters, id: \.self) { supporter in
                             Text(supporter)
-                                .font(.custom("Nunito-Regular", size: 12))
+                                .font(.custom("ZillaSlab-Light", size: 12))
                                 .foregroundColor(.white)
                                 .lineLimit(20)
                         }
@@ -322,23 +322,23 @@ struct Settings: View {
                 
                 Section(header:
                     Text("About".uppercased())
-                        .font(.custom("Nunito-ExtraBold", size: 13))
-                        .foregroundColor(Color(hex: 0xFE365E))
+                        .font(.custom("ZillaSlab-Medium", size: 13))
+                        .foregroundColor(Color(hex: 0xfce546))
                     ){
                         SettingsMenuItem(title: "Version", description: AppConstants.version)
                             .listRowBackground(Color.black)
                         
                         Button(
-                            action: { UIApplication.shared.open(URL(string: "https://github.com/openopus-org/concertino_ios")!) },
+                            action: { UIApplication.shared.open(URL(string: "https://github.com/openopus-org/concertmaster_ios")!) },
                             label: {
-                                SettingsMenuItem(title: "Contribute with code", description: "Concertino is an open source project. You may fork it or help us with code!")
+                                SettingsMenuItem(title: "Contribute with code", description: "Concertmaster is an open source project. You may fork it or help us with code!")
                         })
                             .listRowBackground(Color.black)
                     
                         Button(
-                            action: { UIApplication.shared.open(URL(string: "https://twitter.com/concertinoapp")!) },
+                            action: { UIApplication.shared.open(URL(string: "https://twitter.com/_concertmaster")!) },
                             label: {
-                                SettingsMenuItem(title: "Find us on Twitter", description: "And tell us how has been your experience with Concertino so far!")
+                                SettingsMenuItem(title: "Find us on Twitter", description: "And tell us how has been your experience with Concertmaster so far!")
                         })
                             .listRowBackground(Color.black)
                 }

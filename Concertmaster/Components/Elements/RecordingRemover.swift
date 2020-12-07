@@ -30,17 +30,17 @@ struct RecordingRemover: View {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 22)
-                        .foregroundColor(Color(hex: (self.isSelected ? 0xFFFFFF : 0xfe365e)))
+                        .foregroundColor(Color(hex: (self.isSelected ? 0xFFFFFF : 0xfce546)))
                         .padding(.leading, 20)
                         .padding(.trailing, 6)
                 })
                 
-                MiniRecordingRow(recording: recording, accentColor: Color(hex: (self.isSelected ? 0xFFFFFF : 0xfe365e)))
+                MiniRecordingRow(recording: recording, accentColor: Color(hex: (self.isSelected ? 0xFFFFFF : 0xfce546)))
             }
         }
         .frame(minWidth: 125, maxWidth: .infinity)
-        .background(Color(hex: (self.isSelected ? 0xfe365e : 0x202023)))
-        .cornerRadius(20)
+        .background(Color(hex: (self.isSelected ? 0xfce546 : 0x202023)))
+        //.cornerRadius(20)
     }
 }
 

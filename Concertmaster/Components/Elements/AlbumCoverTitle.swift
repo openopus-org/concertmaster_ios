@@ -23,14 +23,14 @@ struct AlbumCoverTitle: View {
                     Rectangle()
                         .fill(Color(hex: 0x2B2B2F))
                         .frame(width: 160, height: 160)
-                        .cornerRadius(20)
+                        //.cornerRadius(20)
                 }) { img in
                     img.image
                         .renderingMode(.original)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .clipped()
-                        .cornerRadius(20)
+                        //.cornerRadius(20)
                 }
                 .frame(width: 160, height: 160)
                 .padding(.trailing, 8)
@@ -44,21 +44,21 @@ struct AlbumCoverTitle: View {
                     
                     Text("©℗ \(album.year) \(album.label)")
                         .lineLimit(20)
-                        .font(.custom("Nunito-Regular", size: 12))
+                        .font(.custom("ZillaSlab-Light", size: 12))
                         .padding(.top, 6)
                         .fixedSize(horizontal: false, vertical: true)
                     
                     VStack {
                         Text("playing time".uppercased())
-                            .font(.custom("Nunito-Regular", size: 5))
+                            .font(.custom("ZillaSlab-Light", size: 5))
                         Text("\(album.readableLength)")
                             .padding(.top, -10)
                     }
                     .foregroundColor(Color(hex: 0x717171))
-                    .font(.custom("Nunito-Regular", size: 12))
-                    .padding(EdgeInsets(top: 4, leading: 6, bottom: 2, trailing: 6))
+                    .font(.custom("ZillaSlab-Light", size: 12))
+                    .padding(EdgeInsets(top: 4, leading: 10, bottom: 2, trailing: 10))
                     .overlay(
-                        RoundedRectangle(cornerRadius: 12)
+                        RoundedRectangle(cornerRadius: 10)
                             .stroke(Color(hex: 0x717171), lineWidth: 1)
                     )
                     .padding(.top, 12)

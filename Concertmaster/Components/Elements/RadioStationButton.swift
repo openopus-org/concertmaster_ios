@@ -76,7 +76,7 @@ struct RadioStationButton: View {
                         Text(name)
                             
                             .foregroundColor(Color.white)
-                            .font(.custom("Nunito-Regular", size: 14))
+                            .font(.custom("ZillaSlab-Light", size: 15))
                             .padding(12)
                     }
                 }
@@ -87,7 +87,7 @@ struct RadioStationButton: View {
                             Rectangle()
                                 .fill(Color(hex: 0x2B2B2F))
                                 .frame(minWidth: 200, idealWidth: 200, maxWidth: 200, minHeight: 138, idealHeight: 138, maxHeight: 138, alignment: .topLeading)
-                                .cornerRadius(20)
+                                .clipped()
                         }) { img in
                             img.image
                                 .renderingMode(.original)
@@ -101,7 +101,7 @@ struct RadioStationButton: View {
                             .frame(minWidth: 200, idealWidth: 200, maxWidth: 200, minHeight: 138, idealHeight: 138, maxHeight: 138, alignment: .topLeading)
                     })
                 .padding(0)
-                .cornerRadius(20)
+                .clipped()
             })
             .frame(minWidth: 200, idealWidth: 200, maxWidth: 200, minHeight: 138, idealHeight: 138, maxHeight: 138, alignment: .topLeading)
     }

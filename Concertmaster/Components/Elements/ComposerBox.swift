@@ -16,7 +16,7 @@ struct ComposerBox: View {
         VStack {
             VStack(alignment: .leading) {
                 URLImage(composer.portrait!, placeholder: { _ in
-                    Circle()
+                    Rectangle()
                         .fill(Color(hex: 0x2B2B2F))
                         .frame(width: 52, height: 52)
                 }) { img in
@@ -25,12 +25,11 @@ struct ComposerBox: View {
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .clipped()
-                        .clipShape(Circle())
                 }
                 .frame(width: 52, height: 52)
                 Text(composer.name.uppercased())
-                    .foregroundColor(Color(hex: 0xfe365e))
-                    .font(.custom("Nunito-ExtraBold", size: 13))
+                    .foregroundColor(Color(hex: 0xfce546))
+                    .font(.custom("ZillaSlab-SemiBold", size: 14))
                 Group{
                     Text(composer.complete_name)
                         
@@ -38,14 +37,14 @@ struct ComposerBox: View {
                 }
                 .foregroundColor(.white)
                 .lineLimit(20)
-                .font(.custom("Nunito-Regular", size: 11))
+                .font(.custom("ZillaSlab-Light", size: 12))
             }
             .padding(12)
         }
         .frame(minWidth: 134, maxWidth: 134, minHeight: 174,  maxHeight: 174, alignment: .topLeading)
         .background(Color(hex: 0x202023))
         .padding(0)
-        .cornerRadius(12)
+        //.cornerRadius(12)
     }
 }
 

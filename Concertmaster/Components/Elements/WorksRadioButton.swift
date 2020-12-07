@@ -155,14 +155,14 @@ struct WorksRadioButton: View {
                             ActivityIndicator(isAnimating: self.isLoading)
                             .configure { $0.color = .white; $0.style = .medium }
                         } else {
-                            AnimatedRadioIcon(color: Color(hex: 0xFFFFFF), isAnimated: self.radioState.isActive && self.radioState.genreId == self.genreId)
+                            AnimatedRadioIcon(color: Color(hex: 0x000000), isAnimated: self.radioState.isActive && self.radioState.genreId == self.genreId)
                                 .frame(width: 40, height: 20)
                                 .padding(.trailing, self.radioState.isActive && self.radioState.genreId == self.genreId ? 3 : -10)
                                 .padding(.leading, self.radioState.isActive && self.radioState.genreId == self.genreId ? 0 : -10)
                                 
                             Text((self.radioState.isActive && self.radioState.genreId == self.genreId ? "stop radio" : "start radio").uppercased())
-                                .foregroundColor(.white)
-                                .font(.custom("Nunito-Regular", size: self.radioState.isActive && self.radioState.genreId == self.genreId ? 11 : 13))
+                                .foregroundColor(.black)
+                                .font(.custom("ZillaSlab-SemiBold", size: self.radioState.isActive && self.radioState.genreId == self.genreId ? 12 : 14))
                                 
                         }
                         
@@ -171,8 +171,8 @@ struct WorksRadioButton: View {
                 }
                 .padding(13)
                 .foregroundColor(.white)
-                .background(Color(hex: ((self.radioState.isActive && self.radioState.genreId == self.genreId) || self.isLoading) ? 0x696969 : 0xfe365e))
-                .cornerRadius(16)
+                .background(Color(hex: ((self.radioState.isActive && self.radioState.genreId == self.genreId) || self.isLoading) ? 0x696969 : 0xfce546))
+                //.cornerRadius(16)
         })
         .buttonStyle(BorderlessButtonStyle())
         .padding(.bottom, 10)

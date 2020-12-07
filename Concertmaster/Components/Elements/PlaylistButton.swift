@@ -38,23 +38,23 @@ struct PlaylistButton: View {
                 
                 Text(playlist.name)
                     
-                    .foregroundColor(Color(hex: (self.active ? 0xFFFFFF : 0xfe365e)))
-                    .font(.custom("Nunito-ExtraBold", size: 12))
+                    .foregroundColor(Color(hex: (self.active ? 0xFFFFFF : 0xfce546)))
+                    .font(.custom("ZillaSlab-Medium", size: 12))
                     .fixedSize(horizontal: false, vertical: true)
                     .lineLimit(20)
                 
                 Text("\(playlist.summary.works.rows) work\(self.playlist.summary.works.rows > 1 ? "s" : "") by \(playlist.summary.composers.nameList)")
                     
                     .foregroundColor(Color.white)
-                    .font(.custom("Nunito-Regular", size: 9))
+                    .font(.custom("ZillaSlab-Light", size: 9))
                     .fixedSize(horizontal: false, vertical: true)
                     .lineLimit(20)
             }
             .frame(minWidth: 125, maxWidth: 125, minHeight: 130,  maxHeight: 130, alignment: .topLeading)
         }
         .frame(minWidth: 145, maxWidth: 145, minHeight: 130,  maxHeight: 130)
-        .background(Color(hex: (self.active ? 0xfe365e : 0x202023)))
-        .cornerRadius(13)
+        .background(Color(hex: (self.active ? 0xfce546 : 0x202023)))
+        //.cornerRadius(13)
     }
 }
 

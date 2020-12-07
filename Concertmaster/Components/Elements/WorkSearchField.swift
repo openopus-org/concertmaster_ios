@@ -29,13 +29,13 @@ struct WorkSearchField: View {
                         if #available(iOS 14.0, *) {
                             Text("Search for performers")
                                 .foregroundColor(.black)
-                                .font(.custom("Nunito-Regular", size: 15))
+                                .font(.custom("ZillaSlab-Light", size: 15))
                                 .padding(1)
                                 .textCase(.none)
                         } else {
                             Text("Search for performers")
                                 .foregroundColor(.black)
-                                .font(.custom("Nunito-Regular", size: 15))
+                                .font(.custom("ZillaSlab-Light", size: 15))
                                 .padding(1)
                         }
                     }
@@ -69,7 +69,7 @@ struct WorkSearchField: View {
             .padding(EdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 6))
             .foregroundColor(.black)
             .background(Color(.white))
-            .cornerRadius(12)
+            //.cornerRadius(12)
             .clipped()
             
             if !self.workSearch.isEmpty || self.isEditing {
@@ -84,14 +84,14 @@ struct WorkSearchField: View {
                 label: {
                     if #available(iOS 14.0, *) {
                         Text("Cancel")
-                            .foregroundColor(Color(hex: 0xfe365e))
-                            .font(.custom("Nunito-Regular", size: 13))
+                            .foregroundColor(Color(hex: 0xfce546))
+                            .font(.custom("ZillaSlab-Light", size: 13))
                             .padding(4)
                             .textCase(.none)
                     } else {
                         Text("Cancel")
-                            .foregroundColor(Color(hex: 0xfe365e))
-                            .font(.custom("Nunito-Regular", size: 13))
+                            .foregroundColor(Color(hex: 0xfce546))
+                            .font(.custom("ZillaSlab-Light", size: 13))
                             .padding(4)
                     }
                 })

@@ -81,7 +81,7 @@ struct RecordingDetail: View {
                             RecordingPlayButtons(recording: recording.first!, isSheet: self.isSheet)
                                 .padding(.top, 16)
                                 .padding(.bottom, 12)
-                            RecordingTrackList(recording: recording.first!)
+                            RecordingTrackList(recording: recording.first!, color: Color(.white))
                                 .padding(.top, 10)
                             RecordingDisclaimer(isVerified: recording.first!.isVerified)
                         }

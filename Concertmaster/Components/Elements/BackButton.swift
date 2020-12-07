@@ -18,7 +18,7 @@ struct BackButton: View {
             Image("handle")
             .resizable()
             .frame(width: 14, height: 36)
-            .foregroundColor(Color(hex: 0xfe365e))
+            .foregroundColor(Color(hex: 0xfce546))
             .rotationEffect(.degrees(180))
             .padding(.trailing, 10)
         })

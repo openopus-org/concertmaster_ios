@@ -24,7 +24,7 @@ struct EditPlaylistButtons: View {
                 self.presentationMode.wrappedValue.dismiss()
             }, label: {
                 Text("Cancel")
-                    .foregroundColor(Color(hex: 0xfe365e))
+                    .foregroundColor(Color(hex: 0xfce546))
                     .font(.custom("Barlow-Regular", size: 14))
             })
             
@@ -70,10 +70,10 @@ struct EditPlaylistButtons: View {
             }, label: {
                 if self.isLoading {
                     ActivityIndicator(isAnimating: true)
-                        .configure { $0.color = Color(hex: 0xfe365e).uiColor(); $0.style = .medium }
+                        .configure { $0.color = Color(hex: 0xfce546).uiColor(); $0.style = .medium }
                 } else {
                     Text("Done")
-                        .foregroundColor(Color(hex: 0xfe365e))
+                        .foregroundColor(Color(hex: 0xfce546))
                         .font(.custom("Barlow-SemiBold", size: 14))
                 }
             })
@@ -99,8 +99,8 @@ struct EditPlaylist: View {
             //}
             
             Text("Rename playlist".uppercased())
-                .font(.custom("Nunito-ExtraBold", size: 13))
-                .foregroundColor(Color(hex: 0xfe365e))
+                .font(.custom("ZillaSlab-Medium", size: 13))
+                .foregroundColor(Color(hex: 0xfce546))
             Text("Change the name of this playlist")
                 .font(.custom("Barlow-Regular", size: 16))
                 .padding(.bottom, 4)
@@ -113,8 +113,8 @@ struct EditPlaylist: View {
                 )
             
             Text("Delete playlist".uppercased())
-                .font(.custom("Nunito-ExtraBold", size: 13))
-                .foregroundColor(Color(hex: 0xfe365e))
+                .font(.custom("ZillaSlab-Medium", size: 13))
+                .foregroundColor(Color(hex: 0xfce546))
                 .padding(.top, 26)
             HStack {
                 Toggle(isOn: $deletePlaylist) {
@@ -126,8 +126,8 @@ struct EditPlaylist: View {
             }
             
             Text("Remove recordings".uppercased())
-                .font(.custom("Nunito-ExtraBold", size: 13))
-                .foregroundColor(Color(hex: 0xfe365e))
+                .font(.custom("ZillaSlab-Medium", size: 13))
+                .foregroundColor(Color(hex: 0xfce546))
                 .padding(.top, 26)
             Text("Remove selected recordings from this playlist")
                 .font(.custom("Barlow-Regular", size: 16))

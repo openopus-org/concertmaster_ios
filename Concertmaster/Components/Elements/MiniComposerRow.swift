@@ -32,21 +32,21 @@ struct MiniComposerRow: View {
                 VStack(alignment: .leading) {
                     
                     Text(composer.name.uppercased())
-                        .foregroundColor(Color(hex: 0xfe365e))
-                        .font(.custom("Nunito-ExtraBold", size: 12))
+                        .foregroundColor(Color(hex: 0xfce546))
+                        .font(.custom("ZillaSlab-Medium", size: 12))
                     
                     Text(composer.complete_name)
                         
                         .foregroundColor(.white)
                         .lineLimit(20)
-                        .font(.custom("Nunito-Regular", size: 11))
+                        .font(.custom("ZillaSlab-Light", size: 11))
                     
                     Group {
                         Text("(" + composer.birth!.prefix(4)) + Text(composer.death != nil ? "-" : "") + Text((composer.death?.prefix(4) ?? "")) + Text(")")
                     }
                     .foregroundColor(.white)
                     .lineLimit(20)
-                    .font(.custom("Nunito-Regular", size: 9))
+                    .font(.custom("ZillaSlab-Light", size: 9))
                 }
                 .padding(.leading, 10)
             }

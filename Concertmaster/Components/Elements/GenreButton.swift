@@ -19,21 +19,21 @@ struct GenreButton: View {
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: 20, height: 20)
-                    .foregroundColor(Color(hex: self.active ? 0x000000 : 0xfe365e))
+                    .foregroundColor(Color(hex: self.active ? 0x000000 : 0xfce546))
             }
             .frame(width: 44, height: 44)
-            .background(Color(hex: self.active ? 0xfe365e : 0x202023))
+            .background(Color(hex: self.active ? 0xfce546 : 0x202023))
             .clipped()
             .clipShape(Circle())
             
             if #available(iOS 14.0, *) {
                 Text(genre == "Recommended" ? "Essential" : genre)
-                    .font(.custom("Nunito-Regular", size: 9))
+                    .font(.custom("ZillaSlab-Light", size: 9))
                     .foregroundColor(.white)
                     .textCase(.none)
             } else {
                 Text(genre == "Recommended" ? "Essential" : genre)                    
-                    .font(.custom("Nunito-Regular", size: 9))
+                    .font(.custom("ZillaSlab-Light", size: 9))
                     .foregroundColor(.white)
             }
         }

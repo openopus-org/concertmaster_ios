@@ -28,7 +28,7 @@ struct SearchField: View {
                     if self.composersSearch.searchstring.isEmpty {
                         Text("Search composer by name")
                             .foregroundColor(.black)
-                            .font(.custom("Nunito-Regular", size: 15))
+                            .font(.custom("ZillaSlab-Light", size: 15))
                             .padding(1)
                     }
                     TextField("", text: $searchString, onEditingChanged: { isEditing in
@@ -46,7 +46,7 @@ struct SearchField: View {
             .padding(EdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 6))
             .foregroundColor(.black)
             .background(Color(.white))
-            .cornerRadius(12)
+            //.cornerRadius(12)
             .clipped()
             
             if self.AppState.currentLibraryTab == "composersearch" {
@@ -57,8 +57,8 @@ struct SearchField: View {
                     
                 },
                        label: { Text("Cancel")
-                        .foregroundColor(Color(hex: 0xfe365e))
-                        .font(.custom("Nunito-Regular", size: 13))
+                        .foregroundColor(Color(hex: 0xfce546))
+                        .font(.custom("ZillaSlab-Light", size: 13))
                         .padding(4)
                 })
             }

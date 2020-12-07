@@ -15,7 +15,7 @@ struct SettingsMenuItem: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text(title)
-                .font(.custom("Nunito-ExtraBold", size: 13))
+                .font(.custom("ZillaSlab-Medium", size: 13))
                 .lineLimit(20)
                 .foregroundColor(.white)
             

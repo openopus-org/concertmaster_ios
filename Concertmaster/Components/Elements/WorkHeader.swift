@@ -42,12 +42,12 @@ struct WorkHeader: View {
                 VStack(alignment: .leading) {
                     
                     Text(composer.name.uppercased())
-                        .foregroundColor(Color(hex: 0xfe365e))
-                        .font(.custom("Nunito-ExtraBold", size: 17))
+                        .foregroundColor(Color(hex: 0xfce546))
+                        .font(.custom("ZillaSlab-Medium", size: 17))
                     
                     Group{
                         Text(work.title)
-                        .font(.custom("Barlow-SemiBold", size: 17))
+                        .font(.custom("Barlow-Regular", size: 17))
                         if work.subtitle != "" {
                             Text(work.subtitle!)
                             .font(.custom("Barlow-Regular", size: 14))

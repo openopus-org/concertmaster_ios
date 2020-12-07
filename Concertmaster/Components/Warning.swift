@@ -20,10 +20,10 @@ struct Warning: View {
             VStack {
                 Text("warning".uppercased())
                     .foregroundColor(Color(hex: 0x717171))
-                    .font(.custom("Nunito-Regular", size: 10))
+                    .font(.custom("ZillaSlab-Light", size: 10))
                     .multilineTextAlignment(.leading)
                 
-                Text("Concertino needs an active Apple Music subscription to play music")
+                Text("Concertmaster needs an active Spotify subscription to play music")
                     .foregroundColor(Color.white)
                     .font(.custom("Barlow-SemiBold", size: 15))
                     .padding(.top, 20)
@@ -37,7 +37,7 @@ struct Warning: View {
                         .multilineTextAlignment(.center)
                 }
                 
-                Text("You can browse Concertino's catalogue, create playlists, favorite works, composers and recordings, but playback is restricted to 30 seconds samples.")
+                Text("You can browse Concertmaster's catalogue, create playlists, favorite works, composers and recordings, but playback is restricted to 30 seconds samples.")
                     .foregroundColor(Color.white)
                     .font(.custom("Barlow-Regular", size: 11))
                     .padding(.top, 10)
@@ -79,14 +79,14 @@ struct Warning: View {
                                     HStack {
                                         Spacer()
                                         Text("enable playback".uppercased())
-                                            .font(.custom("Nunito-ExtraBold", size: 10))
+                                            .font(.custom("ZillaSlab-Medium", size: 10))
                                         Spacer()
                                     }
                                 }
                                 .padding(12)
                                 .foregroundColor(.white)
-                                .background(Color(hex: 0xfe365e))
-                                .cornerRadius(16)
+                                .background(Color(hex: 0xfce546))
+                                //.cornerRadius(16)
                         })
                     }
                     
@@ -99,21 +99,21 @@ struct Warning: View {
                                 HStack {
                                     Spacer()
                                     Text("close".uppercased())
-                                        .font(.custom("Nunito-Regular", size: 10))
+                                        .font(.custom("ZillaSlab-Light", size: 10))
                                     Spacer()
                                 }
                             }
                             .padding(12)
                             .foregroundColor(.white)
                             .background(Color(hex: 0x555555))
-                            .cornerRadius(16)
+                            //.cornerRadius(16)
                     })
                 }
                 .padding(.top, 20)
             }
             .padding(15)
             .background(Color(hex: 0x2b2b2f))
-            .cornerRadius(20)
+            //.cornerRadius(20)
             .frame(maxWidth: 320)
             
             Spacer()

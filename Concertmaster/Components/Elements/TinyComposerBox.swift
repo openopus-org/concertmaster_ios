@@ -30,7 +30,7 @@ struct TinyComposerBox: View {
                 .frame(width: 32, height: 32)
                 Text(composer.name)
                     .foregroundColor(Color.white)
-                    .font(.custom("Nunito-ExtraBold", size: 9))
+                    .font(.custom("ZillaSlab-Medium", size: 9))
                     .padding(.top, -4)
             }
             .padding(12)
@@ -38,7 +38,7 @@ struct TinyComposerBox: View {
         .frame(minWidth: 72, maxWidth: 72, minHeight: 72,  maxHeight: 72, alignment: .top)
         .background(Color(hex: 0x202023))
         .padding(0)
-        .cornerRadius(12)
+        //.cornerRadius(12)
     }
 }
 

@@ -67,21 +67,23 @@ struct AlbumPlayButtons: View {
                                 ActivityIndicator(isAnimating: self.isLoading)
                                 .configure { $0.color = .white; $0.style = .medium }
                             } else if self.radioState.isActive && self.radioState.playlistId == "album-\(self.album.apple_albumid)" {
-                                AnimatedRadioIcon(color: Color(hex: 0xFFFFFF), isAnimated: true)
+                                AnimatedRadioIcon(color: Color(hex: 0x000000), isAnimated: true)
                                     .frame(width: 40, height: 20)
                                     .padding(.trailing, 3)
                                     .padding(.leading, 0)
                                     
                                 Text(("stop radio").uppercased())
                                     .foregroundColor(.white)
-                                    .font(.custom("Nunito-Regular", size: self.radioState.isActive && self.radioState.playlistId == "album-\(self.album.apple_albumid)" ? 11 : 12))
+                                    .font(.custom("ZillaSlab-Light", size: self.radioState.isActive && self.radioState.playlistId == "album-\(self.album.apple_albumid)" ? 12 : 13))
                             } else {
                                 Image("play")
                                     .resizable()
+                                    .foregroundColor(.black)
                                     .aspectRatio(contentMode: .fit)
                                     .frame(height: 20)
                                 Text("play album".uppercased())
-                                    .font(.custom("Nunito-Regular", size: 14))
+                                    .foregroundColor(.black)
+                                    .font(.custom("ZillaSlab-SemiBold", size: 15))
                             }
                             
                             Spacer()
@@ -89,8 +91,8 @@ struct AlbumPlayButtons: View {
                     }
                     .padding(13)
                     .foregroundColor(.white)
-                    .background(Color(hex: self.radioState.isActive && self.radioState.playlistId == "album-\(self.album.apple_albumid)" ? 0x696969 : 0xfe365e))
-                    .cornerRadius(16)
+                    .background(Color(hex: self.radioState.isActive && self.radioState.playlistId == "album-\(self.album.apple_albumid)" ? 0x696969 : 0xfce546))
+                    //.cornerRadius(16)
             })
             
             Button(
@@ -98,15 +100,15 @@ struct AlbumPlayButtons: View {
                 label: {
                     HStack {
                         Spacer()
-                        Image("applemusic")
+                        Image("listen-on-spotify")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .frame(height: 20)
+                            .frame(height: 22)
                         Spacer()
                     }
                     .padding(14)
                     .background(Color(hex: 0x2B2B2F))
-                    .cornerRadius(16)
+                    //.cornerRadius(16)
             })
         }
     }

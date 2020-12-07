@@ -50,10 +50,10 @@ struct BrowseOnlyMode: View {
                 
                 VStack(alignment: .leading) {
                     Text("Preview-only mode")
-                        .font(.custom("Nunito-ExtraBold", size: size == "min" ? 10 : 13))
+                        .font(.custom("ZillaSlab-Medium", size: size == "min" ? 10 : 13))
                         .padding(.top, size == "min" ? 0 : 2)
                     Text("Tap to enable playback")
-                        .font(.custom("Nunito-Regular", size: size == "min" ? 8 : 11))
+                        .font(.custom("ZillaSlab-Light", size: size == "min" ? 8 : 11))
                         .padding(.top, size == "min" ? -2 : -2)
                 }
                 .foregroundColor(Color(hex: size == "min" ? 0xFFFFFF : 0xFFFFFF))

@@ -39,10 +39,13 @@
 		095590F3249988E900A3E224 /* ComposerDetailWorks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095590F2249988E900A3E224 /* ComposerDetailWorks.swift */; };
 		095590F52499A49900A3E224 /* FullLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095590F42499A49900A3E224 /* FullLoader.swift */; };
 		095590F724B120A800A3E224 /* FreeSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095590F624B120A800A3E224 /* FreeSearch.swift */; };
+		09599D7D257ECD37007DF896 /* ZillaSlab-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 09599D78257ECA25007DF896 /* ZillaSlab-Medium.ttf */; };
+		09599D7F257ECD3B007DF896 /* ZillaSlab-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 09599D79257ECA26007DF896 /* ZillaSlab-Light.ttf */; };
+		09599D80257ECD3D007DF896 /* SourceSansPro-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 09599D7A257ECA42007DF896 /* SourceSansPro-Light.ttf */; };
+		09599D81257ECD3F007DF896 /* SourceSansPro-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 09599D7B257ECA42007DF896 /* SourceSansPro-SemiBold.ttf */; };
+		09599D84257ED86E007DF896 /* ZillaSlab-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 09599D83257ED86E007DF896 /* ZillaSlab-SemiBold.ttf */; };
 		095A9CBC23E4E2400010E150 /* Barlow-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 095A9CB823E4E2400010E150 /* Barlow-SemiBold.ttf */; };
-		095A9CBD23E4E2400010E150 /* Nunito-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 095A9CB923E4E2400010E150 /* Nunito-ExtraBold.ttf */; };
 		095A9CBE23E4E2400010E150 /* Barlow-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 095A9CBA23E4E2400010E150 /* Barlow-Regular.ttf */; };
-		095A9CBF23E4E2400010E150 /* Nunito-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 095A9CBB23E4E2400010E150 /* Nunito-Regular.ttf */; };
 		095A9CC123E50E400010E150 /* OmnisearchField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095A9CC023E50E400010E150 /* OmnisearchField.swift */; };
 		09647BEF2545DEEA00B14DD0 /* AlbumDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09647BEE2545DEE900B14DD0 /* AlbumDetail.swift */; };
 		09647BF225460ABF00B14DD0 /* AlbumCoverTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09647BF125460ABF00B14DD0 /* AlbumCoverTitle.swift */; };
@@ -154,10 +157,13 @@
 		095590F2249988E900A3E224 /* ComposerDetailWorks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposerDetailWorks.swift; sourceTree = "<group>"; };
 		095590F42499A49900A3E224 /* FullLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullLoader.swift; sourceTree = "<group>"; };
 		095590F624B120A800A3E224 /* FreeSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeSearch.swift; sourceTree = "<group>"; };
+		09599D78257ECA25007DF896 /* ZillaSlab-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ZillaSlab-Medium.ttf"; sourceTree = "<group>"; };
+		09599D79257ECA26007DF896 /* ZillaSlab-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ZillaSlab-Light.ttf"; sourceTree = "<group>"; };
+		09599D7A257ECA42007DF896 /* SourceSansPro-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Light.ttf"; sourceTree = "<group>"; };
+		09599D7B257ECA42007DF896 /* SourceSansPro-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-SemiBold.ttf"; sourceTree = "<group>"; };
+		09599D83257ED86E007DF896 /* ZillaSlab-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ZillaSlab-SemiBold.ttf"; sourceTree = "<group>"; };
 		095A9CB823E4E2400010E150 /* Barlow-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-SemiBold.ttf"; sourceTree = "<group>"; };
-		095A9CB923E4E2400010E150 /* Nunito-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-ExtraBold.ttf"; sourceTree = "<group>"; };
 		095A9CBA23E4E2400010E150 /* Barlow-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-Regular.ttf"; sourceTree = "<group>"; };
-		095A9CBB23E4E2400010E150 /* Nunito-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-Regular.ttf"; sourceTree = "<group>"; };
 		095A9CC023E50E400010E150 /* OmnisearchField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OmnisearchField.swift; sourceTree = "<group>"; };
 		09647BEE2545DEE900B14DD0 /* AlbumDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDetail.swift; sourceTree = "<group>"; };
 		09647BF125460ABF00B14DD0 /* AlbumCoverTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCoverTitle.swift; sourceTree = "<group>"; };
@@ -264,10 +270,13 @@
 		095A9CB323E4E1420010E150 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				09599D79257ECA26007DF896 /* ZillaSlab-Light.ttf */,
+				09599D78257ECA25007DF896 /* ZillaSlab-Medium.ttf */,
+				09599D83257ED86E007DF896 /* ZillaSlab-SemiBold.ttf */,
+				09599D7A257ECA42007DF896 /* SourceSansPro-Light.ttf */,
+				09599D7B257ECA42007DF896 /* SourceSansPro-SemiBold.ttf */,
 				095A9CBA23E4E2400010E150 /* Barlow-Regular.ttf */,
 				095A9CB823E4E2400010E150 /* Barlow-SemiBold.ttf */,
-				095A9CB923E4E2400010E150 /* Nunito-ExtraBold.ttf */,
-				095A9CBB23E4E2400010E150 /* Nunito-Regular.ttf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -503,13 +512,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09599D7D257ECD37007DF896 /* ZillaSlab-Medium.ttf in Resources */,
 				09E19F4123E24F210011D718 /* LaunchScreen.storyboard in Resources */,
 				09E19F3E23E24F210011D718 /* Preview Assets.xcassets in Resources */,
-				095A9CBD23E4E2400010E150 /* Nunito-ExtraBold.ttf in Resources */,
+				09599D81257ECD3F007DF896 /* SourceSansPro-SemiBold.ttf in Resources */,
 				095A9CBC23E4E2400010E150 /* Barlow-SemiBold.ttf in Resources */,
-				095A9CBF23E4E2400010E150 /* Nunito-Regular.ttf in Resources */,
+				09599D7F257ECD3B007DF896 /* ZillaSlab-Light.ttf in Resources */,
+				09599D84257ED86E007DF896 /* ZillaSlab-SemiBold.ttf in Resources */,
 				095A9CBE23E4E2400010E150 /* Barlow-Regular.ttf in Resources */,
 				09E19F3B23E24F210011D718 /* Assets.xcassets in Resources */,
+				09599D80257ECD3D007DF896 /* SourceSansPro-Light.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

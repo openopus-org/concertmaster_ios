@@ -15,7 +15,7 @@ struct ComposerRow: View {
     var body: some View {
         HStack {
             URLImage(composer.portrait!, placeholder: { _ in
-                Circle()
+                Rectangle()
                     .fill(Color(hex: 0x2B2B2F))
                     .frame(width: 60, height: 60)
             }) { img in
@@ -24,7 +24,6 @@ struct ComposerRow: View {
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .clipped()
-                    .clipShape(Circle())
             }
             .frame(width: 60, height: 60)
             VStack {
@@ -32,15 +31,15 @@ struct ComposerRow: View {
                     
                     Text(composer.name.uppercased())
                         
-                        .foregroundColor(Color(hex: 0xfe365e))
-                        .font(.custom("Nunito-ExtraBold", size: 15))
+                        .foregroundColor(Color(hex: 0xfce546))
+                        .font(.custom("ZillaSlab-Medium", size: 15))
                     Group{
                         Text(composer.complete_name)
                         Text("(" + composer.birth!.prefix(4)) + Text(composer.death != nil ? "-" : "") + Text((composer.death?.prefix(4) ?? "")) + Text(")")
                     }
                     .foregroundColor(.white)
                     .lineLimit(20)
-                    .font(.custom("Nunito-Regular", size: 12))
+                    .font(.custom("ZillaSlab-Light", size: 12))
                 }
                 .padding(8)
             }

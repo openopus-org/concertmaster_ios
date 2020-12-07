@@ -70,14 +70,14 @@ struct PlaylistButtons: View {
                                 ActivityIndicator(isAnimating: self.isLoading)
                                 .configure { $0.color = .white; $0.style = .medium }
                             } else {
-                                AnimatedRadioIcon(color: Color(hex: 0xFFFFFF), isAnimated: self.radioState.isActive && self.radioState.playlistId == self.playlistId)
+                                AnimatedRadioIcon(color: Color(hex: 0x000000), isAnimated: self.radioState.isActive && self.radioState.playlistId == self.playlistId)
                                     .frame(width: 40, height: 20)
                                     .padding(.trailing, self.radioState.isActive && self.radioState.playlistId == self.playlistId ? 3 : -10)
                                     .padding(.leading, self.radioState.isActive && self.radioState.playlistId == self.playlistId ? 0 : -10)
                                     
                                 Text((self.radioState.isActive && self.radioState.playlistId == self.playlistId ? "stop radio" : "start radio").uppercased())
-                                    .foregroundColor(.white)
-                                    .font(.custom("Nunito-Regular", size: self.radioState.isActive && self.radioState.playlistId == self.playlistId ? 11 : 13))
+                                    .foregroundColor(.black)
+                                    .font(.custom("ZillaSlab-SemiBold", size: self.radioState.isActive && self.radioState.playlistId == self.playlistId ? 12 : 14))
                             }
                             
                             Spacer()
@@ -85,8 +85,8 @@ struct PlaylistButtons: View {
                     }
                     .padding(13)
                     .foregroundColor(.white)
-                    .background(Color(hex: self.radioState.isActive && self.radioState.playlistId == self.playlistId ? 0x696969 : 0xfe365e))
-                    .cornerRadius(16)
+                    .background(Color(hex: self.radioState.isActive && self.radioState.playlistId == self.playlistId ? 0x696969 : 0xfce546))
+                    //.cornerRadius(16)
             })
             .buttonStyle(BorderlessButtonStyle())
             
@@ -107,7 +107,7 @@ struct PlaylistButtons: View {
                                 
                                 Text("edit playlist".uppercased())
                                     .foregroundColor(.white)
-                                    .font(.custom("Nunito-Regular", size: 12))
+                                    .font(.custom("ZillaSlab-Light", size: 12))
                                 
                                 Spacer()
                             }
@@ -115,7 +115,7 @@ struct PlaylistButtons: View {
                         .padding(15)
                         .foregroundColor(.white)
                         .background(Color(hex: 0x2B2B2F))
-                        .cornerRadius(16)
+                        //.cornerRadius(16)
                 })
                 .buttonStyle(BorderlessButtonStyle())
             }

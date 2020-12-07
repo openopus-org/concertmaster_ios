@@ -19,14 +19,14 @@ struct RecordingBox: View {
                     Rectangle()
                         .fill(Color(hex: 0x2B2B2F))
                         .frame(width: 125, height: 125)
-                        .cornerRadius(20)
+                        //.cornerRadius(20)
                 }) { img in
                     img.image
                         .renderingMode(.original)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .clipped()
-                        .cornerRadius(20)
+                        //.cornerRadius(20)
                 }
                 .frame(width: 125, height: 125)
                 .padding(.bottom, 10)
@@ -34,14 +34,14 @@ struct RecordingBox: View {
                 if recording.work != nil {
                     if recording.work!.composer!.id != "0" {
                         Text(recording.work!.composer!.name.uppercased().trimmingCharacters(in: .whitespacesAndNewlines))
-                            .font(.custom("Nunito-ExtraBold", size: 12))
-                            .foregroundColor(Color(hex: 0xfe365e))
+                            .font(.custom("ZillaSlab-SemiBold", size: 12))
+                            .foregroundColor(Color(hex: 0xfce546))
                             .lineLimit(20)
                     } else if recording.work!.composer!.name != "None" {
                         ForEach(recording.work!.composer!.name.components(separatedBy: CharacterSet(charactersIn: "&,")), id: \.self) { composer in
                             Text(composer.uppercased().trimmingCharacters(in: .whitespacesAndNewlines))
-                            .font(.custom("Nunito-ExtraBold", size: 12))
-                            .foregroundColor(Color(hex: 0xfe365e))
+                            .font(.custom("ZillaSlab-SemiBold", size: 12))
+                            .foregroundColor(Color(hex: 0xfce546))
                             .lineLimit(20)
                         }
                     }
@@ -81,7 +81,7 @@ struct RecordingBox: View {
         .padding(20)
         .frame(minWidth: 165, maxWidth: 165, minHeight: 300,  maxHeight: 300, alignment: .top)
         .background(Color(hex: 0x202023))
-        .cornerRadius(20)
+        //.cornerRadius(20)
     }
 }
 

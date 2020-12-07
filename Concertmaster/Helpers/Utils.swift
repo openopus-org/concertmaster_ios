@@ -215,7 +215,7 @@ public struct SearchStyle: TextFieldStyle {
   public func _body(configuration: TextField<Self._Label>) -> some View {
     configuration
         .padding(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
-        .font(.custom("Nunito-Regular", size: 15))
+        .font(.custom("ZillaSlab-Light", size: 15))
         .foregroundColor(.black)
   }
 }
@@ -224,8 +224,8 @@ public struct EditFieldStyle: TextFieldStyle {
   public func _body(configuration: TextField<Self._Label>) -> some View {
     configuration
         .padding(12)
-        .font(.custom("Nunito-Regular", size: 15))
-        .cornerRadius(12)
+        .font(.custom("ZillaSlab-Light", size: 15))
+        //.cornerRadius(12)
   }
 }
 
@@ -1074,7 +1074,7 @@ public func alertError(_ msg: String) {
 extension UIViewController {
     func showToast(message: String, image: String, text: String?) {
         let toastView = UIView(frame: CGRect(x: self.view.frame.size.width/2 - 75, y: self.view.frame.size.height/2 - 75, width: 150, height: 150))
-        //toastView.backgroundColor = Color(hex: 0xFE365E).uiColor().withAlphaComponent(1.0)
+        //toastView.backgroundColor = Color(hex: 0xfce546).uiColor().withAlphaComponent(1.0)
         toastView.backgroundColor = Color(hex: 0x7d7f82).uiColor().withAlphaComponent(0.7)
         toastView.alpha = 1.0
         toastView.layer.cornerRadius = 30
@@ -1087,7 +1087,7 @@ extension UIViewController {
         
         let toastLabel = UILabel()
         toastLabel.textColor = UIColor.white
-        toastLabel.font = UIFont(name: "Nunito-ExtraBold", size: 14.0)
+        toastLabel.font = UIFont(name: "ZillaSlab-Medium", size: 14.0)
         toastLabel.translatesAutoresizingMaskIntoConstraints = false
         toastLabel.textAlignment = .center
         toastLabel.text = message
@@ -1101,7 +1101,7 @@ extension UIViewController {
         if let subtext = text {
             let toastSubLabel = UILabel()
             toastSubLabel.textColor = UIColor.white
-            toastSubLabel.font = UIFont(name: "Nunito-Regular", size: 9.0)
+            toastSubLabel.font = UIFont(name: "ZillaSlab-Light", size: 9.0)
             toastSubLabel.translatesAutoresizingMaskIntoConstraints = false
             toastSubLabel.textAlignment = .center
             toastSubLabel.text = subtext

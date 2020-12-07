@@ -71,6 +71,7 @@ struct RecordingPlayButton: View {
                                 Spacer()
                                 Image("play")
                                     .resizable()
+                                    .foregroundColor(.black)
                                     .aspectRatio(contentMode: .fit)
                                     .frame(height: 24)
                                     .padding(.leading, 3)
@@ -79,7 +80,7 @@ struct RecordingPlayButton: View {
                         }
                         .frame(width: 33, height: 33)
                         .foregroundColor(.white)
-                        .background(Color(hex: 0xfe365e))
+                        .background(Color(hex: 0xfce546))
                         .clipped()
                         .clipShape(Circle())
                 })

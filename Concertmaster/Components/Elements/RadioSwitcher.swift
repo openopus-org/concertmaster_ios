@@ -29,26 +29,25 @@ struct RadioSwitcher: View {
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .frame(width: 20, height: 20)
-                        .foregroundColor(Color(hex: isActive ? 0xFFFFFF : 0xfe365e))
+                        .foregroundColor(Color(hex: isActive ? 0x000000 : 0xfce546))
                 }
             }
             .frame(width: 44, height: 44)
-            .background(Color(hex: isActive ? 0xfe365e : 0x000000))
+            .background(Color(hex: isActive ? 0xfce546 : 0x000000))
             .clipped()
             .clipShape(Circle())
             .padding(.bottom, -6)
             
             Text(name)
-                
-                .font(.custom("Nunito-Regular", size: 9))
-                .foregroundColor(.white)
+                .font(.custom("ZillaSlab-Light", size: 9))
+                .foregroundColor(Color(isActive ? .black : .white))
             
             Spacer()
         }
         .frame(minWidth: 72, maxWidth: 72, minHeight: 72,  maxHeight: 72, alignment: .top)
-        .background(Color(hex: self.isActive ? 0xfe365e : 0x202023))
+        .background(Color(hex: self.isActive ? 0xfce546 : 0x202023))
         .padding(0)
-        .cornerRadius(12)
+        //.cornerRadius(12)
     }
 }
 

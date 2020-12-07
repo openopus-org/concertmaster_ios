@@ -26,15 +26,15 @@ struct RecordingNotAvailable: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: size == "min" ? 18 : 26)
-                    .foregroundColor(Color(hex: size == "min" ? 0x797979 : 0xfe365e))
+                    .foregroundColor(Color(hex: size == "min" ? 0x797979 : 0xfce546))
                     .padding(.trailing, 2)
                 VStack(alignment: .leading) {
                     Text("Couldn't connect to Apple Music")
-                        .font(.custom("Nunito-ExtraBold", size: size == "min" ? 11 : 15))
+                        .font(.custom("ZillaSlab-Medium", size: size == "min" ? 11 : 15))
                     Text("Please tap here to try again")
-                        .font(.custom("Nunito-Regular", size: size == "min" ? 9 : 13))
+                        .font(.custom("ZillaSlab-Light", size: size == "min" ? 9 : 13))
                 }
-                .foregroundColor(Color(hex: size == "min" ? 0x797979 : 0xfe365e))
+                .foregroundColor(Color(hex: size == "min" ? 0x797979 : 0xfce546))
                 
                 Spacer()
             }

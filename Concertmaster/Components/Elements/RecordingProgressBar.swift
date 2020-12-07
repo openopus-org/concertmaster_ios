@@ -25,11 +25,11 @@ struct RecordingProgressBar: View {
                 if self.currentTrack.first!.preview {
                     HStack {
                         Text("preview".uppercased())
-                            .font(.custom("Nunito-ExtraBold", size: 8))
+                            .font(.custom("ZillaSlab-Medium", size: 8))
                     }
                     .padding(.init(top: 2, leading: 6, bottom: 2, trailing: 6))
                     .background(Color.black)
-                    .cornerRadius(12)
+                    //.cornerRadius(12)
                     .opacity(0.6)
                 }
             }
@@ -37,7 +37,7 @@ struct RecordingProgressBar: View {
             Text(track.readableLength)
                 .frame(minWidth: 30)
         }
-        .font(.custom("Nunito-Regular", size: 11))
+        .font(.custom("ZillaSlab-Light", size: 11))
         .padding(.bottom, 14)
     }
 }

@@ -72,14 +72,14 @@ struct RecordingWorkPerformers: View {
                         Rectangle()
                             .fill(Color(hex: 0x2B2B2F))
                             .frame(width: 110, height: 110)
-                            .cornerRadius(20)
+                            //.cornerRadius(20)
                     }) { img in
                         img.image
                             .renderingMode(.original)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .clipped()
-                            .cornerRadius(20)
+                            //.cornerRadius(20)
                     }
                     .frame(width: 110, height: 110)
                     .padding(.trailing, 8)
@@ -90,21 +90,21 @@ struct RecordingWorkPerformers: View {
                                 Rectangle()
                                     .fill(Color(hex: 0x2B2B2F))
                                     .frame(width: 110, height: 110)
-                                    .cornerRadius(20)
+                                    //.cornerRadius(20)
                             }) { img in
                                 img.image
                                     .renderingMode(.original)
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
                                     .clipped()
-                                    .cornerRadius(20)
+                                    //.cornerRadius(20)
                             }
                             .frame(width: 110, height: 110)
                             
                             HStack {
                                 Spacer()
                                 Text("view album".uppercased())
-                                    .font(.custom("Nunito-Regular", size: 8))
+                                    .font(.custom("ZillaSlab-Light", size: 8))
                                 Spacer()
                             }
                             .frame(width: 110)
@@ -112,7 +112,7 @@ struct RecordingWorkPerformers: View {
                             .padding(.top, 4)
                             .foregroundColor(.white)
                             .background(Color(hex: 0x4F4F4F))
-                            .cornerRadius(16)
+                            //.cornerRadius(16)
                         }
                         .padding(.trailing, 8)
                     })
@@ -121,18 +121,19 @@ struct RecordingWorkPerformers: View {
                 VStack(alignment: .leading) {
                     if recording.work!.composer!.id != "0" {
                         Text(recording.work!.composer!.name.uppercased().trimmingCharacters(in: .whitespacesAndNewlines))
-                            .font(.custom("Nunito-ExtraBold", size: 15))
-                            .foregroundColor(Color(hex: 0xfe365e))
+                            .font(.custom("ZillaSlab-SemiBold", size: 15))
+                            .foregroundColor(isPlayer ? .black : Color(hex: 0xFCE546))
                     } else if recording.work!.composer!.name != "None" {
                         ForEach(recording.work!.composer!.name.components(separatedBy: CharacterSet(charactersIn: "&,")), id: \.self) { composer in
                             Text(composer.uppercased().trimmingCharacters(in: .whitespacesAndNewlines))
-                            .font(.custom("Nunito-ExtraBold", size: 15))
-                            .foregroundColor(Color(hex: 0xfe365e))
+                            .font(.custom("ZillaSlab-SemiBold", size: 15))
+                            .foregroundColor(isPlayer ? .black : Color(hex: 0xFCE546))
                         }
                     }
                     
                     Text(recording.work!.title)
-                        .font(.custom("Barlow-SemiBold", size: 16))
+                        .font(.custom("Barlow-Regular", size: 16))
+                        .foregroundColor(isPlayer ? .black : .white)
                         .padding(.bottom, 4)
                         .lineLimit(20)
                         .fixedSize(horizontal: false, vertical: true)
@@ -146,6 +147,7 @@ struct RecordingWorkPerformers: View {
                         }
                     }
                     .font(.custom("Barlow-Regular", size: 14))
+                    .foregroundColor(isPlayer ? .black : .white)
                     .lineLimit(20)
                     .fixedSize(horizontal: false, vertical: true)
                 }
@@ -163,10 +165,11 @@ struct RecordingWorkPerformers: View {
                         Text(performer.readableRole)
                             .font(.custom("Barlow-Regular", size: 13))
                     }
-                    .foregroundColor(.white)
+                    .foregroundColor(isPlayer ? .black : .white)
                     
                     Text(recording.label ?? "")
-                        .font(.custom("Nunito-Regular", size: 11))
+                        .font(.custom("ZillaSlab-Light", size: 11))
+                        .foregroundColor(isPlayer ? .black : .white)
                         .padding(.top, 6)
                 }
                 

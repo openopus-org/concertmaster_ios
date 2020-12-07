@@ -54,7 +54,7 @@ struct ComposerHeader: View {
             BackButton()
             
             URLImage(composer.portrait!, placeholder: { _ in
-                Circle()
+                Rectangle()
                     .fill(Color(hex: 0x2B2B2F))
                     .frame(width: 70, height: 70)
             }) { img in
@@ -63,7 +63,6 @@ struct ComposerHeader: View {
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .clipped()
-                    .clipShape(Circle())
             }
             .frame(width: 70, height: 70)
             
@@ -71,8 +70,8 @@ struct ComposerHeader: View {
                 VStack(alignment: .leading) {
                     
                     Text(composer.name.uppercased())
-                        .foregroundColor(Color(hex: 0xfe365e))
-                        .font(.custom("Nunito-ExtraBold", size: 17))
+                        .foregroundColor(Color(hex: 0xfce546))
+                        .font(.custom("ZillaSlab-SemiBold", size: 17))
                     
                     Group{
                         Text(composer.complete_name)
@@ -80,9 +79,9 @@ struct ComposerHeader: View {
                     }
                     .foregroundColor(.white)
                     .lineLimit(20)
-                    .font(.custom("Nunito-Regular", size: 14))
+                    .font(.custom("ZillaSlab-Light", size: 14))
                 }
-                .padding(8)
+                .padding(5)
             }
             
             Spacer()

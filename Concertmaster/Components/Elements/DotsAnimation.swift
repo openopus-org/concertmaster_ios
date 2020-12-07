@@ -16,7 +16,7 @@ struct DotsAnimation: View {
             ForEach(0...2, id: \.self) { index in
                 Circle()
                     .frame(width: 6, height: 6)
-                    .foregroundColor(Color(hex: 0xfe365e))
+                    .foregroundColor(Color(hex: 0xfce546))
                     .scaleEffect(self.isAnimated ? 0 : 1)
                     .animation(Animation.linear(duration: 0.6).repeatForever().delay(0.2 * Double(index)))
             }

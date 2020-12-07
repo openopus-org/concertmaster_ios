@@ -19,14 +19,14 @@ struct MicroRecordingRow: View {
                     Rectangle()
                         .fill(Color(hex: 0x2B2B2F))
                         .frame(width: 36, height: 36)
-                        .cornerRadius(10)
+                        //.cornerRadius(10)
                 }) { img in
                     img.image
                         .renderingMode(.original)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .clipped()
-                        .cornerRadius(10)
+                        //.cornerRadius(10)
                 }
                 .frame(width: 36, height: 36)
                 .padding(.trailing, 10)
@@ -35,13 +35,13 @@ struct MicroRecordingRow: View {
                 if recording.work != nil {
                     if recording.work!.composer!.id != "0" {
                         Text(recording.work!.composer!.name.uppercased().trimmingCharacters(in: .whitespacesAndNewlines))
-                            .font(.custom("Nunito-ExtraBold", size: 12))
-                            .foregroundColor(Color(hex: 0xfe365e))
+                            .font(.custom("ZillaSlab-SemiBold", size: 12))
+                            .foregroundColor(Color(hex: 0xfce546))
                     } else if recording.work!.composer!.name != "None" {
                         ForEach(recording.work!.composer!.name.components(separatedBy: CharacterSet(charactersIn: "&,")), id: \.self) { composer in
                             Text(composer.uppercased().trimmingCharacters(in: .whitespacesAndNewlines))
-                            .font(.custom("Nunito-ExtraBold", size: 12))
-                            .foregroundColor(Color(hex: 0xfe365e))
+                            .font(.custom("ZillaSlab-SemiBold", size: 12))
+                            .foregroundColor(Color(hex: 0xfce546))
                         }
                     }
                     

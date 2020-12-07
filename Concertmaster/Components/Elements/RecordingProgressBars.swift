@@ -44,7 +44,7 @@ struct RecordingProgressBars: View {
                         }
                     }
                 } else {
-                    RecordingTrackList(recording: self.recording)
+                    RecordingTrackList(recording: self.recording, color: Color(.black))
                         .padding(.top, 10)
                 }
             } else {

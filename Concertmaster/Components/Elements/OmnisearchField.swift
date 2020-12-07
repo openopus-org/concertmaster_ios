@@ -29,7 +29,7 @@ struct OmnisearchField: View {
                         Text("Composers, works, and recordings")
                             
                             .foregroundColor(.black)
-                            .font(.custom("Nunito-Regular", size: 15))
+                            .font(.custom("ZillaSlab-Light", size: 15))
                             .padding(1)
                     }
                     
@@ -59,7 +59,7 @@ struct OmnisearchField: View {
             .padding(EdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 6))
             .foregroundColor(.black)
             .background(Color(.white))
-            .cornerRadius(12)
+            //.cornerRadius(12)
             .clipped()
             
             if self.isEditing || !self.omnisearch.searchstring.isEmpty {
@@ -70,8 +70,8 @@ struct OmnisearchField: View {
                 },
                        label: { Text("Cancel")
                         
-                        .foregroundColor(Color(hex: 0xfe365e))
-                        .font(.custom("Nunito-Regular", size: 13))
+                        .foregroundColor(Color(hex: 0xfce546))
+                        .font(.custom("ZillaSlab-Light", size: 13))
                         .padding(4)
                 })
             }

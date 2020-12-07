@@ -88,7 +88,7 @@ struct RadioBuilder: View {
                     Text("Composers and works".uppercased())
                         
                         .foregroundColor(Color(hex: 0x717171))
-                        .font(.custom("Nunito-Regular", size: 12))
+                        .font(.custom("ZillaSlab-Light", size: 12))
                         .padding(.top, 20)
                     
                     ScrollView(.horizontal, showsIndicators: false) {
@@ -120,7 +120,7 @@ struct RadioBuilder: View {
                     Text("and".uppercased())
                         
                         .foregroundColor(Color(hex: 0x717171))
-                        .font(.custom("Nunito-Regular", size: 8))
+                        .font(.custom("ZillaSlab-Light", size: 8))
                         .padding(4)
                         .overlay(
                             RoundedRectangle(cornerRadius: 12)
@@ -133,7 +133,7 @@ struct RadioBuilder: View {
                 Group {
                     Text("Periods".uppercased())
                         .foregroundColor(Color(hex: 0x717171))
-                        .font(.custom("Nunito-Regular", size: 12))
+                        .font(.custom("ZillaSlab-Light", size: 12))
                         
                     
                     ScrollView(.horizontal, showsIndicators: false) {
@@ -155,7 +155,7 @@ struct RadioBuilder: View {
                     Text("and".uppercased())
                         
                         .foregroundColor(Color(hex: 0x717171))
-                        .font(.custom("Nunito-Regular", size: 8))
+                        .font(.custom("ZillaSlab-Light", size: 8))
                         .padding(4)
                         .overlay(
                             RoundedRectangle(cornerRadius: 12)
@@ -169,7 +169,7 @@ struct RadioBuilder: View {
                     Text("Genres".uppercased())
                         
                         .foregroundColor(Color(hex: 0x717171))
-                        .font(.custom("Nunito-Regular", size: 12))
+                        .font(.custom("ZillaSlab-Light", size: 12))
                     
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(alignment: .top, spacing: 14) {
@@ -275,15 +275,14 @@ struct RadioBuilder: View {
                                     ActivityIndicator(isAnimating: self.isLoading)
                                     .configure { $0.color = .white; $0.style = .medium }
                                 } else {
-                                    AnimatedRadioIcon(color: Color(hex: 0xFFFFFF), isAnimated: self.radioState.isActive)
+                                    AnimatedRadioIcon(color: Color(hex: 0x000000), isAnimated: self.radioState.isActive)
                                         .frame(width: 40, height: 20)
                                         .padding(.trailing, self.radioState.isActive ? 3 : -10)
                                         .padding(.leading, self.radioState.isActive ? 0 : -10)
                                         
                                     Text((self.radioState.isActive ? "stop radio" : "start radio").uppercased())
-                                        
-                                        .foregroundColor(.white)
-                                        .font(.custom("Nunito-Regular", size: self.radioState.isActive ? 11 : 13))
+                                        .foregroundColor(.black)
+                                        .font(.custom("ZillaSlab-SemiBold", size: self.radioState.isActive ? 12 : 14))
                                 }
                                 
                                 Spacer()
@@ -291,8 +290,8 @@ struct RadioBuilder: View {
                         }
                         .padding(13)
                         .foregroundColor(.white)
-                        .background(Color(hex: self.radioState.isActive ? 0x696969 : 0xfe365e))
-                        .cornerRadius(16)
+                        .background(Color(hex: self.radioState.isActive ? 0x696969 : 0xfce546))
+                        //.cornerRadius(16)
                 })
                 .padding(.top, 20)
                 .padding(.trailing, 20)

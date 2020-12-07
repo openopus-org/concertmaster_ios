@@ -18,11 +18,11 @@ struct ProgressBar: View {
                     .fill(Color(hex: 0x121212))
                     .frame(width: geometry.size.width, height: geometry.size.height)
                 Rectangle()
-                    .fill(Color(hex: 0xfe365e))
+                    .fill(Color(hex: 0xfce546))
                     .frame(width: geometry.size.width * self.progress, height: geometry.size.height)
-                    .cornerRadius(2)
+                    //.cornerRadius(2)
             }
-            .cornerRadius(geometry.size.height / 2.0)
+            //.cornerRadius(geometry.size.height / 2.0)
         }
     }
 }

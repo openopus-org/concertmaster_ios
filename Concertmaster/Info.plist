@@ -26,10 +26,13 @@
 	<string>Concertmaster needs to access the Apple Music catalog, so that you can play music</string>
 	<key>UIAppFonts</key>
 	<array>
+		<string>SourceSansPro-SemiBold.ttf</string>
+		<string>SourceSansPro-Light.ttf</string>
+		<string>ZillaSlab-Medium.ttf</string>
+		<string>ZillaSlab-SemiBold.ttf</string>
+		<string>ZillaSlab-Light.ttf</string>
 		<string>Barlow-Regular.ttf</string>
 		<string>Barlow-SemiBold.ttf</string>
-		<string>Nunito-ExtraBold.ttf</string>
-		<string>Nunito-Regular.ttf</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
@@ -77,7 +80,7 @@
 	<array>
 		<dict>
 			<key>CFBundleURLName</key>
-				<string>org.openopus.concertmaster.ios</string>
+			<string>org.openopus.concertmaster.ios</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>concertmaster-app</string>
