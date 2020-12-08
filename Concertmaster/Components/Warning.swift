@@ -20,26 +20,26 @@ struct Warning: View {
             VStack {
                 Text("warning".uppercased())
                     .foregroundColor(Color(hex: 0x717171))
-                    .font(.custom("ZillaSlab-Light", size: 10))
+                    .font(.custom("Sanchez-Regular", size: 10))
                     .multilineTextAlignment(.leading)
                 
                 Text("Concertmaster needs an active Spotify subscription to play music")
                     .foregroundColor(Color.white)
-                    .font(.custom("Barlow-SemiBold", size: 15))
+                    .font(.custom("PetitaBold", size: 15))
                     .padding(.top, 20)
                     .multilineTextAlignment(.center)
                 
                 if !appState.apmusEligible {
                     Text("Unfortunately, this device is not eligible for Apple Music.")
                         .foregroundColor(Color.white)
-                        .font(.custom("Barlow-Regular", size: 14))
+                        .font(.custom("PetitaMedium", size: 14))
                         .padding(.top, 10)
                         .multilineTextAlignment(.center)
                 }
                 
                 Text("You can browse Concertmaster's catalogue, create playlists, favorite works, composers and recordings, but playback is restricted to 30 seconds samples.")
                     .foregroundColor(Color.white)
-                    .font(.custom("Barlow-Regular", size: 11))
+                    .font(.custom("PetitaMedium", size: 11))
                     .padding(.top, 10)
                     .padding(.bottom, 18)
                     .multilineTextAlignment(.center)
@@ -99,7 +99,7 @@ struct Warning: View {
                                 HStack {
                                     Spacer()
                                     Text("close".uppercased())
-                                        .font(.custom("ZillaSlab-Light", size: 10))
+                                        .font(.custom("Sanchez-Regular", size: 10))
                                     Spacer()
                                 }
                             }

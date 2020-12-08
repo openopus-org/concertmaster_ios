@@ -26,13 +26,11 @@
 	<string>Concertmaster needs to access the Apple Music catalog, so that you can play music</string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>SourceSansPro-SemiBold.ttf</string>
-		<string>SourceSansPro-Light.ttf</string>
 		<string>ZillaSlab-Medium.ttf</string>
 		<string>ZillaSlab-SemiBold.ttf</string>
-		<string>ZillaSlab-Light.ttf</string>
-		<string>Barlow-Regular.ttf</string>
-		<string>Barlow-SemiBold.ttf</string>
+		<string>PetitaBold.ttf</string>
+		<string>PetitaMedium.ttf</string>
+		<string>Sanchez-Regular.ttf</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>

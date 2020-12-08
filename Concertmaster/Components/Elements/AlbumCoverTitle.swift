@@ -37,26 +37,26 @@ struct AlbumCoverTitle: View {
                 
                 VStack(alignment: .leading) {
                     Text(album.title)
-                        .font(.custom("Barlow-SemiBold", size: 18))
+                        .font(.custom("PetitaBold", size: 18))
                         .padding(.bottom, 4)
                         .lineLimit(20)
                         .fixedSize(horizontal: false, vertical: true)
                     
                     Text("©℗ \(album.year) \(album.label)")
                         .lineLimit(20)
-                        .font(.custom("ZillaSlab-Light", size: 12))
+                        .font(.custom("Sanchez-Regular", size: 12))
                         .padding(.top, 6)
                         .fixedSize(horizontal: false, vertical: true)
                     
                     VStack {
                         Text("playing time".uppercased())
-                            .font(.custom("ZillaSlab-Light", size: 5))
+                            .font(.custom("Sanchez-Regular", size: 5))
                         Text("\(album.readableLength)")
                             .padding(.top, -10)
                     }
                     .foregroundColor(Color(hex: 0x717171))
-                    .font(.custom("ZillaSlab-Light", size: 12))
-                    .padding(EdgeInsets(top: 4, leading: 10, bottom: 2, trailing: 10))
+                    .font(.custom("Sanchez-Regular", size: 12))
+                    .padding(EdgeInsets(top: 4, leading: 6, bottom: 2, trailing: 6))
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
                             .stroke(Color(hex: 0x717171), lineWidth: 1)

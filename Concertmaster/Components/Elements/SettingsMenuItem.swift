@@ -15,13 +15,13 @@ struct SettingsMenuItem: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text(title)
-                .font(.custom("ZillaSlab-Medium", size: 13))
+                .font(.custom("ZillaSlab-SemiBold", size: 14))
                 .lineLimit(20)
                 .foregroundColor(.white)
             
             if description != nil {
                 Text(description ?? "")
-                    .font(.custom("Barlow-Regular", size: 13))
+                    .font(.custom("PetitaMedium", size: 13))
                     .lineLimit(20)
                     .foregroundColor(.white)
             }

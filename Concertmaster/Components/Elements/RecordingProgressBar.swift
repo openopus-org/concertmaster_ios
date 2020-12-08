@@ -37,7 +37,7 @@ struct RecordingProgressBar: View {
             Text(track.readableLength)
                 .frame(minWidth: 30)
         }
-        .font(.custom("ZillaSlab-Light", size: 11))
+        .font(.custom("Sanchez-Regular", size: 11))
         .padding(.bottom, 14)
     }
 }

@@ -76,7 +76,7 @@ struct RadioStationButton: View {
                         Text(name)
                             
                             .foregroundColor(Color.white)
-                            .font(.custom("ZillaSlab-Light", size: 15))
+                            .font(.custom("Sanchez-Regular", size: 14))
                             .padding(12)
                     }
                 }

@@ -173,7 +173,7 @@ struct FreeSearch: View {
                                         Text("Composers".uppercased())
                                             
                                             .foregroundColor(Color(hex: 0x717171))
-                                            .font(.custom("ZillaSlab-Light", size: 12))
+                                            .font(.custom("Sanchez-Regular", size: 12))
                                     ){
                                         ForEach(self.composers, id: \.id) { composer in
                                             Group {
@@ -193,7 +193,7 @@ struct FreeSearch: View {
                                         Text("Works".uppercased())
                                             
                                             .foregroundColor(Color(hex: 0x717171))
-                                            .font(.custom("ZillaSlab-Light", size: 12))
+                                            .font(.custom("Sanchez-Regular", size: 12))
                                     ){
                                         ForEach(self.works, id: \.id) { work in
                                             NavigationLink(destination: WorkDetail(work: work, composer: work.composer!, isSearch: true).environmentObject(self.settingStore)) {
@@ -213,7 +213,7 @@ struct FreeSearch: View {
                                         Text("Recordings".uppercased())
                                             
                                             .foregroundColor(Color(hex: 0x717171))
-                                            .font(.custom("ZillaSlab-Light", size: 12))
+                                            .font(.custom("Sanchez-Regular", size: 12))
                                     ){
                                         ForEach(self.recordings, id: \.id) { recording in
                                             Group {
@@ -254,7 +254,7 @@ struct FreeSearch: View {
                     if self.settingStore.recentSearches.count > 0 {
                         Section(header:
                             Text("Recent searches".uppercased())
-                                .font(.custom("ZillaSlab-Medium", size: 13))
+                                .font(.custom("ZillaSlab-SemiBold", size: 13))
                                 .foregroundColor(Color(hex: 0xfce546))
                                 .padding(.top, 10)
                         ){
@@ -264,14 +264,14 @@ struct FreeSearch: View {
                     
                     Section(header:
                         Text("Trending recordings".uppercased())
-                            .font(.custom("ZillaSlab-Medium", size: 13))
+                            .font(.custom("ZillaSlab-SemiBold", size: 13))
                             .foregroundColor(Color(hex: 0xfce546))
                     ){
                         ForEach(self.trendingRecordings, id: \.id) { recording in
                             HStack(alignment: .top) {
                                 VStack {
                                     Text("\(recording.position ?? 0)")
-                                        .font(.custom("Barlow-Regular", size: 15))
+                                        .font(.custom("PetitaMedium", size: 15))
                                         .foregroundColor(.black)
                                 }
                                 .frame(width: 36, height: 36)

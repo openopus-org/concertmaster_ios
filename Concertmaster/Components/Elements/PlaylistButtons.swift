@@ -107,7 +107,7 @@ struct PlaylistButtons: View {
                                 
                                 Text("edit playlist".uppercased())
                                     .foregroundColor(.white)
-                                    .font(.custom("ZillaSlab-Light", size: 12))
+                                    .font(.custom("Sanchez-Regular", size: 12))
                                 
                                 Spacer()
                             }

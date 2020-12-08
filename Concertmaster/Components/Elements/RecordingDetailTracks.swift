@@ -30,17 +30,17 @@ struct RecordingDetailTracks: View {
                 .padding(.top, 12)
                 
                 Text(recording.work.title)
-                    .font(.custom("Barlow-Regular", size: 15))
+                    .font(.custom("PetitaMedium", size: 15))
                     .padding(.bottom, 6)
                     .lineLimit(20)
                     .fixedSize(horizontal: false, vertical: true)
                 
                 ForEach(recording.recording.performers, id: \.name) { performer in
                     Text(performer.name)
-                        .font(.custom("Barlow-SemiBold", size: 14))
+                        .font(.custom("PetitaBold", size: 13))
                     +
                     Text(performer.readableRole)
-                        .font(.custom("Barlow-Regular", size: 13))
+                        .font(.custom("PetitaMedium", size: 12))
                 }
                 .foregroundColor(.white)
             }
@@ -60,12 +60,12 @@ struct RecordingDetailTracks: View {
                     Group {
                         HStack {
                             Text(track.title)
-                                .font(.custom("Barlow-Regular", size: 12))
+                                .font(.custom("PetitaMedium", size: 12))
                             
                             Spacer()
                             
                             Text(track.readableLength)
-                                .font(.custom("ZillaSlab-Light", size: 11))
+                                .font(.custom("Sanchez-Regular", size: 11))
                                 .padding(.leading, 12)
                         }
                         

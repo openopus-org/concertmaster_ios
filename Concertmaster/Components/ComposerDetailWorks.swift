@@ -96,7 +96,7 @@ struct ComposerDetail: View {
                                 if #available(iOS 14.0, *) {
                                     Section(header:
                                         Text(genre)
-                                            .font(.custom("Barlow-SemiBold", size: 13))
+                                            .font(.custom("PetitaBold", size: 13))
                                             .foregroundColor(Color(hex: 0xfce546))
                                             .padding(.top, 0)
                                             .textCase(.none)
@@ -109,7 +109,7 @@ struct ComposerDetail: View {
                                 } else {
                                     Section(header:
                                         Text(genre)
-                                            .font(.custom("Barlow-SemiBold", size: 13))
+                                            .font(.custom("PetitaBold", size: 13))
                                             .foregroundColor(Color(hex: 0xfce546))
                                             .padding(.top, 0)
                                     ){
@@ -125,7 +125,7 @@ struct ComposerDetail: View {
                                 if #available(iOS 14.0, *) {
                                     Section(header:
                                         Text(rec == "1" ? "Essential" : "Other works")
-                                            .font(.custom("Barlow-SemiBold", size: 13))
+                                            .font(.custom("PetitaBold", size: 13))
                                             .foregroundColor(Color(hex: 0xfce546))
                                             .padding(.top, 0)
                                             .textCase(.none)
@@ -138,7 +138,7 @@ struct ComposerDetail: View {
                                 } else {
                                     Section(header:
                                         Text(rec == "1" ? "Essential" : "Other works")
-                                            .font(.custom("Barlow-SemiBold", size: 13))
+                                            .font(.custom("PetitaBold", size: 13))
                                             .foregroundColor(Color(hex: 0xfce546))
                                             .padding(.top, 0)
                                     ){

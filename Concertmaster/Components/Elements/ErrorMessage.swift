@@ -22,7 +22,7 @@ struct ErrorMessage: View {
                     .padding(5)
                 Text(msg)
                     .foregroundColor(Color(hex: 0xa7a6a6))
-                    .font(.custom("Barlow-Regular", size: 14))
+                    .font(.custom("PetitaMedium", size: 14))
             }
         }.padding(15)
     }

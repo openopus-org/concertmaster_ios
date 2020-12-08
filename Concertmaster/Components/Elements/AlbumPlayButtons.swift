@@ -20,7 +20,7 @@ struct AlbumPlayButtons: View {
     var recordings: [Recording]
     
     var body: some View {
-        HStack {
+        HStack(spacing: 6) {
             Button(
                 action: {
                     if self.radioState.isActive && self.radioState.playlistId == "album-\(self.album.apple_albumid)" {
@@ -74,7 +74,7 @@ struct AlbumPlayButtons: View {
                                     
                                 Text(("stop radio").uppercased())
                                     .foregroundColor(.white)
-                                    .font(.custom("ZillaSlab-Light", size: self.radioState.isActive && self.radioState.playlistId == "album-\(self.album.apple_albumid)" ? 12 : 13))
+                                    .font(.custom("Sanchez-Regular", size: self.radioState.isActive && self.radioState.playlistId == "album-\(self.album.apple_albumid)" ? 12 : 13))
                             } else {
                                 Image("play")
                                     .resizable()
@@ -89,7 +89,8 @@ struct AlbumPlayButtons: View {
                             Spacer()
                         }
                     }
-                    .padding(13)
+                    .frame(minHeight: 38)
+                    .clipped()
                     .foregroundColor(.white)
                     .background(Color(hex: self.radioState.isActive && self.radioState.playlistId == "album-\(self.album.apple_albumid)" ? 0x696969 : 0xfce546))
                     //.cornerRadius(16)
@@ -106,7 +107,8 @@ struct AlbumPlayButtons: View {
                             .frame(height: 22)
                         Spacer()
                     }
-                    .padding(14)
+                    .frame(minHeight: 38)
+                    .clipped()
                     .background(Color(hex: 0x2B2B2F))
                     //.cornerRadius(16)
             })

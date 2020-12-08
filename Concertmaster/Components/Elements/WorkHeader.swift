@@ -47,10 +47,10 @@ struct WorkHeader: View {
                     
                     Group{
                         Text(work.title)
-                        .font(.custom("Barlow-Regular", size: 17))
+                        .font(.custom("PetitaMedium", size: 17))
                         if work.subtitle != "" {
                             Text(work.subtitle!)
-                            .font(.custom("Barlow-Regular", size: 14))
+                            .font(.custom("PetitaMedium", size: 14))
                         }
                     }
                     .foregroundColor(.white)

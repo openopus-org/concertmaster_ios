@@ -47,7 +47,7 @@ struct RecordingBox: View {
                     }
                     
                     Text(recording.work!.title)
-                        .font(.custom("Barlow-Regular", size: 11))
+                        .font(.custom("PetitaMedium", size: 11))
                         .foregroundColor(.white)
                         .padding(.bottom, 6)
                         .lineLimit(20)
@@ -56,7 +56,7 @@ struct RecordingBox: View {
                 
                 if recording.observation != "" && recording.observation != nil {
                     Text(recording.observation ?? "")
-                    .font(.custom("Barlow-Regular", size: 8))
+                    .font(.custom("PetitaMedium", size: 8))
                     .padding(.bottom, 6)
                 }
                 
@@ -64,10 +64,10 @@ struct RecordingBox: View {
                     Group {
                         if (self.recording.performers.count <= AppConstants.maxPerformers || AppConstants.mainPerformersList.contains(performer.role ?? "")) {
                                 Text(performer.name)
-                                    .font(.custom("Barlow-SemiBold", size: (self.recording.work != nil ? 9 : 9)))
+                                    .font(.custom("PetitaBold", size: (self.recording.work != nil ? 9 : 9)))
                                 +
                                 Text(performer.readableRole)
-                                    .font(.custom("Barlow-Regular", size: (self.recording.work != nil ? 9 : 9)))
+                                    .font(.custom("PetitaMedium", size: (self.recording.work != nil ? 9 : 9)))
                         }
                     }
                 }

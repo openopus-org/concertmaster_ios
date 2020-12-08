@@ -79,7 +79,7 @@ struct ComposerHeader: View {
                     }
                     .foregroundColor(.white)
                     .lineLimit(20)
-                    .font(.custom("ZillaSlab-Light", size: 14))
+                    .font(.custom("Sanchez-Regular", size: 14))
                 }
                 .padding(5)
             }

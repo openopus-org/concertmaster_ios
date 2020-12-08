@@ -23,7 +23,7 @@ struct AddToPlaylistButtons: View {
             }, label: {
                 Text("Cancel")
                     .foregroundColor(Color(hex: 0xfce546))
-                    .font(.custom("Barlow-Regular", size: 14))
+                    .font(.custom("PetitaMedium", size: 14))
             })
             
             Spacer()
@@ -55,7 +55,7 @@ struct AddToPlaylistButtons: View {
                 } else {
                     Text("Done")
                     .foregroundColor(Color(hex: 0xfce546))
-                    .font(.custom("Barlow-SemiBold", size: 14))
+                    .font(.custom("PetitaBold", size: 14))
                 }
             })
         }
@@ -80,7 +80,7 @@ struct AddToPlaylist: View {
                 .font(.custom("ZillaSlab-Medium", size: 13))
                 .foregroundColor(Color(hex: 0xfce546))
             Text("Create a new playlist and add this recording to it")
-                .font(.custom("Barlow-Regular", size: 16))
+                .font(.custom("PetitaMedium", size: 16))
                 .foregroundColor(Color.white)
                 .padding(.bottom, 4)
             
@@ -96,7 +96,7 @@ struct AddToPlaylist: View {
             
             Text("or".uppercased())
                 .foregroundColor(Color(hex: 0x717171))
-                .font(.custom("ZillaSlab-Light", size: 12))
+                .font(.custom("Sanchez-Regular", size: 12))
                 .padding(4)
                 .overlay(
                     RoundedRectangle(cornerRadius: 12)
@@ -110,7 +110,7 @@ struct AddToPlaylist: View {
                 .font(.custom("ZillaSlab-Medium", size: 13))
                 .foregroundColor(Color(hex: 0xfce546))
             Text("Add this recording to an existing playlist")
-                .font(.custom("Barlow-Regular", size: 16))
+                .font(.custom("PetitaMedium", size: 16))
                 .foregroundColor(Color.white)
                 .padding(.bottom, 4)
             

@@ -46,7 +46,7 @@ struct MicroRecordingRow: View {
                     }
                     
                     Text(recording.work!.title)
-                        .font(.custom("Barlow-Regular", size: 12))
+                        .font(.custom("PetitaMedium", size: 12))
                         .foregroundColor(.white)
                         .padding(.bottom, 6)
                         .lineLimit(20)
@@ -55,7 +55,7 @@ struct MicroRecordingRow: View {
                 
                 if recording.observation != "" && recording.observation != nil {
                     Text(recording.observation ?? "")
-                    .font(.custom("Barlow-Regular", size: 9))
+                    .font(.custom("PetitaMedium", size: 9))
                     .padding(.bottom, 6)
                 }
                 
@@ -63,10 +63,10 @@ struct MicroRecordingRow: View {
                     Group {
                         if (self.recording.performers.count <= AppConstants.maxPerformers || AppConstants.mainPerformersList.contains(performer.role ?? "")) {
                                 Text(performer.name)
-                                    .font(.custom("Barlow-SemiBold", size: (self.recording.work != nil ? 11 : 12)))
+                                    .font(.custom("PetitaBold", size: (self.recording.work != nil ? 11 : 12)))
                                 +
                                 Text(performer.readableRole)
-                                    .font(.custom("Barlow-Regular", size: (self.recording.work != nil ? 11 : 12)))
+                                    .font(.custom("PetitaMedium", size: (self.recording.work != nil ? 11 : 12)))
                         }
                     }
                 }

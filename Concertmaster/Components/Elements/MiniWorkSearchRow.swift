@@ -30,10 +30,10 @@ struct MiniWorkSearchRow: View {
                     .foregroundColor(Color(hex: 0xfce546))
                     .font(.custom("ZillaSlab-Medium", size: 12))
                 Text(work.title)
-                    .font(.custom("Barlow-Regular", size: 12))
+                    .font(.custom("PetitaMedium", size: 12))
                 if work.subtitle != "" {
                     Text(work.subtitle!)
-                        .font(.custom("Barlow-Regular", size: 9))
+                        .font(.custom("PetitaMedium", size: 9))
                 }
             }
             .foregroundColor(.white)

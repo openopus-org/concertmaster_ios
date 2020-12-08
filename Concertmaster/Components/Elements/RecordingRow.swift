@@ -61,7 +61,7 @@ struct RecordingRow: View {
                     }
                     
                     Text(recording.work!.title)
-                        .font(.custom("Barlow-Regular", size: 15))
+                        .font(.custom("PetitaMedium", size: 15))
                         .padding(.bottom, 6)
                         .lineLimit(20)
                         .fixedSize(horizontal: false, vertical: true)
@@ -69,7 +69,7 @@ struct RecordingRow: View {
                 
                 if recording.observation != "" && recording.observation != nil {
                     Text(recording.observation ?? "")
-                    .font(.custom("Barlow-Regular", size: 10))
+                    .font(.custom("PetitaMedium", size: 10))
                     .padding(.bottom, 6)
                 }
                 
@@ -77,10 +77,10 @@ struct RecordingRow: View {
                     Group {
                         if (self.recording.performers.count <= AppConstants.maxPerformers || AppConstants.mainPerformersList.contains(performer.role ?? "")) {
                                 Text(performer.name)
-                                    .font(.custom("Barlow-SemiBold", size: (self.recording.work != nil ? 12 : 13)))
+                                    .font(.custom("PetitaBold", size: (self.recording.work != nil ? 12 : 13)))
                                 +
                                 Text(performer.readableRole)
-                                    .font(.custom("Barlow-Regular", size: (self.recording.work != nil ? 12 : 13)))
+                                    .font(.custom("PetitaMedium", size: (self.recording.work != nil ? 12 : 13)))
                         }
                     }
                 }

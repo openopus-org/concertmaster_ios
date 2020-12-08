@@ -29,7 +29,7 @@ struct OmnisearchField: View {
                         Text("Composers, works, and recordings")
                             
                             .foregroundColor(.black)
-                            .font(.custom("ZillaSlab-Light", size: 15))
+                            .font(.custom("Sanchez-Regular", size: 15))
                             .padding(1)
                     }
                     
@@ -71,7 +71,7 @@ struct OmnisearchField: View {
                        label: { Text("Cancel")
                         
                         .foregroundColor(Color(hex: 0xfce546))
-                        .font(.custom("ZillaSlab-Light", size: 13))
+                        .font(.custom("Sanchez-Regular", size: 13))
                         .padding(4)
                 })
             }

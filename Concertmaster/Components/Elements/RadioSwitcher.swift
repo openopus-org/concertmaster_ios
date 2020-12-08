@@ -39,7 +39,7 @@ struct RadioSwitcher: View {
             .padding(.bottom, -6)
             
             Text(name)
-                .font(.custom("ZillaSlab-Light", size: 9))
+                .font(.custom("Sanchez-Regular", size: 9))
                 .foregroundColor(Color(isActive ? .black : .white))
             
             Spacer()

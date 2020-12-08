@@ -23,7 +23,7 @@ struct RecordingPlaybackControl: View {
                     HStack {
                         Spacer()
                         ActivityIndicator(isAnimating: true)
-                            .configure { $0.color = Color(hex: 0xfce546).uiColor(); $0.style = .large }
+                            .configure { $0.color = Color(hex: 0x000000).uiColor(); $0.style = .large }
                         Spacer()
                     }
                 }
@@ -120,7 +120,7 @@ struct RecordingPlaybackControl: View {
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .frame(height: 18)
-                                    .foregroundColor(Color(hex: self.radioState.isActive && self.radioState.canSkip ? 0xfce546 : 0x424242))
+                                .foregroundColor(Color(hex: self.radioState.isActive && self.radioState.canSkip ? 0xfce546 : 0x424242))
                                 .padding(.leading, 22)
                             })
 
@@ -133,7 +133,7 @@ struct RecordingPlaybackControl: View {
                 HStack {
                     Spacer()
                     ActivityIndicator(isAnimating: true)
-                        .configure { $0.color = Color(hex: 0xfce546).uiColor(); $0.style = .large }
+                        .configure { $0.color = Color(hex: 0x000000).uiColor(); $0.style = .large }
                     Spacer()
                 }
                 

@@ -39,7 +39,7 @@ struct ComposerRow: View {
                     }
                     .foregroundColor(.white)
                     .lineLimit(20)
-                    .font(.custom("ZillaSlab-Light", size: 12))
+                    .font(.custom("Sanchez-Regular", size: 12))
                 }
                 .padding(8)
             }

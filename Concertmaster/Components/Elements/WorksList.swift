@@ -33,7 +33,7 @@ struct WorksList: View {
                         if #available(iOS 14.0, *) {
                             Section(header:
                                 Text(genre)
-                                    .font(.custom("Barlow-SemiBold", size: 13))
+                                    .font(.custom("PetitaBold", size: 13))
                                     .foregroundColor(Color(hex: 0xfce546))
                                     .padding(.top, self.radioReady ? 0 : 20)
                                     .textCase(.none)
@@ -46,7 +46,7 @@ struct WorksList: View {
                         } else {
                             Section(header:
                                 Text(genre)
-                                    .font(.custom("Barlow-SemiBold", size: 13))
+                                    .font(.custom("PetitaBold", size: 13))
                                     .foregroundColor(Color(hex: 0xfce546))
                                     .padding(.top, self.radioReady ? 0 : 20)
                             ){
@@ -74,7 +74,7 @@ struct WorksList: View {
                         if #available(iOS 14.0, *) {
                             Section(header:
                                 Text(rec == "1" ? "Essential" : "Other works")
-                                    .font(.custom("Barlow-SemiBold", size: 13))
+                                    .font(.custom("PetitaBold", size: 13))
                                     .foregroundColor(Color(hex: 0xfce546))
                                     .padding(.top, self.radioReady ? 0 : 20)
                                     .textCase(.none)
@@ -88,7 +88,7 @@ struct WorksList: View {
                         } else {
                             Section(header:
                                 Text(rec == "1" ? "Essential" : "Other works")
-                                    .font(.custom("Barlow-SemiBold", size: 13))
+                                    .font(.custom("PetitaBold", size: 13))
                                     .foregroundColor(Color(hex: 0xfce546))
                                     .padding(.top, self.radioReady ? 0 : 20)
                             ){

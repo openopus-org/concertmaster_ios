@@ -24,7 +24,7 @@ struct FavoritesButton: View {
             
             Text(playlist == "fav" ? "Your favorites" : "Recently played")
                 .foregroundColor(Color(hex: (self.active ? 0x000000 : 0xfce546)))
-                .font(.custom("ZillaSlab-Light", size: 12))
+                .font(.custom("Sanchez-Regular", size: 12))
                 .lineLimit(20)
                 .lineSpacing(-4)
         }

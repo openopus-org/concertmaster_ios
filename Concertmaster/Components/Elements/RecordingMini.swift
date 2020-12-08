@@ -38,12 +38,12 @@ struct RecordingMini: View {
                 VStack(alignment: .leading) {
                     if recording.work!.composer!.name != "None" {
                         Text(recording.work!.composer!.name.uppercased())
-                            .font(.custom("ZillaSlab-SemiBold", size: 12))
+                            .font(.custom("ZillaSlab-SemiBold", size: 13))
                             .foregroundColor(.black)
                     }
                     
                     Text(recording.work!.title)
-                        .font(.custom("Barlow-Regular", size: 13))
+                        .font(.custom("PetitaMedium", size: 14))
                         .foregroundColor(.black)
                         .padding(.bottom, 4)
                         .lineLimit(20)
@@ -58,7 +58,7 @@ struct RecordingMini: View {
                     HStack {
                         Spacer()
                         ActivityIndicator(isAnimating: true)
-                            .configure { $0.color = Color(hex: 0xfce546).uiColor(); $0.style = .medium }
+                            .configure { $0.color = Color(hex: 0x000000).uiColor(); $0.style = .medium }
                         Spacer()
                     }
                     .padding(.top, 4)
@@ -108,7 +108,7 @@ struct RecordingMini: View {
                             
                             Text(self.recording.readableLength)
                         }
-                        .font(.custom("ZillaSlab-Light", size: 11))
+                        .font(.custom("Sanchez-Regular", size: 11))
                     }
                     .padding(.top, 4)
                 }

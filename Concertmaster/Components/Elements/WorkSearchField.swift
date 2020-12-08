@@ -29,13 +29,13 @@ struct WorkSearchField: View {
                         if #available(iOS 14.0, *) {
                             Text("Search for performers")
                                 .foregroundColor(.black)
-                                .font(.custom("ZillaSlab-Light", size: 15))
+                                .font(.custom("Sanchez-Regular", size: 15))
                                 .padding(1)
                                 .textCase(.none)
                         } else {
                             Text("Search for performers")
                                 .foregroundColor(.black)
-                                .font(.custom("ZillaSlab-Light", size: 15))
+                                .font(.custom("Sanchez-Regular", size: 15))
                                 .padding(1)
                         }
                     }
@@ -85,13 +85,13 @@ struct WorkSearchField: View {
                     if #available(iOS 14.0, *) {
                         Text("Cancel")
                             .foregroundColor(Color(hex: 0xfce546))
-                            .font(.custom("ZillaSlab-Light", size: 13))
+                            .font(.custom("Sanchez-Regular", size: 13))
                             .padding(4)
                             .textCase(.none)
                     } else {
                         Text("Cancel")
                             .foregroundColor(Color(hex: 0xfce546))
-                            .font(.custom("ZillaSlab-Light", size: 13))
+                            .font(.custom("Sanchez-Regular", size: 13))
                             .padding(4)
                     }
                 })

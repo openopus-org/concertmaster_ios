@@ -107,17 +107,17 @@ struct Settings: View {
                 Section(header:
                     VStack(alignment: .leading) {
                         Text("Library filters".uppercased())
-                            .font(.custom("ZillaSlab-Medium", size: 13))
+                            .font(.custom("ZillaSlab-SemiBold", size: 13))
                             .foregroundColor(Color(hex: 0xfce546))
                         if #available(iOS 14.0, *) {
                             Text("Automatic filters that try to eliminate bad or undesirable recordings from the library. They are not perfect, but definitely can improve your playing experience.")
                                 .textCase(.none)
-                                .font(.custom("Barlow-Regular", size: 13))
+                                .font(.custom("PetitaMedium", size: 14))
                                 .foregroundColor(.white)
                                 .lineLimit(20)
                         } else {
                             Text("Automatic filters that try to eliminate bad or undesirable recordings from the library. They are not perfect, but definitely can improve your playing experience.")
-                                .font(.custom("Barlow-Regular", size: 13))
+                                .font(.custom("PetitaMedium", size: 14))
                                 .foregroundColor(.white)
                                 .lineLimit(20)
                         }
@@ -127,89 +127,31 @@ struct Settings: View {
                     ){
                         Toggle(isOn: self.$settingStore.hideIncomplete) {
                             Text("Hide incomplete recordings")
-                            .font(.custom("Barlow-Regular", size: 16))
+                            .font(.custom("PetitaMedium", size: 16))
                         }
                         .listRowBackground(Color.black)
                     
                         Toggle(isOn: self.$settingStore.hideHistorical) {
                             Text("Hide old, historical recordings")
-                            .font(.custom("Barlow-Regular", size: 16))
+                            .font(.custom("PetitaMedium", size: 16))
                         }
                         .listRowBackground(Color.black)
-                }
-                
-                if showSignIn {
-                    Section(header:
-                        VStack(alignment: .leading) {
-                            Text("Device sync".uppercased())
-                                .font(.custom("ZillaSlab-Medium", size: 13))
-                                .foregroundColor(Color(hex: 0xfce546))
-                            if #available(iOS 14.0, *) {
-                                Text("Signed-in users have their favorites, playlists and playing history synchronized between multiple devices.")
-                                    .textCase(.none)
-                                    .font(.custom("Barlow-Regular", size: 13))
-                                    .foregroundColor(.white)
-                                    .lineLimit(20)
-                            } else {
-                                Text("Signed-in users have their favorites, playlists and playing history synchronized between multiple devices.")
-                                    .font(.custom("Barlow-Regular", size: 13))
-                                    .foregroundColor(.white)
-                                    .lineLimit(20)
-                            }
-                        }
-                        .padding(.top, 12)
-                        .padding(.bottom, 16)
-                        ){
-                            HStack {
-                                Spacer()
-                                
-                                if self.signInLoading {
-                                    ActivityIndicator(isAnimating: signInLoading)
-                                        .configure { $0.color = .white; $0.style = .medium }
-                                } else {
-                                    if !self.alreadyLogged {
-                                        SignInWithApple()
-                                            .frame(width: 200, height: 36)
-                                            .onTapGesture(perform: showAppleLogin)
-                                    } else {
-                                        VStack {
-                                            Image("checked")
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: 12, height: 12)
-                                            .foregroundColor(Color.black)
-                                        }
-                                        .frame(width: 22, height: 22)
-                                        .background(Color(hex: 0xfce546))
-                                        .clipped()
-                                        .clipShape(Circle())
-                                        .padding(.trailing, 4)
-                                        
-                                        Text("Logged-in, devices synced!")
-                                            .font(.custom("Barlow-Regular", size: 15))
-                                    }
-                                }
-                                
-                                Spacer()
-                            }
-                            .listRowBackground(Color.black)
-                    }
                 }
                 
                 Section(header:
                     VStack(alignment: .leading) {
                         Text("Support us!".uppercased())
-                            .font(.custom("ZillaSlab-Medium", size: 13))
+                            .font(.custom("ZillaSlab-SemiBold", size: 13))
                             .foregroundColor(Color(hex: 0xfce546))
                         if #available(iOS 14.0, *) {
                             Text("Help us keeping Concertmaster free! Donate and back our development and hosting costs. Choose a tip value below. You will be charged only once and the transaction will be processed through Apple.")
                                 .textCase(.none)
-                                .font(.custom("Barlow-Regular", size: 13))
+                                .font(.custom("PetitaMedium", size: 14))
                                 .foregroundColor(.white)
                                 .lineLimit(20)
                         } else {
                             Text("Help us keeping Concertmaster free! Donate and back our development and hosting costs. Choose a tip value below. You will be charged only once and the transaction will be processed through Apple.")
-                                .font(.custom("Barlow-Regular", size: 13))
+                                .font(.custom("PetitaMedium", size: 14))
                                 .foregroundColor(.white)
                                 .lineLimit(20)
                         }
@@ -232,7 +174,7 @@ struct Settings: View {
                                 .padding(.trailing, 1)
                             
                             Text("Thank you so much for your donation!")
-                                .font(.custom("Barlow-Regular", size: 15))
+                                .font(.custom("PetitaMedium", size: 15))
                         } else {
                             HStack {
                                 ForEach (self.inAppOffers.sorted { $0.price.decimalValue < $1.price.decimalValue }, id: \.self) { product in
@@ -266,7 +208,7 @@ struct Settings: View {
                                         label: {
                                             Text("\(product.localizedPrice!)")
                                                 .foregroundColor(.white)
-                                                .font(.custom("ZillaSlab-Light", size: 13))
+                                                .font(.custom("Sanchez-Regular", size: 13))
                                                 .padding(13)
                                                 .background(Color(hex: 0xfce546))
                                                 //.cornerRadius(16)
@@ -284,18 +226,18 @@ struct Settings: View {
                 Section(header:
                     VStack(alignment: .leading) {
                         Text("Become our patron".uppercased())
-                            .font(.custom("ZillaSlab-Medium", size: 13))
+                            .font(.custom("ZillaSlab-SemiBold", size: 13))
                             .foregroundColor(Color(hex: 0xfce546))
                             
                         if #available(iOS 14.0, *) {
                             Text("One-time tips are great, recurrent donations are amazing! Patrons receive early updates and get their names listed here.")
                                 .textCase(.none)
-                                .font(.custom("Barlow-Regular", size: 13))
+                                .font(.custom("PetitaMedium", size: 14))
                                 .foregroundColor(.white)
                                 .lineLimit(20)
                         } else {
                             Text("One-time tips are great, recurrent donations are amazing! Patrons receive early updates and get their names listed here.")
-                                .font(.custom("Barlow-Regular", size: 13))
+                                .font(.custom("PetitaMedium", size: 14))
                                 .foregroundColor(.white)
                                 .lineLimit(20)
                         }
@@ -306,7 +248,7 @@ struct Settings: View {
                     ){
                         ForEach(supporters, id: \.self) { supporter in
                             Text(supporter)
-                                .font(.custom("ZillaSlab-Light", size: 12))
+                                .font(.custom("Sanchez-Regular", size: 12))
                                 .foregroundColor(.white)
                                 .lineLimit(20)
                         }
@@ -322,7 +264,7 @@ struct Settings: View {
                 
                 Section(header:
                     Text("About".uppercased())
-                        .font(.custom("ZillaSlab-Medium", size: 13))
+                        .font(.custom("ZillaSlab-SemiBold", size: 13))
                         .foregroundColor(Color(hex: 0xfce546))
                     ){
                         SettingsMenuItem(title: "Version", description: AppConstants.version)

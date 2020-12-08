@@ -38,7 +38,7 @@ struct PlaylistChooser: View {
                     
                     Text(playlist.name)
                         .foregroundColor(Color(hex: (self.active ? 0xFFFFFF : 0xfce546)))
-                        .font(.custom("ZillaSlab-Light", size: 16))
+                        .font(.custom("Sanchez-Regular", size: 16))
                         .fixedSize(horizontal: false, vertical: true)
                         .lineLimit(20)
                 }

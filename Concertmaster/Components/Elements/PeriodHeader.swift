@@ -16,7 +16,7 @@ struct PeriodHeader: View {
         HStack {
             BackButton()
             Text(period)
-                .font(.custom("Barlow-SemiBold", size: 17))
+                .font(.custom("PetitaBold", size: 17))
         }
     }
 }

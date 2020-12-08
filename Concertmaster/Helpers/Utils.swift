@@ -215,7 +215,7 @@ public struct SearchStyle: TextFieldStyle {
   public func _body(configuration: TextField<Self._Label>) -> some View {
     configuration
         .padding(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
-        .font(.custom("ZillaSlab-Light", size: 15))
+        .font(.custom("Sanchez-Regular", size: 15))
         .foregroundColor(.black)
   }
 }
@@ -224,7 +224,7 @@ public struct EditFieldStyle: TextFieldStyle {
   public func _body(configuration: TextField<Self._Label>) -> some View {
     configuration
         .padding(12)
-        .font(.custom("ZillaSlab-Light", size: 15))
+        .font(.custom("Sanchez-Regular", size: 15))
         //.cornerRadius(12)
   }
 }
@@ -1101,7 +1101,7 @@ extension UIViewController {
         if let subtext = text {
             let toastSubLabel = UILabel()
             toastSubLabel.textColor = UIColor.white
-            toastSubLabel.font = UIFont(name: "ZillaSlab-Light", size: 9.0)
+            toastSubLabel.font = UIFont(name: "Sanchez-Regular", size: 9.0)
             toastSubLabel.translatesAutoresizingMaskIntoConstraints = false
             toastSubLabel.textAlignment = .center
             toastSubLabel.text = subtext

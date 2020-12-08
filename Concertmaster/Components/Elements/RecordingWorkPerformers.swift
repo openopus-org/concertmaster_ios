@@ -104,7 +104,7 @@ struct RecordingWorkPerformers: View {
                             HStack {
                                 Spacer()
                                 Text("view album".uppercased())
-                                    .font(.custom("ZillaSlab-Light", size: 8))
+                                    .font(.custom("Sanchez-Regular", size: 8))
                                 Spacer()
                             }
                             .frame(width: 110)
@@ -121,18 +121,18 @@ struct RecordingWorkPerformers: View {
                 VStack(alignment: .leading) {
                     if recording.work!.composer!.id != "0" {
                         Text(recording.work!.composer!.name.uppercased().trimmingCharacters(in: .whitespacesAndNewlines))
-                            .font(.custom("ZillaSlab-SemiBold", size: 15))
+                            .font(.custom("ZillaSlab-SemiBold", size: 16))
                             .foregroundColor(isPlayer ? .black : Color(hex: 0xFCE546))
                     } else if recording.work!.composer!.name != "None" {
                         ForEach(recording.work!.composer!.name.components(separatedBy: CharacterSet(charactersIn: "&,")), id: \.self) { composer in
                             Text(composer.uppercased().trimmingCharacters(in: .whitespacesAndNewlines))
-                            .font(.custom("ZillaSlab-SemiBold", size: 15))
+                            .font(.custom("ZillaSlab-SemiBold", size: 16))
                             .foregroundColor(isPlayer ? .black : Color(hex: 0xFCE546))
                         }
                     }
                     
                     Text(recording.work!.title)
-                        .font(.custom("Barlow-Regular", size: 16))
+                        .font(.custom("PetitaMedium", size: 17))
                         .foregroundColor(isPlayer ? .black : .white)
                         .padding(.bottom, 4)
                         .lineLimit(20)
@@ -146,7 +146,7 @@ struct RecordingWorkPerformers: View {
                             Text(recording.work!.subtitle!)
                         }
                     }
-                    .font(.custom("Barlow-Regular", size: 14))
+                    .font(.custom("PetitaMedium", size: 14))
                     .foregroundColor(isPlayer ? .black : .white)
                     .lineLimit(20)
                     .fixedSize(horizontal: false, vertical: true)
@@ -160,15 +160,15 @@ struct RecordingWorkPerformers: View {
                 VStack(alignment: .leading) {
                     ForEach(self.recording.performers, id: \.name) { performer in
                         Text(performer.name)
-                            .font(.custom("Barlow-SemiBold", size: 14))
+                            .font(.custom("PetitaBold", size: 14))
                         +
                         Text(performer.readableRole)
-                            .font(.custom("Barlow-Regular", size: 13))
+                            .font(.custom("PetitaMedium", size: 13))
                     }
                     .foregroundColor(isPlayer ? .black : .white)
                     
                     Text(recording.label ?? "")
-                        .font(.custom("ZillaSlab-Light", size: 11))
+                        .font(.custom("Sanchez-Regular", size: 11))
                         .foregroundColor(isPlayer ? .black : .white)
                         .padding(.top, 6)
                 }

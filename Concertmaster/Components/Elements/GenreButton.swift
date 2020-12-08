@@ -28,12 +28,12 @@ struct GenreButton: View {
             
             if #available(iOS 14.0, *) {
                 Text(genre == "Recommended" ? "Essential" : genre)
-                    .font(.custom("ZillaSlab-Light", size: 9))
+                    .font(.custom("Sanchez-Regular", size: 9))
                     .foregroundColor(.white)
                     .textCase(.none)
             } else {
                 Text(genre == "Recommended" ? "Essential" : genre)                    
-                    .font(.custom("ZillaSlab-Light", size: 9))
+                    .font(.custom("Sanchez-Regular", size: 9))
                     .foregroundColor(.white)
             }
         }

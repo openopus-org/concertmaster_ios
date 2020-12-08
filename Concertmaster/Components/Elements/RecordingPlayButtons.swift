@@ -36,7 +36,7 @@ struct RecordingPlayButtons: View {
                                     DotsAnimation()
                                         .padding(.trailing, 3)
                                     Text("playing".uppercased())
-                                        .font(.custom("ZillaSlab-Light", size: 11))
+                                        .font(.custom("Sanchez-Regular", size: 11))
                                 }
                                 else {
                                     Image("handle")
@@ -47,7 +47,7 @@ struct RecordingPlayButtons: View {
                                         .padding(.trailing, 6)
                                     Text("in the player".uppercased())
                                         .foregroundColor(Color(hex: 0x696969))
-                                        .font(.custom("ZillaSlab-Light", size: 10))
+                                        .font(.custom("Sanchez-Regular", size: 10))
                                 }
                                 Spacer()
                             }
@@ -85,10 +85,10 @@ struct RecordingPlayButtons: View {
                                 Spacer()
                             }
                         }
-                        .padding(14)
+                        .frame(minHeight: 38)
+                        .clipped()
                         .foregroundColor(.white)
                         .background(Color(hex: 0xfce546))
-                        //.cornerRadius(16)
                 })
             }
             
@@ -104,9 +104,9 @@ struct RecordingPlayButtons: View {
                             .frame(height: 22)
                         Spacer()
                     }
-                    .padding(14)
+                    .frame(minHeight: 38)
+                    .clipped()
                     .background(Color(hex: 0x2B2B2F))
-                    //.cornerRadius(16)
             })
         }
         .onAppear(perform: { self.isPlaying = self.playState.playing })

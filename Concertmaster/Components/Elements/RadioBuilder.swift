@@ -88,7 +88,7 @@ struct RadioBuilder: View {
                     Text("Composers and works".uppercased())
                         
                         .foregroundColor(Color(hex: 0x717171))
-                        .font(.custom("ZillaSlab-Light", size: 12))
+                        .font(.custom("Sanchez-Regular", size: 12))
                         .padding(.top, 20)
                     
                     ScrollView(.horizontal, showsIndicators: false) {
@@ -120,7 +120,7 @@ struct RadioBuilder: View {
                     Text("and".uppercased())
                         
                         .foregroundColor(Color(hex: 0x717171))
-                        .font(.custom("ZillaSlab-Light", size: 8))
+                        .font(.custom("Sanchez-Regular", size: 8))
                         .padding(4)
                         .overlay(
                             RoundedRectangle(cornerRadius: 12)
@@ -133,7 +133,7 @@ struct RadioBuilder: View {
                 Group {
                     Text("Periods".uppercased())
                         .foregroundColor(Color(hex: 0x717171))
-                        .font(.custom("ZillaSlab-Light", size: 12))
+                        .font(.custom("Sanchez-Regular", size: 12))
                         
                     
                     ScrollView(.horizontal, showsIndicators: false) {
@@ -155,7 +155,7 @@ struct RadioBuilder: View {
                     Text("and".uppercased())
                         
                         .foregroundColor(Color(hex: 0x717171))
-                        .font(.custom("ZillaSlab-Light", size: 8))
+                        .font(.custom("Sanchez-Regular", size: 8))
                         .padding(4)
                         .overlay(
                             RoundedRectangle(cornerRadius: 12)
@@ -169,7 +169,7 @@ struct RadioBuilder: View {
                     Text("Genres".uppercased())
                         
                         .foregroundColor(Color(hex: 0x717171))
-                        .font(.custom("ZillaSlab-Light", size: 12))
+                        .font(.custom("Sanchez-Regular", size: 12))
                     
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(alignment: .top, spacing: 14) {

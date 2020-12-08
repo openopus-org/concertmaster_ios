@@ -39,14 +39,14 @@ struct MiniComposerRow: View {
                         
                         .foregroundColor(.white)
                         .lineLimit(20)
-                        .font(.custom("ZillaSlab-Light", size: 11))
+                        .font(.custom("Sanchez-Regular", size: 11))
                     
                     Group {
                         Text("(" + composer.birth!.prefix(4)) + Text(composer.death != nil ? "-" : "") + Text((composer.death?.prefix(4) ?? "")) + Text(")")
                     }
                     .foregroundColor(.white)
                     .lineLimit(20)
-                    .font(.custom("ZillaSlab-Light", size: 9))
+                    .font(.custom("Sanchez-Regular", size: 9))
                 }
                 .padding(.leading, 10)
             }

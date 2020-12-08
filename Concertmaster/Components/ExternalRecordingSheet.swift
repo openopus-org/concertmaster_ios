@@ -24,7 +24,7 @@ struct ExternalRecordingSheet: View {
                 }, label: {
                     Text("Close")
                         .foregroundColor(Color(hex: 0xfce546))
-                        .font(.custom("Barlow-Regular", size: 14))
+                        .font(.custom("PetitaMedium", size: 14))
                 })
             }
             .padding(30)

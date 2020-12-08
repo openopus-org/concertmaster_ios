@@ -46,7 +46,7 @@ struct PlaylistButton: View {
                 Text("\(playlist.summary.works.rows) work\(self.playlist.summary.works.rows > 1 ? "s" : "") by \(playlist.summary.composers.nameList)")
                     
                     .foregroundColor(Color.white)
-                    .font(.custom("ZillaSlab-Light", size: 9))
+                    .font(.custom("Sanchez-Regular", size: 9))
                     .fixedSize(horizontal: false, vertical: true)
                     .lineLimit(20)
             }

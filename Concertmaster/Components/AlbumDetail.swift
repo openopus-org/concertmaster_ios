@@ -87,7 +87,7 @@ struct AlbumDetail: View {
                                     .frame(width: 18, height: 18)
                                         
                                 Text("This album was fetched automatically with no human verification.")
-                                    .font(.custom("ZillaSlab-Light", size: 10))
+                                    .font(.custom("Sanchez-Regular", size: 10))
                                     .lineLimit(20)
                                     .fixedSize(horizontal: false, vertical: true)
                                 

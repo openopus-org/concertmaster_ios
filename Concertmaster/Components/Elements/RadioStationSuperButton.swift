@@ -77,7 +77,7 @@ struct RadioStationSuperButton: View {
                             Text(self.name)
                                 
                                 .foregroundColor(Color.white)
-                                .font(.custom("ZillaSlab-Light", size: UIDevice.current.isLarge ? 17 : 14))
+                                .font(.custom("Sanchez-Regular", size: UIDevice.current.isLarge ? 15 : 13))
                                 .padding(12)
                         }
                     }

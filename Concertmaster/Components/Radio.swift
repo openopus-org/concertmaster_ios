@@ -15,20 +15,20 @@ struct Radio: View {
         ScrollView(showsIndicators: false) {
             VStack(alignment: .leading) {
                 Text("Build your radio station".uppercased())
-                    .font(.custom("ZillaSlab-Medium", size: 13))
+                    .font(.custom("ZillaSlab-SemiBold", size: 13))
                     .foregroundColor(Color(hex: 0xfce546))
                 Text("Build your no-nonsense classical radio! Start a continuous stream of music based on what you want to hear.")
-                    .font(.custom("Barlow-Regular", size: 13))
+                    .font(.custom("PetitaMedium", size: 14))
                 
                 RadioBuilder()
                     .padding(.trailing, -20)
                 
                 Text("Preset radios".uppercased())
-                    .font(.custom("ZillaSlab-Medium", size: 13))
+                    .font(.custom("ZillaSlab-SemiBold", size: 13))
                     .foregroundColor(Color(hex: 0xfce546))
                     .padding(.top, 20)
                 Text("Try one of our carefully curated radio stations. Good for any mood!")
-                    .font(.custom("Barlow-Regular", size: 13))
+                    .font(.custom("PetitaMedium", size: 14))
                 
                 RadioStationsGrid()
                     .padding(.top, 12)

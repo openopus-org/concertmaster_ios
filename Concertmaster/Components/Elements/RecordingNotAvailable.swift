@@ -32,7 +32,7 @@ struct RecordingNotAvailable: View {
                     Text("Couldn't connect to Apple Music")
                         .font(.custom("ZillaSlab-Medium", size: size == "min" ? 11 : 15))
                     Text("Please tap here to try again")
-                        .font(.custom("ZillaSlab-Light", size: size == "min" ? 9 : 13))
+                        .font(.custom("Sanchez-Regular", size: size == "min" ? 9 : 13))
                 }
                 .foregroundColor(Color(hex: size == "min" ? 0x797979 : 0xfce546))
                 

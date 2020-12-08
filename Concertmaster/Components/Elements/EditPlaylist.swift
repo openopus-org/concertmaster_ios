@@ -25,7 +25,7 @@ struct EditPlaylistButtons: View {
             }, label: {
                 Text("Cancel")
                     .foregroundColor(Color(hex: 0xfce546))
-                    .font(.custom("Barlow-Regular", size: 14))
+                    .font(.custom("PetitaMedium", size: 14))
             })
             
             Spacer()
@@ -74,7 +74,7 @@ struct EditPlaylistButtons: View {
                 } else {
                     Text("Done")
                         .foregroundColor(Color(hex: 0xfce546))
-                        .font(.custom("Barlow-SemiBold", size: 14))
+                        .font(.custom("PetitaBold", size: 14))
                 }
             })
         }
@@ -102,7 +102,7 @@ struct EditPlaylist: View {
                 .font(.custom("ZillaSlab-Medium", size: 13))
                 .foregroundColor(Color(hex: 0xfce546))
             Text("Change the name of this playlist")
-                .font(.custom("Barlow-Regular", size: 16))
+                .font(.custom("PetitaMedium", size: 16))
                 .padding(.bottom, 4)
             
             TextField(self.playlistName, text: $editPlaylistName)
@@ -119,7 +119,7 @@ struct EditPlaylist: View {
             HStack {
                 Toggle(isOn: $deletePlaylist) {
                     Text("Permanently remove this playlist")
-                    .font(.custom("Barlow-Regular", size: 16))
+                    .font(.custom("PetitaMedium", size: 16))
                 }
                 .padding(.bottom, 4)
                 .padding(.top, -16)
@@ -130,7 +130,7 @@ struct EditPlaylist: View {
                 .foregroundColor(Color(hex: 0xfce546))
                 .padding(.top, 26)
             Text("Remove selected recordings from this playlist")
-                .font(.custom("Barlow-Regular", size: 16))
+                .font(.custom("PetitaMedium", size: 16))
                 .padding(.bottom, 4)
             
             ScrollView(showsIndicators: false) {

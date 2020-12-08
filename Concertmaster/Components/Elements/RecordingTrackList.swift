@@ -17,13 +17,13 @@ struct RecordingTrackList: View {
             Group {
                 HStack {
                     Text(track.title)
-                        .font(.custom("Barlow-Regular", size: 14))
+                        .font(.custom("PetitaMedium", size: 14))
                         .foregroundColor(color)
                     
                     Spacer()
                     
                     Text(track.readableLength)
-                        .font(.custom("ZillaSlab-Light", size: 11))
+                        .font(.custom("Sanchez-Regular", size: 11))
                         .foregroundColor(color)
                         .padding(.leading, 12)
                 }
