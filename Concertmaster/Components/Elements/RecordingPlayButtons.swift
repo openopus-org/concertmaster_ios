@@ -20,7 +20,7 @@ struct RecordingPlayButtons: View {
     
     var body: some View {
         HStack(spacing: 6) {
-            if self.playState.recording.count > 0 && self.playState.recording.first!.apple_albumid == self.recording.apple_albumid && self.playState.recording.first!.work!.id == self.recording.work!.id && self.playState.recording.first!.set == self.recording.set {
+            if self.playState.recording.count > 0 && self.playState.recording.first!.spotify_albumid == self.recording.spotify_albumid && self.playState.recording.first!.work!.id == self.recording.work!.id && self.playState.recording.first!.set == self.recording.set {
                 Button(
                     action: {
                         self.AppState.fullPlayer = true
@@ -94,7 +94,7 @@ struct RecordingPlayButtons: View {
             
             
             Button(
-                action: { UIApplication.shared.open(URL(string: AppConstants.appleLink.replacingOccurrences(of: "%%COUNTRY%%", with: self.settingStore.country.isEmpty ? "us" : self.settingStore.country) + self.recording.apple_albumid)!) },
+                action: { UIApplication.shared.open(URL(string: AppConstants.spotifyLink.replacingOccurrences(of: "%%COUNTRY%%", with: self.settingStore.country.isEmpty ? "us" : self.settingStore.country) + self.recording.spotify_albumid)!) },
                 label: {
                     HStack {
                         Spacer()

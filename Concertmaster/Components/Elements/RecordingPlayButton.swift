@@ -19,7 +19,7 @@ struct RecordingPlayButton: View {
     
     var body: some View {
         HStack(spacing: 6) {
-            if self.playState.recording.count > 0 && self.playState.recording.first!.apple_albumid == self.recording.recording.apple_albumid && self.playState.recording.first!.work!.id == self.recording.work.id && self.playState.recording.first!.set == self.recording.recording.set {
+            if self.playState.recording.count > 0 && self.playState.recording.first!.spotify_albumid == self.recording.recording.spotify_albumid && self.playState.recording.first!.work!.id == self.recording.work.id && self.playState.recording.first!.set == self.recording.recording.set {
                 Button(
                     action: {
                         self.AppState.fullPlayer = true

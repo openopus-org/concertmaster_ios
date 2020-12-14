@@ -34,7 +34,7 @@ struct PlaylistButtons: View {
                             self.previewBridge.setQueueAndPlay(tracks: self.playState.recording.first!.previews!, starttrack: 0, autoplay: false, zeroqueue: false)
                         } else {
                             self.mediaBridge.stop()
-                            self.mediaBridge.setQueueAndPlay(tracks: self.playState.recording.first!.apple_tracks!, starttrack: self.playState.recording.first!.apple_tracks!.first!, autoplay: false)
+                            self.mediaBridge.setQueueAndPlay(tracks: self.playState.recording.first!.spotify_tracks!, starttrack: self.playState.recording.first!.spotify_tracks!.first!, autoplay: false)
                         }
                     } else {
                         var recs = self.recordings

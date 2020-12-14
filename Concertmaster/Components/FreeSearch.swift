@@ -218,7 +218,7 @@ struct FreeSearch: View {
                                         ForEach(self.recordings, id: \.id) { recording in
                                             Group {
                                                 if !recording.isCompilation || !self.settingStore.hideIncomplete {
-                                                    NavigationLink(destination: RecordingDetail(workId: recording.work!.id, recordingId: recording.apple_albumid, recordingSet: recording.set, isSheet: false, isSearch: true).environmentObject(self.settingStore).environmentObject(self.AppState).environmentObject(self.playState).environmentObject(self.radioState), label: {
+                                                    NavigationLink(destination: RecordingDetail(workId: recording.work!.id, recordingId: recording.spotify_albumid, recordingSet: recording.set, isSheet: false, isSearch: true).environmentObject(self.settingStore).environmentObject(self.AppState).environmentObject(self.playState).environmentObject(self.radioState), label: {
                                                         RecordingRow(recording: recording)
                                                     })
                                                 }
@@ -281,7 +281,7 @@ struct FreeSearch: View {
                                 .padding(.top, 14)
                                 .padding(.trailing, 10)
                                 
-                                NavigationLink(destination: RecordingDetail(workId: recording.work!.id, recordingId: recording.apple_albumid, recordingSet: recording.set, isSheet: false, isSearch: true).environmentObject(self.settingStore).environmentObject(self.AppState).environmentObject(self.playState).environmentObject(self.radioState), label: {
+                                NavigationLink(destination: RecordingDetail(workId: recording.work!.id, recordingId: recording.spotify_albumid, recordingSet: recording.set, isSheet: false, isSearch: true).environmentObject(self.settingStore).environmentObject(self.AppState).environmentObject(self.playState).environmentObject(self.radioState), label: {
                                     MicroRecordingRow(recording: recording)
                                 })
                                 

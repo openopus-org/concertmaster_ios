@@ -44,7 +44,7 @@ struct RecordingWorkPerformers: View {
     var actionSheet: ActionSheet {
         ActionSheet(title: Text("Select an action"), message: nil, buttons: [
             .default(Text(self.settingStore.favoriteRecordings.contains("\(self.recording.id)") ? "Remove recording from favorites" : "Add recording to favorites"), action: {
-                APIpost("\(AppConstants.concBackend)/dyn/user/recording/\(self.settingStore.favoriteRecordings.contains("\(self.recording.id)") ? "unfavorite" : "favorite")/", parameters: ["id": self.settingStore.userId, "auth": authGen(userId: self.settingStore.userId, userAuth: self.settingStore.userAuth) ?? "", "wid": self.recording.work!.id, "aid": self.recording.apple_albumid, "set": self.recording.set, "cover": self.recording.cover ?? AppConstants.concNoCoverImg, "performers": self.recording.jsonPerformers, "work": (self.recording.work!.id.contains("at*") ? self.recording.work!.title : ""), "composer": (self.recording.work!.composer!.id == "0" ? self.recording.work!.composer!.complete_name : (self.recording.work!.id.contains("at*") ? self.recording.work!.composer!.name : ""))]) { results in
+                APIpost("\(AppConstants.concBackend)/dyn/user/recording/\(self.settingStore.favoriteRecordings.contains("\(self.recording.id)") ? "unfavorite" : "favorite")/", parameters: ["id": self.settingStore.userId, "auth": authGen(userId: self.settingStore.userId, userAuth: self.settingStore.userAuth) ?? "", "wid": self.recording.work!.id, "aid": self.recording.spotify_albumid, "set": self.recording.set, "cover": self.recording.cover ?? AppConstants.concNoCoverImg, "performers": self.recording.jsonPerformers, "work": (self.recording.work!.id.contains("at*") ? self.recording.work!.title : ""), "composer": (self.recording.work!.composer!.id == "0" ? self.recording.work!.composer!.complete_name : (self.recording.work!.id.contains("at*") ? self.recording.work!.composer!.name : ""))]) { results in
                     
                     if let addRecordings: AddRecordings = safeJSON(results) {
                         DispatchQueue.main.async {
@@ -84,7 +84,7 @@ struct RecordingWorkPerformers: View {
                     .frame(width: 110, height: 110)
                     .padding(.trailing, 8)
                 } else {
-                    NavigationLink(destination: AlbumDetail(albumId: recording.apple_albumid).environmentObject(self.settingStore).environmentObject(self.AppState).environmentObject(self.playState).environmentObject(self.radioState), label: {
+                    NavigationLink(destination: AlbumDetail(albumId: recording.spotify_albumid).environmentObject(self.settingStore).environmentObject(self.AppState).environmentObject(self.playState).environmentObject(self.radioState), label: {
                         VStack {
                             URLImage(recording.cover ?? URL(fileURLWithPath: AppConstants.concNoCoverImg), placeholder: { _ in
                                 Rectangle()
@@ -178,7 +178,7 @@ struct RecordingWorkPerformers: View {
                 if !isSheet {
                     Button(action: {
                         self.loadingSheet = true
-                        APIget(AppConstants.concBackend+"/recording/shorturl/work/\(self.recording.work!.id)/album/\(self.recording.apple_albumid)/\(self.recording.set).json") { results in
+                        APIget(AppConstants.concBackend+"/recording/shorturl/work/\(self.recording.work!.id)/album/\(self.recording.spotify_albumid)/\(self.recording.set).json") { results in
                             
                             if let recordingData: ShortRecordingDetail = safeJSON(results) {
                                 DispatchQueue.main.async {

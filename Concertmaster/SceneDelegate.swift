@@ -50,7 +50,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
                 APIget(AppConstants.concBackend+"/recording/unshorten/\(shortId).json") { results in
                     if let recordingData: ShortRecordingDetail = safeJSON(results) {
                         DispatchQueue.main.async {
-                            self.appState.externalUrl = [recordingData.recording.work_id ?? "0", recordingData.recording.apple_albumid ?? "0", recordingData.recording.set ?? "0"]
+                            self.appState.externalUrl = [recordingData.recording.work_id ?? "0", recordingData.recording.spotify_albumid ?? "0", recordingData.recording.set ?? "0"]
                         }
                     } else {
                         DispatchQueue.main.async {

@@ -20,6 +20,10 @@ struct RecentReleases: View {
         self.recordings.removeAll()
         loading = true
         
+        Timer.scheduledTimer(withTimeInterval: 2, repeats: false) {_ in
+            self.appState.isLoading = false
+        }
+        
         APIget(AppConstants.concBackend+"/recording/list/recent.json") { results in
             if let recsData: PlaylistRecordings = safeJSON(results) {
                 DispatchQueue.main.async {
@@ -54,7 +58,7 @@ struct RecentReleases: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(alignment: .top, spacing: 14) {
                     ForEach(self.recordings, id: \.id) { recording in
-                        NavigationLink(destination: RecordingDetail(workId: recording.work!.id, recordingId: recording.apple_albumid, recordingSet: recording.set, isSheet: false, isSearch: false).environmentObject(self.settingStore).environmentObject(self.appState).environmentObject(self.playState).environmentObject(self.radioState), label: {
+                        NavigationLink(destination: RecordingDetail(workId: recording.work!.id, recordingId: recording.spotify_albumid, recordingSet: recording.set, isSheet: false, isSearch: false).environmentObject(self.settingStore).environmentObject(self.appState).environmentObject(self.playState).environmentObject(self.radioState), label: {
                             RecordingBox(recording: recording)
                         })
                     }

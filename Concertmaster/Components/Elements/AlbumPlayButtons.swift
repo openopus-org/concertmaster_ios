@@ -23,7 +23,7 @@ struct AlbumPlayButtons: View {
         HStack(spacing: 6) {
             Button(
                 action: {
-                    if self.radioState.isActive && self.radioState.playlistId == "album-\(self.album.apple_albumid)" {
+                    if self.radioState.isActive && self.radioState.playlistId == "album-\(self.album.spotify_albumid)" {
                         self.radioState.isActive = false
                         self.radioState.playlistId = ""
                         self.radioState.nextWorks.removeAll()
@@ -34,12 +34,12 @@ struct AlbumPlayButtons: View {
                             self.previewBridge.setQueueAndPlay(tracks: self.playState.recording.first!.previews!, starttrack: 0, autoplay: false, zeroqueue: false)
                         } else {
                             self.mediaBridge.stop()
-                            self.mediaBridge.setQueueAndPlay(tracks: self.playState.recording.first!.apple_tracks!, starttrack: self.playState.recording.first!.apple_tracks!.first!, autoplay: false)
+                            self.mediaBridge.setQueueAndPlay(tracks: self.playState.recording.first!.spotify_tracks!, starttrack: self.playState.recording.first!.spotify_tracks!.first!, autoplay: false)
                         }
                     } else {
                         self.isLoading = true
                         self.radioState.isActive = true
-                        self.radioState.playlistId = "album-\(self.album.apple_albumid)"
+                        self.radioState.playlistId = "album-\(self.album.spotify_albumid)"
                         self.radioState.nextWorks.removeAll()
                         self.radioState.nextRecordings = self.recordings
                         
@@ -66,7 +66,7 @@ struct AlbumPlayButtons: View {
                             if self.isLoading {
                                 ActivityIndicator(isAnimating: self.isLoading)
                                 .configure { $0.color = .white; $0.style = .medium }
-                            } else if self.radioState.isActive && self.radioState.playlistId == "album-\(self.album.apple_albumid)" {
+                            } else if self.radioState.isActive && self.radioState.playlistId == "album-\(self.album.spotify_albumid)" {
                                 AnimatedRadioIcon(color: Color(hex: 0x000000), isAnimated: true)
                                     .frame(width: 40, height: 20)
                                     .padding(.trailing, 3)
@@ -74,7 +74,7 @@ struct AlbumPlayButtons: View {
                                     
                                 Text(("stop radio").uppercased())
                                     .foregroundColor(.white)
-                                    .font(.custom("Sanchez-Regular", size: self.radioState.isActive && self.radioState.playlistId == "album-\(self.album.apple_albumid)" ? 12 : 13))
+                                    .font(.custom("Sanchez-Regular", size: self.radioState.isActive && self.radioState.playlistId == "album-\(self.album.spotify_albumid)" ? 12 : 13))
                             } else {
                                 Image("play")
                                     .resizable()
@@ -92,12 +92,12 @@ struct AlbumPlayButtons: View {
                     .frame(minHeight: 38)
                     .clipped()
                     .foregroundColor(.white)
-                    .background(Color(hex: self.radioState.isActive && self.radioState.playlistId == "album-\(self.album.apple_albumid)" ? 0x696969 : 0xfce546))
+                    .background(Color(hex: self.radioState.isActive && self.radioState.playlistId == "album-\(self.album.spotify_albumid)" ? 0x696969 : 0xfce546))
                     //.cornerRadius(16)
             })
             
             Button(
-                action: { UIApplication.shared.open(URL(string: AppConstants.appleLink.replacingOccurrences(of: "%%COUNTRY%%", with: self.settingStore.country.isEmpty ? "us" : self.settingStore.country) + album.apple_albumid)!) },
+                action: { UIApplication.shared.open(URL(string: AppConstants.spotifyLink.replacingOccurrences(of: "%%COUNTRY%%", with: self.settingStore.country.isEmpty ? "us" : self.settingStore.country) + album.spotify_albumid)!) },
                 label: {
                     HStack {
                         Spacer()

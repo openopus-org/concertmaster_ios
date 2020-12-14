@@ -980,7 +980,7 @@ public func timeframe(timestamp: Int, minutes: Int) -> Bool {
 }
 
 func MarkPlayed(settingStore: SettingStore, playState: PlayState, completion: @escaping (Data) -> ()) {
-    APIpost("\(AppConstants.concBackend)/dyn/user/recording/played/", parameters: ["auth": authGen(userId: settingStore.userId, userAuth: settingStore.userAuth) ?? "", "id": settingStore.userId, "wid": playState.recording.first!.work!.id, "aid": playState.recording.first!.apple_albumid, "set": playState.recording.first!.set, "cover": playState.recording.first!.cover ?? AppConstants.concNoCoverImg, "performers": playState.recording.first!.jsonPerformers, "work": (playState.recording.first!.work!.id.contains("at*") ? playState.recording.first!.work!.title : ""), "composer": (playState.recording.first!.work!.composer!.id == "0" ? playState.recording.first!.work!.composer!.complete_name : (playState.recording.first!.work!.id.contains("at*") ? playState.recording.first!.work!.composer!.name : ""))]) { results in
+    APIpost("\(AppConstants.concBackend)/dyn/user/recording/played/", parameters: ["auth": authGen(userId: settingStore.userId, userAuth: settingStore.userAuth) ?? "", "id": settingStore.userId, "wid": playState.recording.first!.work!.id, "aid": playState.recording.first!.spotify_albumid, "set": playState.recording.first!.set, "cover": playState.recording.first!.cover ?? AppConstants.concNoCoverImg, "performers": playState.recording.first!.jsonPerformers, "work": (playState.recording.first!.work!.id.contains("at*") ? playState.recording.first!.work!.title : ""), "composer": (playState.recording.first!.work!.composer!.id == "0" ? playState.recording.first!.work!.composer!.complete_name : (playState.recording.first!.work!.id.contains("at*") ? playState.recording.first!.work!.composer!.name : ""))]) { results in
             completion(results)
     }
 }
@@ -1029,7 +1029,7 @@ func randomRecording(workQueue: [Work], hideIncomplete: Bool, country: String, c
                         ($0.isCompilation == false) || (hideIncomplete == false)
                     }).randomElement() {
                         print("*️⃣ Compilation: \(rec.isCompilation)")
-                        APIget(AppConstants.concBackend+"/recording/" + (country != "" ? country + "/" : "") + "detail/work/\(work.id)/album/\(rec.apple_albumid)/\(rec.set).json") { results in
+                        APIget(AppConstants.concBackend+"/recording/" + (country != "" ? country + "/" : "") + "detail/work/\(work.id)/album/\(rec.spotify_albumid)/\(rec.set).json") { results in
                             if let recordingData: FullRecording = safeJSON(results) {
                                 var rec = recordingData.recording
                                 rec.work = recordingData.work
@@ -1053,7 +1053,7 @@ func randomRecording(workQueue: [Work], hideIncomplete: Bool, country: String, c
 }
 
 func getRecordingDetail(recording: Recording, country: String, completion: @escaping ([Recording]) -> ()) {
-    APIget(AppConstants.concBackend+"/recording/" + (country != "" ? country + "/" : "") + "detail/work/\(recording.work!.id)/album/\(recording.apple_albumid)/\(recording.set).json") { results in
+    APIget(AppConstants.concBackend+"/recording/" + (country != "" ? country + "/" : "") + "detail/work/\(recording.work!.id)/album/\(recording.spotify_albumid)/\(recording.set).json") { results in
         if let recordingData: FullRecording = safeJSON(results) {
             var rec = recordingData.recording
             rec.work = recordingData.work

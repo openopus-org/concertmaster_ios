@@ -54,7 +54,7 @@ struct RecentSearch: Codable {
 }
 
 extension RecentSearch: Identifiable, Equatable {
-    var id: String { return "albumid_\(recording?.apple_albumid ?? "0")_work_\(work?.id ?? "0")_composer_\(composer?.id ?? "0")" }
+    var id: String { return "albumid_\(recording?.spotify_albumid ?? "0")_work_\(work?.id ?? "0")_composer_\(composer?.id ?? "0")" }
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
@@ -85,7 +85,7 @@ struct FullRecording: Codable {
 }
 
 extension FullRecording: Identifiable, Equatable {
-    var id: String { return "\(recording.tracks!.first!.apple_trackid)-\(work.id)-\(recording.apple_albumid)-\(recording.set)" }
+    var id: String { return "\(recording.tracks!.first!.spotify_trackid)-\(work.id)-\(recording.spotify_albumid)-\(recording.set)" }
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
@@ -106,7 +106,7 @@ struct Track: Codable {
     var index: Int
     var length: Int
     var title: String
-    var apple_trackid: String
+    var spotify_trackid: String
     var preview: URL?
     var starting_point: Int
     
@@ -116,7 +116,7 @@ struct Track: Codable {
 }
 
 extension Track: Identifiable {
-    var id: String { return apple_trackid }
+    var id: String { return spotify_trackid }
 }
 
 struct CurrentTrack: Codable {
@@ -150,7 +150,7 @@ struct CurrentTrack: Codable {
 
 struct Recording: Codable {
     var cover: URL?
-    var apple_albumid: String
+    var spotify_albumid: String
     var singletrack: String?
     var compilation: String?
     var observation: String?
@@ -161,7 +161,7 @@ struct Recording: Codable {
     var label: String?
     var length: Int?
     var tracks: [Track]?
-    var apple_tracks: [String]?
+    var spotify_tracks: [String]?
     var previews: [URL]?
     var work: Work?
     var position: Int?
@@ -199,7 +199,7 @@ extension Recording: Identifiable, Equatable {
             return rid
         }
         else {
-            return "\(work?.id ?? "0")-\(apple_albumid)-\(set)"
+            return "\(work?.id ?? "0")-\(spotify_albumid)-\(set)"
         }
     }
     
@@ -233,11 +233,11 @@ struct Performer: Codable {
 
 struct Album: Codable {
     var cover: URL?
-    var apple_albumid: String
+    var spotify_albumid: String
     var title: String
     var label: String
     var length: Int?
-    var apple_tracks: [String]?
+    var spotify_tracks: [String]?
     var previews: [URL]?
     var year: String
     
@@ -330,7 +330,7 @@ struct ShortRecordingDetail: Codable {
 struct ShortRecording: Codable {
     var id: String
     var work_id: String?
-    var apple_albumid: String?
+    var spotify_albumid: String?
     var set: String?
 }
 
@@ -357,7 +357,7 @@ struct TrackQueue: Codable {
 }
 
 struct TrackQueued: Codable {
-    var apple_trackid: String
+    var spotify_trackid: String
     var recording_id: String
 }
 

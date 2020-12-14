@@ -157,7 +157,7 @@ struct Player: View {
                                     if self.currentTrack[0].preview {
                                         self.previewBridge.addToQueue(tracks: rec.first!.previews!)
                                     } else {
-                                        self.mediaBridge.addToQueue(tracks: rec.first!.apple_tracks!)
+                                        self.mediaBridge.addToQueue(tracks: rec.first!.spotify_tracks!)
                                     }
                                     
                                     self.radioState.nextRecordings[0] = rec.first!
@@ -185,7 +185,7 @@ struct Player: View {
                             if self.currentTrack[0].preview {
                                 self.previewBridge.addToQueue(tracks: recordingData.first!.previews!)
                             } else {
-                                self.mediaBridge.addToQueue(tracks: recordingData.first!.apple_tracks!)
+                                self.mediaBridge.addToQueue(tracks: recordingData.first!.spotify_tracks!)
                             }
                             
                             self.radioState.nextRecordings[0] = recordingData.first!
@@ -218,7 +218,7 @@ struct Player: View {
                     
                     // let's play some music!
                     
-                    if let tracks = self.playState.recording.first!.apple_tracks {
+                    if let tracks = self.playState.recording.first!.spotify_tracks {
                         
                         if !self.playState.keepQueue {
                             self.playState.preview = false
@@ -464,7 +464,7 @@ struct Player: View {
                             
                             if let currenttrackfirst = self.currentTrack.first {
                                 if let playstaterecordingfirst = self.playState.recording.first {
-                                    if let appletracks = playstaterecordingfirst.apple_tracks {
+                                    if let appletracks = playstaterecordingfirst.spotify_tracks {
                                         if let playstaterecordingfirsttracks = playstaterecordingfirst.tracks {
                                             if trackIndex >= currenttrackfirst.zero_index + appletracks.count {
                                                 // next recording
@@ -527,7 +527,7 @@ struct Player: View {
             if self.currentTrack.count > 0 {
                 let trackIndex = self.previewBridge.getCurrentTrackIndex()
                 
-                if trackIndex >= self.currentTrack.first!.zero_index + self.playState.recording.first!.apple_tracks!.count {
+                if trackIndex >= self.currentTrack.first!.zero_index + self.playState.recording.first!.spotify_tracks!.count {
                     // next recording
                     
                     if self.radioState.nextRecordings.count > 0 {

@@ -29,10 +29,10 @@ struct RecordingProgressBars: View {
                                 
                                 if self.currentTrack.first!.preview {
                                     self.previewBridge.stop()
-                                    self.previewBridge.setQueueAndPlay(tracks: self.radioState.nextRecordings.count > 0 ? self.playState.recording.first!.previews! + self.radioState.nextRecordings.first!.previews! : self.playState.recording.first!.previews!, starttrack: self.recording.tracks!.firstIndex{$0.apple_trackid == track.apple_trackid} ?? 0, autoplay: true, zeroqueue: false)
+                                    self.previewBridge.setQueueAndPlay(tracks: self.radioState.nextRecordings.count > 0 ? self.playState.recording.first!.previews! + self.radioState.nextRecordings.first!.previews! : self.playState.recording.first!.previews!, starttrack: self.recording.tracks!.firstIndex{$0.spotify_trackid == track.spotify_trackid} ?? 0, autoplay: true, zeroqueue: false)
                                 } else {
                                     self.mediaBridge.stop()
-                                    self.mediaBridge.setQueueAndPlay(tracks: self.radioState.nextRecordings.count > 0 ? self.playState.recording.first!.apple_tracks! + self.radioState.nextRecordings.first!.apple_tracks! : self.playState.recording.first!.apple_tracks!, starttrack: track.apple_trackid, autoplay: true)
+                                    self.mediaBridge.setQueueAndPlay(tracks: self.radioState.nextRecordings.count > 0 ? self.playState.recording.first!.spotify_tracks! + self.radioState.nextRecordings.first!.spotify_tracks! : self.playState.recording.first!.spotify_tracks!, starttrack: track.spotify_trackid, autoplay: true)
                                 }
                             }, label: {
                                 Text(track.title)

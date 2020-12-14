@@ -202,7 +202,7 @@ struct RadioBuilder: View {
                             } else {
                                 self.mediaBridge.stop()
                                 if let firstrecording = self.playState.recording.first {
-                                    self.mediaBridge.setQueueAndPlay(tracks: firstrecording.apple_tracks!, starttrack: firstrecording.apple_tracks!.first!, autoplay: false)
+                                    self.mediaBridge.setQueueAndPlay(tracks: firstrecording.spotify_tracks!, starttrack: firstrecording.spotify_tracks!.first!, autoplay: false)
                                 }
                             }
                         } else {

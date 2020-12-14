@@ -43,7 +43,7 @@ struct RecordingRow: View {
                     .background(Color.black)
                     .clipped()
                     .clipShape(Circle())
-                    .offset(x: -18)
+                    .offset(x: -18, y: -5)
                 }
             }
             VStack(alignment: .leading) {
