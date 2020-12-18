@@ -53,7 +53,7 @@ struct Structure: View {
                         .sheet(isPresented: $showExternalDetail) {
                             Group {
                                 if self.AppState.externalUrl.count == 3 {
-                                    ExternalRecordingSheet(workId: self.AppState.externalUrl[0], recordingId: self.AppState.externalUrl[1], recordingSet: Int(self.AppState.externalUrl[2]) ?? 1)
+                                    ExternalRecordingSheet(workId: self.AppState.externalUrl[0], recordingId: self.AppState.externalUrl[1], recordingSet: self.AppState.externalUrl[2])
                                         .environmentObject(self.settingStore)
                                         .environmentObject(self.playState)
                                         .environmentObject(self.radioState)
@@ -114,7 +114,7 @@ struct Structure: View {
             .sheet(isPresented: $showExternalDetail) {
                 Group {
                     if self.AppState.externalUrl.count == 3 {
-                        ExternalRecordingSheet(workId: self.AppState.externalUrl[0], recordingId: self.AppState.externalUrl[1], recordingSet: Int(self.AppState.externalUrl[2]) ?? 1)
+                        ExternalRecordingSheet(workId: self.AppState.externalUrl[0], recordingId: self.AppState.externalUrl[1], recordingSet: self.AppState.externalUrl[2])
                             .environmentObject(self.settingStore)
                             .environmentObject(self.playState)
                             .environmentObject(self.radioState)

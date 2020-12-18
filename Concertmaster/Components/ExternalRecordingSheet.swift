@@ -11,7 +11,7 @@ import SwiftUI
 struct ExternalRecordingSheet: View {
     var workId: String
     var recordingId: String
-    var recordingSet: Int
+    var recordingSet: String
     @EnvironmentObject var AppState: AppState
     
     var body: some View {

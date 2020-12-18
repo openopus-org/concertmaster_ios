@@ -11,7 +11,7 @@ import SwiftUI
 struct RecordingDetail: View {
     var workId: String
     var recordingId: String
-    var recordingSet: Int
+    var recordingSet: String
     var isSheet: Bool
     var isSearch: Bool
     @State private var error = false

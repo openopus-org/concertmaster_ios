@@ -155,7 +155,7 @@ struct Recording: Codable {
     var compilation: String?
     var observation: String?
     var performers: [Performer]
-    var set: Int
+    var set: String
     var historic: String?
     var verified: String
     var label: String?
