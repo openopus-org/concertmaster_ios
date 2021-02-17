@@ -852,7 +852,7 @@ final class SettingStore: ObservableObject {
     @UserDefault("concertmaster.firstUsage", defaultValue: true) var firstUsage: Bool
     @UserDefault("concertmaster.hideIncomplete", defaultValue: true) var hideIncomplete: Bool
     @UserDefault("concertmaster.hideHistorical", defaultValue: true) var hideHistorical: Bool
-    @UserDefault("concertmaster.userId", defaultValue: 0) var userId: Int {
+    @UserDefault("concertmaster.userId", defaultValue: "") var userId: String {
         didSet {
             userIdDidChange.send()
         }
@@ -862,8 +862,6 @@ final class SettingStore: ObservableObject {
     @UserDefault("concertmaster.lastAskedDonation", defaultValue: 0) var lastAskedDonation: Int
     @UserDefault("concertmaster.userAuth", defaultValue: "") var userAuth: String
     @UserDefault("concertmaster.country", defaultValue: "") var country: String
-    @UserDefault("concertmaster.spotifyId", defaultValue: "") var spotifyId: String
-    @UserDefault("concertmaster.appleId", defaultValue: "") var appleId: String
     @UserDefault("concertmaster.deviceId", defaultValue: "") var deviceId: String
     @UserDefault("concertmaster.accessToken", defaultValue: "") var accessToken: String
     
@@ -958,7 +956,7 @@ public func MD5(_ string: String) -> String? {
     }
 }
 
-public func authGen(userId: Int, userAuth: String) -> String? {
+public func authGen(userId: String, userAuth: String) -> String? {
     let timestamp = (((Date().millisecondsSince1970 / 1000 | 0) + (60 * 1)) / (60 * 5) | 0)
     if let auth = MD5("\(timestamp)-\(userId)-\(userAuth)") {
         return auth
@@ -1009,7 +1007,7 @@ class AppleMusicSubscribeController: UIViewController {
     }
 }
 
-public func startRadio(userId: Int, parameters: [String: Any], completion: @escaping (Data) -> ()) {
+public func startRadio(userId: String, parameters: [String: Any], completion: @escaping (Data) -> ()) {
     APIpost("\(AppConstants.concBackend)/dyn/user/work/random/", parameters: ["id": userId, "popularcomposer": parameters["popularcomposer"] ?? "", "recommendedcomposer": parameters["recommendedcomposer"] ?? "", "popularwork": parameters["popularwork"] ?? "", "recommendedwork": parameters["recommendedwork"] ?? "", "genre": parameters["genre"] ?? "", "epoch": parameters["epoch"] ?? "", "composer": parameters["composer"] ?? "", "work": parameters["work"] ?? ""]) { results in
             completion(results)
     }

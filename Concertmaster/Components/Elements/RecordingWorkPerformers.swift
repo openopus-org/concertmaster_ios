@@ -197,7 +197,7 @@ struct RecordingWorkPerformers: View {
                     })
                 }
                 
-                if self.settingStore.userId > 0 {
+                if self.settingStore.userId != "" {
                     Button(action: {
                         self.showSheet = true
                     })

@@ -206,7 +206,7 @@ struct RadioBuilder: View {
                                 }
                             }
                         } else {
-                            if self.settingStore.userId > 0 {
+                            if self.settingStore.userId != "" {
                                 self.initRadio()
                             } else {
                                 self.isLoading = true

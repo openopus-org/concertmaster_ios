@@ -191,6 +191,17 @@ struct Recording: Codable {
             }
         }
     }
+    
+    var jsonTracks: String {
+        get {
+            do {
+                let jsonData = try JSONEncoder().encode(spotify_tracks)
+                return String(data: jsonData, encoding: .utf8)!
+            } catch {
+                return ""
+            }
+        }
+    }
 }
 
 extension Recording: Identifiable, Equatable {
@@ -272,8 +283,7 @@ struct Login: Codable {
 }
 
 struct User: Codable, Identifiable {
-    var apple_recid: String
-    var id: Int
+    var id: String
     var auth: String?
     var heavyuser: Int?
 }

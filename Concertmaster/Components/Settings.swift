@@ -48,7 +48,6 @@ struct Settings: View {
                     
                     DispatchQueue.main.async {
                         self.settingStore.userId = login.user.id
-                        self.settingStore.appleId = appleId
                         
                         if let auth = login.user.auth {
                             self.settingStore.userAuth = auth
@@ -293,8 +292,8 @@ struct Settings: View {
                 self.loadData()
             }
             
-            self.showSignIn = (self.settingStore.userId > 0)
-            self.alreadyLogged = !self.settingStore.appleId.isEmpty
+            self.showSignIn = false
+            self.alreadyLogged = false
             
             SwiftyStoreKit.retrieveProductsInfo(Set(AppConstants.inAppPurchases)) { result in
                 if result.retrievedProducts.first != nil {
@@ -307,8 +306,8 @@ struct Settings: View {
         })
         .onReceive(settingStore.userIdDidChange, perform: {
             print("🆗 user id changed")
-            self.showSignIn = (self.settingStore.userId > 0)
-            self.alreadyLogged = !self.settingStore.appleId.isEmpty
+            self.showSignIn = false
+            self.alreadyLogged = false
         })
     }
 }

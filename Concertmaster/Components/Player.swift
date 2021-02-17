@@ -39,7 +39,7 @@ struct Player: View {
         if self.playState.autoplay {
             // logging in the session
 
-            if self.settingStore.userId > 0 {
+            if self.settingStore.userId != "" {
                 MarkPlayed(settingStore: self.settingStore, playState: self.playState) { results in
                     /*DispatchQueue.main.async {
                         self.settingStore.lastPlayedRecording = self.playState.recording
@@ -82,7 +82,7 @@ struct Player: View {
             if (!self.appRemote!.isConnected) {
                 self.sessionManager?.initiateSession(with: AppConstants.SpotifyAuthScopes, options: .default)
             } else {
-                APIBearerPut("\(AppConstants.SpotifyAPI)/me/player/play?device_id=\(self.settingStore.deviceId)", body: "{ \"uris\": [\"spotify:track:3Y5HdrMjQUhTyEynrweOvS\", \"spotify:track:0sJPCUnyjuQAKXpkUPeX1S\", \"spotify:track:0gTUHNRHdNkoIzNcMKNYWo\", \"spotify:track:3JuIQapBicr2Ez0aA0I7fM\",\"spotify:track:3VxMxFWY6de6ZE36Ljyrsh\"], \"offset\": { \"position\": 0 } }", bearer: self.settingStore.accessToken) { results in
+                APIBearerPut("\(AppConstants.SpotifyAPI)/me/player/play?device_id=\(self.settingStore.deviceId)", body: "{ \"uris\": \(self.playState.recording.first!.jsonTracks), \"offset\": { \"position\": 0 } }", bearer: self.settingStore.accessToken) { results in
                     print(String(decoding: results, as: UTF8.self))
                 }
             }

@@ -166,16 +166,79 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
         self.settingStore.accessToken = session.accessToken
         appRemote.connect()
         
-        if self.settingStore.deviceId == "" {
-            APIBearerGet("\(AppConstants.SpotifyAPI)/me/player/devices", bearer: session.accessToken) { results in
-                print(String(decoding: results, as: UTF8.self))
-                if let devicesData: Devices = safeJSON(results) {
-                    devicesData.devices.forEach() {
-                        if $0.is_active {
-                            self.settingStore.deviceId = $0.id
-                            print ("device id \($0.id)")
+        APIpost("\(AppConstants.concBackend)/dyn/user/login/", parameters: ["token": session.accessToken ]) { results in
+            print("👀 User details 👇🏻")
+            print(String(decoding: results, as: UTF8.self))
+            
+            if let login: Login = safeJSON(results) {
+                DispatchQueue.main.async {
+                    self.settingStore.userId = login.user.id
+                    self.settingStore.lastLogged = Int(Date().millisecondsSince1970 / (60 * 1000) | 0)
+                    
+                    if let auth = login.user.auth {
+                        self.settingStore.userAuth = auth
+                    }
+                    
+                    if let favoritecomposers = login.favorite {
+                        self.settingStore.favoriteComposers = favoritecomposers
+                    }
+                    
+                    if let favoriteworks = login.works {
+                        self.settingStore.favoriteWorks = favoriteworks
+                    }
+                    
+                    if let composersfavoriteworks = login.composerworks {
+                        self.settingStore.composersFavoriteWorks = composersfavoriteworks
+                    }
+                    
+                    if let favoriterecordings = login.favoriterecordings {
+                        self.settingStore.favoriteRecordings = favoriterecordings
+                    }
+                    
+                    if let forbiddencomposers = login.forbidden {
+                        self.settingStore.forbiddenComposers = forbiddencomposers
+                    }
+                    
+                    if let playlists = login.playlists {
+                        self.settingStore.playlists = playlists
+                    }
+                    
+                    /*
+                    if let heavyuser = login.user.heavyuser {
+                        if heavyuser == 1 {
+                            if timeframe(timestamp: settingStore.lastAskedDonation, minutes: self.settingStore.hasDonated ? AppConstants.minsToAskDonationHasDonated : AppConstants.minsToAskDonation)  {
+                                self.settingStore.hasDonated = false
+                                self.AppState.askDonation = true
+                            } else {
+                                RequestAppStoreReview()
+                            }
                         }
                     }
+                    */
+                }
+            }
+            
+            if self.settingStore.deviceId == "" {
+                APIBearerGet("\(AppConstants.SpotifyAPI)/me/player/devices", bearer: session.accessToken) { results in
+                    print(String(decoding: results, as: UTF8.self))
+                    if let devicesData: Devices = safeJSON(results) {
+                        devicesData.devices.forEach() {
+                            if $0.is_active {
+                                self.settingStore.deviceId = $0.id
+                                print ("device id \($0.id)")
+                                
+                                if self.settingStore.lastPlayState.count > 0 {
+                                    APIBearerPut("\(AppConstants.SpotifyAPI)/me/player/play?device_id=\($0.id)", body: "{ \"uris\": \(self.settingStore.lastPlayState.first!.jsonTracks), \"offset\": { \"position\": 0 } }", bearer: self.settingStore.accessToken) { results in
+                                        print(String(decoding: results, as: UTF8.self))
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            } else if self.settingStore.lastPlayState.count > 0 {
+                APIBearerPut("\(AppConstants.SpotifyAPI)/me/player/play?device_id=\(self.settingStore.deviceId)", body: "{ \"uris\": \(self.settingStore.lastPlayState.first!.jsonTracks), \"offset\": { \"position\": 0 } }", bearer: self.settingStore.accessToken) { results in
+                    print(String(decoding: results, as: UTF8.self))
                 }
             }
         }
