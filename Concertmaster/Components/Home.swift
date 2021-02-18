@@ -17,7 +17,7 @@ struct Home: View {
                 ComposersList()
                 PeriodList()
                 FavoriteComposersList()
-                //RadioStations()
+                RadioStations()
                 RecentReleases()
                 Spacer()
                     .frame(height: 26)
