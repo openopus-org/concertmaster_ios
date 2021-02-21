@@ -48,15 +48,12 @@ struct PlaylistButtons: View {
                         
                         let rec = self.radioState.nextRecordings.removeFirst()
                         
-                        getStoreFront() { countryCode in
-                            if let country = countryCode {
-                                getRecordingDetail(recording: rec, country: country) { recordingData in
-                                    DispatchQueue.main.async {
-                                        self.playState.autoplay = true
-                                        self.playState.recording = recordingData
-                                        self.isLoading = false
-                                    }
-                                }
+                        
+                        getRecordingDetail(recording: rec, country: !self.settingStore.country.isEmpty ? self.settingStore.country : "us") { recordingData in
+                            DispatchQueue.main.async {
+                                self.playState.autoplay = true
+                                self.playState.recording = recordingData
+                                self.isLoading = false
                             }
                         }
                     }

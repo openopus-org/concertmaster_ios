@@ -279,13 +279,13 @@ struct Login: Codable {
     var favorite: [String]?
     var forbidden: [String]?
     var playlists: [Playlist]?
-    var country: String?
 }
 
 struct User: Codable, Identifiable {
     var id: String
     var auth: String?
     var heavyuser: Int?
+    var country: String?
 }
 
 struct Token: Codable {

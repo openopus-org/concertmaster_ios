@@ -50,29 +50,27 @@ struct FreeSearch: View {
     func loadMoreData() {
         paginating = true
         
-        getStoreFront() { countryCode in
-            APIget(AppConstants.concBackend+"/search/\(countryCode ?? "us")/\(self.omnisearch.searchstring)/\(self.offset).json") { results in
-                if let omniData: Omnisearch = safeJSON(results) {
-                    DispatchQueue.main.async {
-                        if let recordings = omniData.recordings {
-                            
-                            for rec in recordings {
-                                if !self.recordings.contains(rec) {
-                                    self.recordings.append(rec)
-                                }
+        APIget(AppConstants.concBackend+"/search/\(!self.settingStore.country.isEmpty ? self.settingStore.country : "us")/\(self.omnisearch.searchstring)/\(self.offset).json") { results in
+            if let omniData: Omnisearch = safeJSON(results) {
+                DispatchQueue.main.async {
+                    if let recordings = omniData.recordings {
+                        
+                        for rec in recordings {
+                            if !self.recordings.contains(rec) {
+                                self.recordings.append(rec)
                             }
-                            
-                            if let next = omniData.next {
-                                self.offset = next
-                            } else {
-                                self.canPaginate = false
-                            }
-                            
-                            self.paginating = false
+                        }
+                        
+                        if let next = omniData.next {
+                            self.offset = next
                         } else {
-                            self.paginating = false
                             self.canPaginate = false
                         }
+                        
+                        self.paginating = false
+                    } else {
+                        self.paginating = false
+                        self.canPaginate = false
                     }
                 }
             }
@@ -85,56 +83,54 @@ struct FreeSearch: View {
         canPaginate = true
         
         if self.omnisearch.searchstring.count > 3 {
-            getStoreFront() { countryCode in
-                APIget(AppConstants.concBackend+"/search/\(countryCode ?? "us")/\(self.omnisearch.searchstring)/\(self.offset).json") { results in
-                    if let omniData: Omnisearch = safeJSON(results) {
-                        DispatchQueue.main.async {
-                            if let recordings = omniData.recordings {
-                                if let next = omniData.next {
-                                    self.offset = next
-                                } else {
-                                    self.canPaginate = false
-                                }
-                                
-                                self.recordings.removeAll()
-                                self.recordings = recordings
-                                self.loading = false
+            APIget(AppConstants.concBackend+"/search/\(!self.settingStore.country.isEmpty ? self.settingStore.country : "us")/\(self.omnisearch.searchstring)/\(self.offset).json") { results in
+                if let omniData: Omnisearch = safeJSON(results) {
+                    DispatchQueue.main.async {
+                        if let recordings = omniData.recordings {
+                            if let next = omniData.next {
+                                self.offset = next
                             } else {
-                                self.recordings = [Recording]()
-                            }
-                                        
-                            if let composers = omniData.composers {
-                                self.composers.removeAll()
-                                self.composers = composers
-                                self.loading = false
-                            } else {
-                                self.composers = [Composer]()
+                                self.canPaginate = false
                             }
                             
-                            if let works = omniData.works {
-                                self.works.removeAll()
-                                self.works = works
-                                self.loading = false
-                            } else {
-                                self.works = [Work]()
-                            }
+                            self.recordings.removeAll()
+                            self.recordings = recordings
+                            self.loading = false
+                        } else {
+                            self.recordings = [Recording]()
+                        }
                                     
-                            
-                            if let composers = omniData.composers {
-                                self.composers.removeAll()
-                                self.composers = composers
-                                self.loading = false
-                            } else {
-                                self.composers = [Composer]()
-                            }
-                            
-                            if let works = omniData.works {
-                                self.works.removeAll()
-                                self.works = works
-                                self.loading = false
-                            } else {
-                                self.works = [Work]()
-                            }
+                        if let composers = omniData.composers {
+                            self.composers.removeAll()
+                            self.composers = composers
+                            self.loading = false
+                        } else {
+                            self.composers = [Composer]()
+                        }
+                        
+                        if let works = omniData.works {
+                            self.works.removeAll()
+                            self.works = works
+                            self.loading = false
+                        } else {
+                            self.works = [Work]()
+                        }
+                                
+                        
+                        if let composers = omniData.composers {
+                            self.composers.removeAll()
+                            self.composers = composers
+                            self.loading = false
+                        } else {
+                            self.composers = [Composer]()
+                        }
+                        
+                        if let works = omniData.works {
+                            self.works.removeAll()
+                            self.works = works
+                            self.loading = false
+                        } else {
+                            self.works = [Work]()
                         }
                     }
                 }

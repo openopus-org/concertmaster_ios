@@ -22,23 +22,21 @@ struct RecordingDetail: View {
     func loadData() {
         loading = true
         
-        getStoreFront() { countryCode in
-            APIget(AppConstants.concBackend+"/recording/\(countryCode ?? "us")/detail/work/\(self.workId)/album/\(self.recordingId)/\(self.recordingSet).json") { results in
-                if let recordingData: FullRecording = safeJSON(results) {
-                    DispatchQueue.main.async {
-                        var rec = recordingData.recording
-                        rec.work = recordingData.work
-                        self.recording = [rec]
-                        
-                        if self.isSearch { self.settingStore.recentSearches = MarkSearched(allSearches: self.settingStore.recentSearches, recentSearch: RecentSearch (recording: self.recording.first!)) }
-                        
-                        self.error = false
-                        self.loading = false
-                    }
-                } else {
-                    self.error = true
+        APIget(AppConstants.concBackend+"/recording/\(!self.settingStore.country.isEmpty ? self.settingStore.country : "us")/detail/work/\(self.workId)/album/\(self.recordingId)/\(self.recordingSet).json") { results in
+            if let recordingData: FullRecording = safeJSON(results) {
+                DispatchQueue.main.async {
+                    var rec = recordingData.recording
+                    rec.work = recordingData.work
+                    self.recording = [rec]
+                    
+                    if self.isSearch { self.settingStore.recentSearches = MarkSearched(allSearches: self.settingStore.recentSearches, recentSearch: RecentSearch (recording: self.recording.first!)) }
+                    
+                    self.error = false
                     self.loading = false
                 }
+            } else {
+                self.error = true
+                self.loading = false
             }
         }
     }

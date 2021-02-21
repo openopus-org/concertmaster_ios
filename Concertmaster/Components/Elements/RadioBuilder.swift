@@ -49,25 +49,23 @@ struct RadioBuilder: View {
                         self.radioState.nextRecordings.removeAll()
                         self.radioState.nextWorks = wrks
                         
-                        getStoreFront() { countryCode in
-                            if let country = countryCode {
-                                randomRecording(workQueue: self.radioState.nextWorks, hideIncomplete: self.settingStore.hideIncomplete, country: country) { rec in
-                                    if rec.count > 0 {
-                                        DispatchQueue.main.async {
-                                            self.isLoading = false
-                                            self.radioState.isActive = true
-                                            self.playState.autoplay = true
-                                            self.playState.recording = rec
-                                        }
-                                    }
-                                    else {
-                                        DispatchQueue.main.async {
-                                            self.isLoading = false
-                                            alertError("No recordings were found.")
-                                        }
-                                    }
+                        
+                        randomRecording(workQueue: self.radioState.nextWorks, hideIncomplete: self.settingStore.hideIncomplete, country: !self.settingStore.country.isEmpty ? self.settingStore.country : "us") { rec in
+                            if rec.count > 0 {
+                                DispatchQueue.main.async {
+                                    self.isLoading = false
+                                    self.radioState.isActive = true
+                                    self.playState.autoplay = true
+                                    self.playState.recording = rec
                                 }
                             }
+                            else {
+                                DispatchQueue.main.async {
+                                    self.isLoading = false
+                                    alertError("No recordings were found.")
+                                }
+                            }
+                                
                         }
                     }
                 } else {
@@ -210,6 +208,7 @@ struct RadioBuilder: View {
                                 self.initRadio()
                             } else {
                                 self.isLoading = true
+                                /*
                                 userLogin(self.playState.autoplay) { country, canPlay, apmusEligible, loginResults in
                                     if let login = loginResults {
                                         
@@ -263,6 +262,7 @@ struct RadioBuilder: View {
                                         self.isLoading = false
                                     }
                                 }
+                                */
                             }
                         }
                     },

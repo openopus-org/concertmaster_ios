@@ -19,19 +19,17 @@ struct AlbumDetail: View {
     func loadData() {
         loading = true
         
-        getStoreFront() { countryCode in
-            APIget(AppConstants.concBackend+"/album/\(countryCode ?? "us")/detail/\(self.albumId).json") { results in
-                if let albumData: FullAlbum = safeJSON(results) {
-                    DispatchQueue.main.async {
-                        self.album = [albumData.album]
-                        self.recordings = albumData.recordings
-                        self.error = false
-                        self.loading = false
-                    }
-                } else {
-                    self.error = true
+        APIget(AppConstants.concBackend+"/album/\(!self.settingStore.country.isEmpty ? self.settingStore.country : "us")/detail/\(self.albumId).json") { results in
+            if let albumData: FullAlbum = safeJSON(results) {
+                DispatchQueue.main.async {
+                    self.album = [albumData.album]
+                    self.recordings = albumData.recordings
+                    self.error = false
                     self.loading = false
                 }
+            } else {
+                self.error = true
+                self.loading = false
             }
         }
     }

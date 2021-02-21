@@ -179,6 +179,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
                         self.settingStore.userAuth = auth
                     }
                     
+                    if let country = login.user.country {
+                        self.settingStore.country = country
+                    }
+                    
                     if let favoritecomposers = login.favorite {
                         self.settingStore.favoriteComposers = favoritecomposers
                     }
@@ -203,22 +207,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
                         self.settingStore.playlists = playlists
                     }
                     
-                    /*
                     if let heavyuser = login.user.heavyuser {
                         if heavyuser == 1 {
-                            if timeframe(timestamp: settingStore.lastAskedDonation, minutes: self.settingStore.hasDonated ? AppConstants.minsToAskDonationHasDonated : AppConstants.minsToAskDonation)  {
+                            if timeframe(timestamp: self.settingStore.lastAskedDonation, minutes: self.settingStore.hasDonated ? AppConstants.minsToAskDonationHasDonated : AppConstants.minsToAskDonation)  {
                                 self.settingStore.hasDonated = false
-                                self.AppState.askDonation = true
+                                self.appState.askDonation = true
                             } else {
                                 RequestAppStoreReview()
                             }
                         }
                     }
-                    */
                 }
             }
             
-            if self.settingStore.deviceId == "" {
+            //if self.settingStore.deviceId == "" {
                 APIBearerGet("\(AppConstants.SpotifyAPI)/me/player/devices", bearer: session.accessToken) { results in
                     print(String(decoding: results, as: UTF8.self))
                     if let devicesData: Devices = safeJSON(results) {
@@ -236,12 +238,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
                         }
                     }
                 }
-            } else if self.settingStore.lastPlayState.count > 0 {
+            /*} else if self.settingStore.lastPlayState.count > 0 {
                 APIBearerPut("\(AppConstants.SpotifyAPI)/me/player/play?device_id=\(self.settingStore.deviceId)", body: "{ \"uris\": \(self.settingStore.lastPlayState.first!.jsonTracks), \"offset\": { \"position\": 0 } }", bearer: self.settingStore.accessToken) { results in
                     print(String(decoding: results, as: UTF8.self))
                 }
-            }
+            }*/
         }
     }
 }
-

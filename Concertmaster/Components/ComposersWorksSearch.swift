@@ -28,17 +28,15 @@ struct ComposersWorksSearch: View {
         loading = true
         
         if self.omnisearch.searchstring.count > 3 {
-            getStoreFront() { countryCode in
-                APIget(AppConstants.concBackend+"/omnisearch/\(countryCode ?? "us")/\(self.omnisearch.searchstring)/\(self.offset).json") { results in
-                    if let omniData: Omnisearch = safeJSON(results) {
-                        DispatchQueue.main.async {
-                            if let recordings = omniData.recordings {
-                                self.results.removeAll()
-                                self.results = recordings
-                                self.loading = false
-                            } else {
-                                self.results = [Recording]()
-                            }
+            APIget(AppConstants.concBackend+"/omnisearch/\(!self.settingStore.country.isEmpty ? self.settingStore.country : "us")/\(self.omnisearch.searchstring)/\(self.offset).json") { results in
+                if let omniData: Omnisearch = safeJSON(results) {
+                    DispatchQueue.main.async {
+                        if let recordings = omniData.recordings {
+                            self.results.removeAll()
+                            self.results = recordings
+                            self.loading = false
+                        } else {
+                            self.results = [Recording]()
                         }
                     }
                 }
