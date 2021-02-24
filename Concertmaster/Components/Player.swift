@@ -73,7 +73,7 @@ struct Player: View {
         
         self.settingStore.lastPlayState = self.playState.recording
         
-        // logging to spotify and to concertmaster
+        // logging in to spotify and to concertmaster
         
         if (self.playState.autoplay) {
             print("is connected - \(self.appRemote?.isConnected)")

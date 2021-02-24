@@ -24,9 +24,9 @@ struct PlaylistsRecordings: View {
         
         switch playlistSwitcher.playlist {
             case "fav":
-                url = AppConstants.concBackend+"/user/\(self.settingStore.userId)/recording/fav.json"
+                url = AppConstants.concBackend+"/user/\(self.settingStore.userId.isEmpty ? "0" : self.settingStore.userId)/recording/fav.json"
             case "recent":
-                url = AppConstants.concBackend+"/user/\(self.settingStore.userId)/recording/recent.json"
+                url = AppConstants.concBackend+"/user/\(self.settingStore.userId.isEmpty ? "0" : self.settingStore.userId)/recording/recent.json"
             default:
                 url = AppConstants.concBackend+"/recording/\(self.settingStore.country.isEmpty ? "" : self.settingStore.country+"/" )list/playlist/\(self.playlistSwitcher.playlist).json"
         }
