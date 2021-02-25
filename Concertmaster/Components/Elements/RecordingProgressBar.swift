@@ -39,6 +39,7 @@ struct RecordingProgressBar: View {
         }
         .font(.custom("Sanchez-Regular", size: 11))
         .padding(.bottom, 14)
+        .foregroundColor(Color.black)
     }
 }
 

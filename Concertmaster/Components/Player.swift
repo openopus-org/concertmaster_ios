@@ -79,11 +79,30 @@ struct Player: View {
             print("is connected - \(self.appRemote?.isConnected)")
             //print("playerstate - \(self.appRemote?.playerAPI?.getPlayerState())")
             
-            if (!self.appRemote!.isConnected) {
-                self.sessionManager?.initiateSession(with: AppConstants.SpotifyAuthScopes, options: .default)
-            } else {
-                APIBearerPut("\(AppConstants.SpotifyAPI)/me/player/play?device_id=\(self.settingStore.deviceId)", body: "{ \"uris\": \(self.playState.recording.first!.jsonTracks), \"offset\": { \"position\": 0 } }", bearer: self.settingStore.accessToken) { results in
-                    print(String(decoding: results, as: UTF8.self))
+            if let firstrecording = self.playState.recording.first {
+                if let firstrecordingtracks = firstrecording.tracks {
+                    if let firsttrack = firstrecordingtracks.first {
+                        self.currentTrack = [CurrentTrack (
+                            track_index: 0,
+                            zero_index: 0,
+                            playing: false,
+                            loading: true,
+                            starting_point: 0,
+                            track_position: 0,
+                            track_length: firsttrack.length,
+                            full_position: 0,
+                            full_length: firstrecording.length ?? 0,
+                            preview: false
+                        )]
+                        
+                        if (!self.appRemote!.isConnected) {
+                            self.sessionManager?.initiateSession(with: AppConstants.SpotifyAuthScopes, options: .default)
+                        } else {
+                            APIBearerPut("\(AppConstants.SpotifyAPI)/me/player/play?device_id=\(self.settingStore.deviceId)", body: "{ \"uris\": \(self.playState.recording.first!.jsonTracks), \"offset\": { \"position\": 0 } }", bearer: self.settingStore.accessToken) { results in
+                                print(String(decoding: results, as: UTF8.self))
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -319,9 +338,7 @@ struct Player: View {
         ZStack(alignment: .top) {
             Rectangle()
                 .fill(Color(hex: 0xFCE546))
-            //LinearGradient(gradient: Gradient(colors: [Color(hex: 0xFCE546), Color(hex: 0xFCE546)]), startPoint: .top, endPoint: .bottom)
                 .frame(minHeight: 130, maxHeight: self.AppState.fullPlayer ? .infinity : 130)
-                //.cornerRadius(25)
 
             VStack {
                 Button(
@@ -394,6 +411,12 @@ struct Player: View {
             if (self.currentTrack.count == 0 && self.settingStore.lastPlayState.count > 0) {
                 self.playState.autoplay = false
                 self.playState.recording = self.settingStore.lastPlayState
+            }
+        })
+        .onReceive(playState.playingstateWillChange, perform: {
+            print("CARALHO ", playState.playing)
+            if playState.playing {
+                self.currentTrack[0].loading = false
             }
         })
         .onReceive(playState.objectWillChange, perform: {

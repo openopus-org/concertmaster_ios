@@ -23,7 +23,7 @@ struct RecordingPlaybackControl: View {
                     HStack {
                         Spacer()
                         ActivityIndicator(isAnimating: true)
-                            .configure { $0.color = Color(hex: 0x000000).uiColor(); $0.style = .large }
+                            .configure { $0.color = .black; $0.style = .large }
                         Spacer()
                     }
                 }

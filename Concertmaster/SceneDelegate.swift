@@ -15,6 +15,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
     
     lazy var appState = AppState()
     let settingStore = SettingStore()
+    var playState = PlayState()
     
     lazy var configuration: SPTConfiguration = {
         let configuration = SPTConfiguration(clientID: AppConstants.SpotifyClientID, redirectURL: AppConstants.SpotifyRedirectURL)
@@ -122,7 +123,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
         // Called when the scene has moved from an inactive state to an active state.
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
         
-        appRemote.connect()
+        //appRemote.connect()
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
@@ -143,6 +144,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
 
     func appRemote(_ appRemote: SPTAppRemote, didFailConnectionAttemptWithError error: Error?) {
         //
+        
+        print ("⛔️ AppRemote error")
     }
     
     func appRemote(_ appRemote: SPTAppRemote, didDisconnectWithError error: Error?) {
@@ -190,6 +193,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
         print("⚠️ Track ID: ", playerState.track.uri)
         print("⚠️ is paused: ", playerState.isPaused)
         print("⚠️ position: ", playerState.playbackPosition)
+        
+        if !self.playState.playing {
+            self.playState.playing = true
+        }
     }
     
     func sessionManager(manager: SPTSessionManager, didFailWith error: Error) {
@@ -205,67 +212,69 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
         self.settingStore.accessToken = session.accessToken
         appRemote.connect()
         
-        APIpost("\(AppConstants.concBackend)/dyn/user/login/", parameters: ["token": session.accessToken ]) { results in
-            //print("👀 User details 👇🏻")
-            //print(String(decoding: results, as: UTF8.self))
-            
-            if let login: Login = safeJSON(results) {
-                DispatchQueue.main.async {
-                    self.settingStore.userId = login.user.id
-                    self.settingStore.lastLogged = Int(Date().millisecondsSince1970 / (60 * 1000) | 0)
-                    
-                    if let auth = login.user.auth {
-                        self.settingStore.userAuth = auth
-                    }
-                    
-                    if let country = login.user.country {
-                        self.settingStore.country = country
-                    }
-                    
-                    if let favoritecomposers = login.favorite {
-                        self.settingStore.favoriteComposers = favoritecomposers
-                    }
-                    
-                    if let favoriteworks = login.works {
-                        self.settingStore.favoriteWorks = favoriteworks
-                    }
-                    
-                    if let composersfavoriteworks = login.composerworks {
-                        self.settingStore.composersFavoriteWorks = composersfavoriteworks
-                    }
-                    
-                    if let favoriterecordings = login.favoriterecordings {
-                        self.settingStore.favoriteRecordings = favoriterecordings
-                    }
-                    
-                    if let forbiddencomposers = login.forbidden {
-                        self.settingStore.forbiddenComposers = forbiddencomposers
-                    }
-                    
-                    if let playlists = login.playlists {
-                        self.settingStore.playlists = playlists
-                    }
-                    
-                    if let heavyuser = login.user.heavyuser {
-                        if heavyuser == 1 {
-                            if timeframe(timestamp: self.settingStore.lastAskedDonation, minutes: self.settingStore.hasDonated ? AppConstants.minsToAskDonationHasDonated : AppConstants.minsToAskDonation)  {
-                                self.settingStore.hasDonated = false
-                                self.appState.askDonation = true
-                            } else {
-                                RequestAppStoreReview()
+        if timeframe(timestamp: settingStore.lastLogged, minutes: AppConstants.minsToLogin)  {
+            APIpost("\(AppConstants.concBackend)/dyn/user/login/", parameters: ["token": session.accessToken ]) { results in
+                //print("👀 User details 👇🏻")
+                //print(String(decoding: results, as: UTF8.self))
+                
+                if let login: Login = safeJSON(results) {
+                    DispatchQueue.main.async {
+                        self.settingStore.userId = login.user.id
+                        self.settingStore.lastLogged = Int(Date().millisecondsSince1970 / (60 * 1000) | 0)
+                        
+                        if let auth = login.user.auth {
+                            self.settingStore.userAuth = auth
+                        }
+                        
+                        if let country = login.user.country {
+                            self.settingStore.country = country
+                        }
+                        
+                        if let favoritecomposers = login.favorite {
+                            self.settingStore.favoriteComposers = favoritecomposers
+                        }
+                        
+                        if let favoriteworks = login.works {
+                            self.settingStore.favoriteWorks = favoriteworks
+                        }
+                        
+                        if let composersfavoriteworks = login.composerworks {
+                            self.settingStore.composersFavoriteWorks = composersfavoriteworks
+                        }
+                        
+                        if let favoriterecordings = login.favoriterecordings {
+                            self.settingStore.favoriteRecordings = favoriterecordings
+                        }
+                        
+                        if let forbiddencomposers = login.forbidden {
+                            self.settingStore.forbiddenComposers = forbiddencomposers
+                        }
+                        
+                        if let playlists = login.playlists {
+                            self.settingStore.playlists = playlists
+                        }
+                        
+                        if let heavyuser = login.user.heavyuser {
+                            if heavyuser == 1 {
+                                if timeframe(timestamp: self.settingStore.lastAskedDonation, minutes: self.settingStore.hasDonated ? AppConstants.minsToAskDonationHasDonated : AppConstants.minsToAskDonation)  {
+                                    self.settingStore.hasDonated = false
+                                    self.appState.askDonation = true
+                                } else {
+                                    RequestAppStoreReview()
+                                }
                             }
                         }
                     }
                 }
-            }
-            
-            //if self.settingStore.deviceId == "" {
                 
-            /*} else if self.settingStore.lastPlayState.count > 0 {
-                APIBearerPut("\(AppConstants.SpotifyAPI)/me/player/play?device_id=\(self.settingStore.deviceId)", body: "{ \"uris\": \(self.settingStore.lastPlayState.first!.jsonTracks), \"offset\": { \"position\": 0 } }", bearer: self.settingStore.accessToken) { results in
-                    print(String(decoding: results, as: UTF8.self))
-                }
-            }*/
+                //if self.settingStore.deviceId == "" {
+                    
+                /*} else if self.settingStore.lastPlayState.count > 0 {
+                    APIBearerPut("\(AppConstants.SpotifyAPI)/me/player/play?device_id=\(self.settingStore.deviceId)", body: "{ \"uris\": \(self.settingStore.lastPlayState.first!.jsonTracks), \"offset\": { \"position\": 0 } }", bearer: self.settingStore.accessToken) { results in
+                        print(String(decoding: results, as: UTF8.self))
+                    }
+                }*/
+            }
         }
     }
 }

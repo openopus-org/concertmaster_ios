@@ -37,7 +37,7 @@ struct RecordingProgressBars: View {
                             }, label: {
                                 Text(track.title)
                                     .font(.custom("PetitaMedium", size: 14))
-                                    .foregroundColor(Color.white)
+                                    .foregroundColor(Color.black)
                             })
                             
                             RecordingProgressBar(track: track, currentTrack: self.$currentTrack)

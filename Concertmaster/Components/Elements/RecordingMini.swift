@@ -58,7 +58,7 @@ struct RecordingMini: View {
                     HStack {
                         Spacer()
                         ActivityIndicator(isAnimating: true)
-                            .configure { $0.color = Color(hex: 0x000000).uiColor(); $0.style = .medium }
+                            .configure { $0.color = .black; $0.style = .medium }
                         Spacer()
                     }
                     .padding(.top, 4)
