@@ -18,7 +18,7 @@ struct ProgressBar: View {
                     .fill(Color(hex: 0x121212))
                     .frame(width: geometry.size.width, height: geometry.size.height)
                 Rectangle()
-                    .fill(Color(hex: 0xfce546))
+                    .fill(Color.white)
                     .frame(width: geometry.size.width * self.progress, height: geometry.size.height)
                     //.cornerRadius(2)
             }

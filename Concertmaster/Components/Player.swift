@@ -413,10 +413,28 @@ struct Player: View {
                 self.playState.recording = self.settingStore.lastPlayState
             }
         })
-        .onReceive(playState.playingstateWillChange, perform: {
-            print("CARALHO ", playState.playing)
-            if playState.playing {
-                self.currentTrack[0].loading = false
+        .onReceive(playState.playerstateDidChange, perform: {
+            
+            if self.currentTrack.count > 0 {
+                
+                if let playerstate = playState.playerstate {
+                    // removing loading
+                        
+                    if playerstate.isPlaying {
+                            print("🆗 started")
+                            self.currentTrack[0].loading = false
+                            self.timerHolder.start()
+                    }
+                    else {
+                        self.currentTrack[0].loading = false
+                        print("⛔️ stopped")
+                        self.timerHolder.stop()
+                    }
+                    
+                    self.currentTrack[0].playing = playerstate.isPlaying
+                    print ("⏯ playing: ", playerstate.isPlaying)
+                    dump (self.currentTrack)
+                }
             }
         })
         .onReceive(playState.objectWillChange, perform: {
@@ -433,14 +451,15 @@ struct Player: View {
                 if self.currentTrack[0].preview {
                     self.currentTrack[0].track_position = self.previewBridge.getCurrentPlaybackTime()
                 } else {
-                    self.currentTrack[0].track_position = self.mediaBridge.getCurrentPlaybackTime()
+                    //self.currentTrack[0].track_position = self.mediaBridge.getCurrentPlaybackTime()
+                    self.currentTrack[0].track_position += 1
                 }
                 
                 if self.currentTrack[0].track_position < 2 {
                     if self.currentTrack[0].preview {
                         self.currentTrack[0].playing = self.previewBridge.getCurrentPlaybackState()
                     } else {
-                        self.currentTrack[0].playing = self.mediaBridge.getCurrentPlaybackState()
+                        //self.currentTrack[0].playing = self.mediaBridge.getCurrentPlaybackState()
                     }
                     
                     self.playState.playing = self.currentTrack[0].playing
@@ -449,6 +468,7 @@ struct Player: View {
                 self.currentTrack[0].full_position = self.currentTrack[0].starting_point + self.currentTrack[0].track_position
             }
         })
+        /*
         .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name.MPMusicPlayerControllerPlaybackStateDidChange)) { status in
                 if self.currentTrack.count > 0 {
                     if let isPlaying = status.userInfo?["playing"] as? Bool {
@@ -464,7 +484,7 @@ struct Player: View {
                         }
                         
                         self.currentTrack[0].playing = isPlaying
-                        self.playState.playing = isPlaying
+                        self.playState.playerstate?.isPlaying = isPlaying
                     }
                 }
             }
@@ -544,6 +564,7 @@ struct Player: View {
                 }
             }
         }
+        */
         .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name.previewPlayerItemChanged)) { status in
             print("New track: \(self.previewBridge.getCurrentTrackIndex())")
             

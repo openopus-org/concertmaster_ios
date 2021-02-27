@@ -58,7 +58,7 @@ struct RecordingPlaybackControl: View {
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .frame(height: 24)
-                                .foregroundColor(Color(hex: 0xfce546))
+                                    .foregroundColor(.black)
                                 .rotationEffect(.degrees(180))
                             })
                         
@@ -75,7 +75,7 @@ struct RecordingPlaybackControl: View {
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .frame(height: 58)
-                                .foregroundColor(Color(hex: 0xfce546))
+                                    .foregroundColor(.black)
                                 .padding(.leading, 32)
                                 .padding(.trailing, 32)
                             })
@@ -93,7 +93,7 @@ struct RecordingPlaybackControl: View {
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .frame(height: 24)
-                                .foregroundColor(Color(hex: 0xfce546))
+                                    .foregroundColor(.black)
                             })
                         
                         Button(
@@ -120,7 +120,7 @@ struct RecordingPlaybackControl: View {
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .frame(height: 18)
-                                .foregroundColor(Color(hex: self.radioState.isActive && self.radioState.canSkip ? 0xfce546 : 0x424242))
+                                .foregroundColor(Color(hex: self.radioState.isActive && self.radioState.canSkip ? 0x000000 : 0xFCE546))
                                 .padding(.leading, 22)
                             })
 
@@ -133,7 +133,7 @@ struct RecordingPlaybackControl: View {
                 HStack {
                     Spacer()
                     ActivityIndicator(isAnimating: true)
-                        .configure { $0.color = Color(hex: 0x000000).uiColor(); $0.style = .large }
+                        .configure { $0.color = .black; $0.style = .large }
                     Spacer()
                 }
                 

@@ -12,9 +12,9 @@ import SwiftUI
 class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, SPTSessionManagerDelegate, SPTAppRemotePlayerStateDelegate {
     
     var window: UIWindow?
-    
-    lazy var appState = AppState()
-    let settingStore = SettingStore()
+        
+    var appState = AppState()
+    var settingStore = SettingStore()
     var playState = PlayState()
     
     lazy var configuration: SPTConfiguration = {
@@ -81,10 +81,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
                             .environmentObject(ComposerSearchString())
                             .environmentObject(OmnisearchString())
                             .environmentObject(WorkSearch())
-                            .environmentObject(PlayState())
+                            .environmentObject(playState)
                             .environmentObject(TimerHolder())
                             .environmentObject(MediaBridge())
-                            .environmentObject(SettingStore())
+                            .environmentObject(settingStore)
                             .environmentObject(RadioState())
                             .environmentObject(PreviewBridge())
 
@@ -194,8 +194,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
         print("⚠️ is paused: ", playerState.isPaused)
         print("⚠️ position: ", playerState.playbackPosition)
         
-        if !self.playState.playing {
-            self.playState.playing = true
+        self.playState.playerstate = PlayerState (isLoaded: true, isPlaying: !playerState.isPaused, trackId: playerState.track.uri, position: playerState.playbackPosition)
+        
+        if let pstate = self.playState.playerstate {
+            dump (pstate)
         }
     }
     

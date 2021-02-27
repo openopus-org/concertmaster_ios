@@ -116,11 +116,18 @@ final class WorkSearch: ObservableObject {
 
 final class PlayState: ObservableObject {
     let objectWillChange = PassthroughSubject<(), Never>()
+    let playerstateDidChange = PassthroughSubject<(), Never>()
     let playingstateWillChange = PassthroughSubject<(), Never>()
     
     @Published var recording = [Recording]() {
         didSet {
             objectWillChange.send()
+        }
+    }
+    
+    @Published var playerstate: PlayerState? {
+        didSet {
+            playerstateDidChange.send()
         }
     }
     

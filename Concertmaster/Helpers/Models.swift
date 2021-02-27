@@ -320,6 +320,13 @@ struct PlaylistWorks: Codable {
     var rows: Int
 }
 
+struct PlayerState: Codable {
+    var isLoaded: Bool
+    var isPlaying: Bool
+    var trackId: String
+    var position: Int
+}
+
 struct AddComposer: Codable {
     var list: [String]
 }

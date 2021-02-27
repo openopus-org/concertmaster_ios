@@ -78,13 +78,14 @@ struct RecordingMini: View {
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .frame(height: 22)
-                                .foregroundColor(Color(hex: 0xfce546))
+                                .foregroundColor(.black)
                                 .padding(.leading, 18)
                                 .padding(.trailing, 22)
                         })
                         
                         HStack {
                             Text(self.currentTrack.first!.readable_full_position)
+                                .foregroundColor(.black)
                             
                             ZStack {
                                 ProgressBar(progress: self.currentTrack.first!.full_progress)
@@ -107,6 +108,7 @@ struct RecordingMini: View {
                             }
                             
                             Text(self.recording.readableLength)
+                                .foregroundColor(.black)
                         }
                         .font(.custom("Sanchez-Regular", size: 11))
                     }

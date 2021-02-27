@@ -38,14 +38,14 @@ struct PlaylistButton: View {
                 
                 Text(playlist.name)
                     
-                    .foregroundColor(Color(hex: (self.active ? 0xFFFFFF : 0xfce546)))
+                    .foregroundColor(Color(hex: (self.active ? 0x000000 : 0xfce546)))
                     .font(.custom("ZillaSlab-Medium", size: 12))
                     .fixedSize(horizontal: false, vertical: true)
                     .lineLimit(20)
                 
                 Text("\(playlist.summary.works.rows) work\(self.playlist.summary.works.rows > 1 ? "s" : "") by \(playlist.summary.composers.nameList)")
                     
-                    .foregroundColor(Color.white)
+                    .foregroundColor(Color(hex: (self.active ? 0x000000 : 0xFFFFFF)))
                     .font(.custom("Sanchez-Regular", size: 9))
                     .fixedSize(horizontal: false, vertical: true)
                     .lineLimit(20)
