@@ -16,6 +16,12 @@ struct RecordingMini: View {
     @EnvironmentObject var previewBridge: PreviewBridge
     @EnvironmentObject var settingStore: SettingStore
     
+    private var appRemote: SPTAppRemote? {
+        get {
+            return (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.appRemote
+        }
+    }
+    
     var body: some View {
         VStack(alignment: .leading) {
             HStack(alignment: .top) {
@@ -70,7 +76,11 @@ struct RecordingMini: View {
                                 if self.currentTrack.first!.preview {
                                     self.previewBridge.togglePlay()
                                 } else {
-                                    self.mediaBridge.togglePlay()
+                                    if self.currentTrack.first!.playing {
+                                        appRemote?.playerAPI?.pause()
+                                    } else {
+                                        appRemote?.playerAPI?.resume()
+                                    }
                                 }
                         },
                         label: {

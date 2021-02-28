@@ -16,6 +16,12 @@ struct RecordingPlaybackControl: View {
     @EnvironmentObject var radioState: RadioState
     @EnvironmentObject var playState: PlayState
     
+    private var appRemote: SPTAppRemote? {
+        get {
+            return (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.appRemote
+        }
+    }
+    
     var body: some View {
         Group {
             if self.currentTrack.count > 0 {
@@ -49,7 +55,7 @@ struct RecordingPlaybackControl: View {
                                     if self.currentTrack.first!.track_index == 0 {
                                         self.mediaBridge.skipToBeginning()
                                     } else {
-                                        self.mediaBridge.previousTrack()
+                                        appRemote?.playerAPI?.skip(toPrevious: { _,_ in })
                                     }
                                 }
                             },
@@ -67,7 +73,11 @@ struct RecordingPlaybackControl: View {
                                 if self.currentTrack.first!.preview {
                                     self.previewBridge.togglePlay()
                                 } else {
-                                    self.mediaBridge.togglePlay()
+                                    if self.currentTrack.first!.playing {
+                                        appRemote?.playerAPI?.pause()
+                                    } else {
+                                        appRemote?.playerAPI?.resume()
+                                    }
                                 }
                             },
                             label: {
@@ -85,7 +95,7 @@ struct RecordingPlaybackControl: View {
                                 if self.currentTrack.first!.preview {
                                     self.previewBridge.nextTrack()
                                 } else {
-                                    self.mediaBridge.nextTrack()
+                                    appRemote?.playerAPI?.skip(toNext: { _,_ in })
                                 }
                             },
                             label: {

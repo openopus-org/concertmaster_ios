@@ -130,6 +130,7 @@ struct CurrentTrack: Codable {
     var full_position: Int
     var full_length: Int
     var preview: Bool
+    var id: String
     
     var track_progress: CGFloat {
         get { return CGFloat(Double (track_position)/(preview ? 30 : Double (track_length))) }

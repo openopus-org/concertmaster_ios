@@ -92,7 +92,8 @@ struct Player: View {
                             track_length: firsttrack.length,
                             full_position: 0,
                             full_length: firstrecording.length ?? 0,
-                            preview: false
+                            preview: false,
+                            id: (self.playState.recording.first!.spotify_tracks?.first!)!
                         )]
                         
                         if (!self.appRemote!.isConnected) {
@@ -415,10 +416,58 @@ struct Player: View {
         })
         .onReceive(playState.playerstateDidChange, perform: {
             
+            appRemote?.playerAPI?.getPlayerState({ result, error in
+                dump(result)
+            })
+            
             if self.currentTrack.count > 0 {
                 
                 if let playerstate = playState.playerstate {
-                    // removing loading
+                    
+                    if self.currentTrack.count > 0 {
+                        if let trackIndex = self.playState.recording.first!.spotify_tracks!.firstIndex(of: playerstate.trackId) {
+                            if trackIndex >= self.currentTrack.first!.zero_index + self.playState.recording.first!.spotify_tracks!.count {
+                                // next recording
+                                
+                                if self.radioState.nextRecordings.count > 0 {
+                                    self.playState.keepQueue = true
+                                    self.playState.recording = [self.radioState.nextRecordings.removeFirst()]
+                                    print("🆗 next recording SPOTIFY")
+                                    //print(self.playState.recording)
+                                    self.currentTrack = [CurrentTrack (
+                                        track_index: trackIndex,
+                                        zero_index: trackIndex,
+                                        playing: true,
+                                        loading: false,
+                                        starting_point: 0,
+                                        track_position: 0,
+                                        track_length: (self.playState.recording.first!.tracks!.first?.length)!,
+                                        full_position: 0,
+                                        full_length: self.playState.recording.first!.length!,
+                                        preview: true,
+                                        id: (self.playState.recording.first!.spotify_tracks?.first!)!
+                                    )]
+                                    print("current track:")
+                                    print(self.currentTrack)
+                                    self.radioState.canSkip = false
+                                }
+                            }
+                            else {
+                                print("radio state: \(self.radioState.isActive)")
+                                
+                                if trackIndex == 0 {
+                                    self.currentTrack[0].zero_index = 0
+                                }
+                                
+                                self.currentTrack[0].track_index = trackIndex
+                                self.currentTrack[0].track_position = playerstate.position
+                                self.currentTrack[0].starting_point = (self.playState.recording.first!.tracks![trackIndex - self.currentTrack[0].zero_index].starting_point)
+                                self.currentTrack[0].full_position = (self.playState.recording.first!.tracks![trackIndex - self.currentTrack[0].zero_index].starting_point)
+                                self.currentTrack[0].track_length = (self.playState.recording.first!.tracks![trackIndex - self.currentTrack[0].zero_index].length)
+                            }
+
+                        }
+                    }
                         
                     if playerstate.isPlaying {
                             print("🆗 started")
@@ -589,7 +638,8 @@ struct Player: View {
                             track_length: (self.playState.recording.first!.tracks!.first?.length)!,
                             full_position: 0,
                             full_length: self.playState.recording.first!.length!,
-                            preview: true
+                            preview: true,
+                            id: (self.playState.recording.first!.spotify_tracks?.first!)!
                         )]
                         print("current track:")
                         print(self.currentTrack)
