@@ -15,6 +15,13 @@ struct RecordingProgressBars: View {
     @EnvironmentObject var previewBridge: PreviewBridge
     @EnvironmentObject var playState: PlayState
     @EnvironmentObject var radioState: RadioState
+    @EnvironmentObject var settingStore: SettingStore
+    
+    private var appRemote: SPTAppRemote? {
+        get {
+            return (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.appRemote
+        }
+    }
     
     var body: some View {
         Group {
@@ -31,8 +38,19 @@ struct RecordingProgressBars: View {
                                     self.previewBridge.stop()
                                     self.previewBridge.setQueueAndPlay(tracks: self.radioState.nextRecordings.count > 0 ? self.playState.recording.first!.previews! + self.radioState.nextRecordings.first!.previews! : self.playState.recording.first!.previews!, starttrack: self.recording.tracks!.firstIndex{$0.spotify_trackid == track.spotify_trackid} ?? 0, autoplay: true, zeroqueue: false)
                                 } else {
+                                    if let offset = self.recording.tracks!.firstIndex(where: {$0.spotify_trackid == track.spotify_trackid}) {
+                                        
+                                        APIBearerPut("\(AppConstants.SpotifyAPI)/me/player/play?device_id=\(self.settingStore.deviceId)", body: "{ \"uris\": \(self.playState.recording.first!.jsonTracks), \"offset\": { \"position\": \(offset) } }", bearer: self.settingStore.accessToken) { results in
+                                            
+                                            self.playState.playerstate = PlayerState (isLoaded: true, isPlaying: true, trackId: track.spotify_trackid, position: 0)
+                                            
+                                            print(String(decoding: results, as: UTF8.self))
+                                        }
+                                    }
+                                    /*
                                     self.mediaBridge.stop()
                                     self.mediaBridge.setQueueAndPlay(tracks: self.radioState.nextRecordings.count > 0 ? self.playState.recording.first!.spotify_tracks! + self.radioState.nextRecordings.first!.spotify_tracks! : self.playState.recording.first!.spotify_tracks!, starttrack: track.spotify_trackid, autoplay: true)
+                                    */
                                 }
                             }, label: {
                                 Text(track.title)

@@ -508,7 +508,11 @@ struct Player: View {
                     if self.currentTrack[0].preview {
                         self.currentTrack[0].playing = self.previewBridge.getCurrentPlaybackState()
                     } else {
-                        //self.currentTrack[0].playing = self.mediaBridge.getCurrentPlaybackState()
+                        if let playerstate = playState.playerstate {
+                            if !playerstate.isPlaying {
+                                self.currentTrack[0].track_position = playerstate.position
+                            }
+                        }
                     }
                     
                     self.playState.playing = self.currentTrack[0].playing

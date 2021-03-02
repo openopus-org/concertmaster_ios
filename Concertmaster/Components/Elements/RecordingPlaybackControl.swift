@@ -52,11 +52,11 @@ struct RecordingPlaybackControl: View {
                                         self.previewBridge.previousTrack()
                                     }
                                 } else {
-                                    if self.currentTrack.first!.track_index == 0 {
-                                        self.mediaBridge.skipToBeginning()
-                                    } else {
-                                        appRemote?.playerAPI?.skip(toPrevious: { _,_ in })
-                                    }
+                                    appRemote?.playerAPI?.skip(toPrevious: {_, error in
+                                        if let error = error {
+                                            dump(error as NSError)
+                                        }
+                                    })
                                 }
                             },
                             label: {
@@ -95,7 +95,11 @@ struct RecordingPlaybackControl: View {
                                 if self.currentTrack.first!.preview {
                                     self.previewBridge.nextTrack()
                                 } else {
-                                    appRemote?.playerAPI?.skip(toNext: { _,_ in })
+                                    appRemote?.playerAPI?.skip(toNext: {_, error in
+                                        if let error = error {
+                                            dump(error as NSError)
+                                        }
+                                    })
                                 }
                             },
                             label: {
@@ -142,8 +146,22 @@ struct RecordingPlaybackControl: View {
             else {
                 HStack {
                     Spacer()
-                    ActivityIndicator(isAnimating: true)
-                        .configure { $0.color = .black; $0.style = .large }
+                    
+                    Button(
+                        action: {
+                            self.playState.autoplay = true
+                            self.playState.recording = self.playState.recording
+                        },
+                        label: {
+                            Image("play")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(height: 58)
+                                .foregroundColor(.black)
+                                .padding(.leading, 32)
+                                .padding(.trailing, 32)
+                        })
+                    
                     Spacer()
                 }
                 

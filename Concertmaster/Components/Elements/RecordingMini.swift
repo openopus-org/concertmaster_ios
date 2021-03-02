@@ -15,6 +15,7 @@ struct RecordingMini: View {
     @EnvironmentObject var mediaBridge: MediaBridge
     @EnvironmentObject var previewBridge: PreviewBridge
     @EnvironmentObject var settingStore: SettingStore
+    @EnvironmentObject var playState: PlayState
     
     private var appRemote: SPTAppRemote? {
         get {
@@ -124,6 +125,41 @@ struct RecordingMini: View {
                     }
                     .padding(.top, 4)
                 }
+            } else {
+                HStack {
+                    Button(
+                        action: {
+                            self.playState.autoplay = true
+                            self.playState.recording = self.playState.recording
+                    },
+                    label: {
+                        Image("play")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(height: 22)
+                            .foregroundColor(.black)
+                            .padding(.leading, 18)
+                            .padding(.trailing, 22)
+                    })
+                    
+                    HStack {
+                        Text("0:00")
+                            .foregroundColor(.black)
+                        
+                        ZStack {
+                            ProgressBar(progress: 0)
+                                .padding(.leading, 6)
+                                .padding(.trailing, 6)
+                                .frame(height: 4)
+                        }
+                        
+                        Text(self.recording.readableLength)
+                            .foregroundColor(.black)
+                    }
+                    .font(.custom("Sanchez-Regular", size: 11))
+                }
+                .padding(.top, 4)
+
             }
             /*
             else {

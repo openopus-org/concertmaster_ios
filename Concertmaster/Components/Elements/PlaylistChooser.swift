@@ -37,7 +37,7 @@ struct PlaylistChooser: View {
                     .padding(.top, 10)
                     
                     Text(playlist.name)
-                        .foregroundColor(Color(hex: (self.active ? 0xFFFFFF : 0xfce546)))
+                        .foregroundColor(Color(hex: (self.active ? 0x000000 : 0xfce546)))
                         .font(.custom("Sanchez-Regular", size: 16))
                         .fixedSize(horizontal: false, vertical: true)
                         .lineLimit(20)
@@ -48,7 +48,7 @@ struct PlaylistChooser: View {
                 if active {
                     Image("checked")
                         .resizable()
-                        .foregroundColor(.white)
+                        .foregroundColor(.black)
                         .aspectRatio(contentMode: .fit)
                         .frame(height: 16)
                         .padding(20)
