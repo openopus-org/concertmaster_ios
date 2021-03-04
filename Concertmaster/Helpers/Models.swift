@@ -322,7 +322,7 @@ struct PlaylistWorks: Codable {
 }
 
 struct PlayerState: Codable {
-    var isLoaded: Bool
+    var isConnected: Bool
     var isPlaying: Bool
     var trackId: String
     var position: Int

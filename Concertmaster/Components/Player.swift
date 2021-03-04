@@ -417,14 +417,17 @@ struct Player: View {
         .onReceive(playState.playerstateDidChange, perform: {
             
             appRemote?.playerAPI?.getPlayerState({ result, error in
-                dump(result)
+                //dump(result)
             })
             
             if self.currentTrack.count > 0 {
                 
                 if let playerstate = playState.playerstate {
-                    
-                    if self.currentTrack.count > 0 {
+                        
+                    if !playerstate.isConnected {
+                        self.currentTrack = [CurrentTrack]()
+                    }
+                    else {
                         if let trackIndex = self.playState.recording.first!.spotify_tracks!.firstIndex(of: playerstate.trackId) {
                             if trackIndex >= self.currentTrack.first!.zero_index + self.playState.recording.first!.spotify_tracks!.count {
                                 // next recording
@@ -465,24 +468,23 @@ struct Player: View {
                                 self.currentTrack[0].full_position = (self.playState.recording.first!.tracks![trackIndex - self.currentTrack[0].zero_index].starting_point)
                                 self.currentTrack[0].track_length = (self.playState.recording.first!.tracks![trackIndex - self.currentTrack[0].zero_index].length)
                             }
-
                         }
-                    }
                         
-                    if playerstate.isPlaying {
-                            print("🆗 started")
+                        if playerstate.isPlaying {
+                                print("🆗 started")
+                                self.currentTrack[0].loading = false
+                                self.timerHolder.start()
+                        }
+                        else {
                             self.currentTrack[0].loading = false
-                            self.timerHolder.start()
+                            print("⛔️ stopped")
+                            self.timerHolder.stop()
+                        }
+                        
+                        self.currentTrack[0].playing = playerstate.isPlaying
+                        print("⏯ playing: ", playerstate.isPlaying)
+                        dump(self.currentTrack)
                     }
-                    else {
-                        self.currentTrack[0].loading = false
-                        print("⛔️ stopped")
-                        self.timerHolder.stop()
-                    }
-                    
-                    self.currentTrack[0].playing = playerstate.isPlaying
-                    print ("⏯ playing: ", playerstate.isPlaying)
-                    dump (self.currentTrack)
                 }
             }
         })

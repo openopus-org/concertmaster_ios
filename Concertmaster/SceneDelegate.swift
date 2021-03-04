@@ -152,6 +152,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
     
     func appRemote(_ appRemote: SPTAppRemote, didDisconnectWithError error: Error?) {
         //
+        
+        print ("⛔️ AppRemote disconnected")
+        
+        self.playState.playerstate = PlayerState (isConnected: false, isPlaying: false, trackId: "", position: 0)
     }
     
     func appRemoteDidEstablishConnection(_ appRemote: SPTAppRemote) {
@@ -197,7 +201,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
         
         dump (playerState)
         
-        self.playState.playerstate = PlayerState (isLoaded: true, isPlaying: !playerState.isPaused, trackId: playerState.track.uri, position: Int(ceil(Double(playerState.playbackPosition/1000))))
+        self.playState.playerstate = PlayerState (isConnected: true, isPlaying: !playerState.isPaused, trackId: playerState.track.uri, position: Int(ceil(Double(playerState.playbackPosition/1000))))
         
         if let pstate = self.playState.playerstate {
             dump (pstate)

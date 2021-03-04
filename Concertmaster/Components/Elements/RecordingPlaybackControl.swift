@@ -10,7 +10,6 @@ import SwiftUI
 
 struct RecordingPlaybackControl: View {
     @Binding var currentTrack: [CurrentTrack]
-    @EnvironmentObject var mediaBridge: MediaBridge
     @EnvironmentObject var previewBridge: PreviewBridge
     @EnvironmentObject var settingStore: SettingStore
     @EnvironmentObject var radioState: RadioState
@@ -118,7 +117,7 @@ struct RecordingPlaybackControl: View {
                                         if self.currentTrack.first!.preview {
                                             self.previewBridge.stop()
                                         } else {
-                                            self.mediaBridge.stop()
+                                            appRemote?.playerAPI?.pause()
                                         }
                                         
                                         self.playState.autoplay = true
@@ -153,6 +152,7 @@ struct RecordingPlaybackControl: View {
                             self.playState.recording = self.playState.recording
                         },
                         label: {
+                            
                             Image("play")
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
