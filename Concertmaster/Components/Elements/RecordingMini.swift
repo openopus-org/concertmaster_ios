@@ -71,59 +71,69 @@ struct RecordingMini: View {
                     .padding(.top, 4)
                 }
                 else {
-                    HStack {
-                        Button(
-                            action: {
-                                if self.currentTrack.first!.preview {
-                                    self.previewBridge.togglePlay()
-                                } else {
-                                    if self.currentTrack.first!.playing {
-                                        appRemote?.playerAPI?.pause()
-                                    } else {
-                                        appRemote?.playerAPI?.resume()
-                                    }
-                                }
-                        },
-                        label: {
-                            Image(self.currentTrack.first!.playing ? "pause" : "play")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(height: 22)
-                                .foregroundColor(.black)
-                                .padding(.leading, 18)
-                                .padding(.trailing, 22)
-                        })
-                        
-                        HStack {
-                            Text(self.currentTrack.first!.readable_full_position)
-                                .foregroundColor(.black)
-                            
-                            ZStack {
-                                ProgressBar(progress: self.currentTrack.first!.full_progress)
-                                    .padding(.leading, 6)
-                                    .padding(.trailing, 6)
-                                    .frame(height: 4)
+                    if let playerstate = playState.playerstate {
+                        if playerstate.isConnected {
+                            HStack {
+                                Button(
+                                    action: {
+                                        if self.currentTrack.first!.preview {
+                                            self.previewBridge.togglePlay()
+                                        } else {
+                                            if self.currentTrack.first!.playing {
+                                                appRemote?.playerAPI?.pause()
+                                            } else {
+                                                appRemote?.playerAPI?.resume()
+                                            }
+                                        }
+                                },
+                                label: {
+                                    Image(self.currentTrack.first!.playing ? "pause" : "play")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(height: 22)
+                                        .foregroundColor(.black)
+                                        .padding(.leading, 18)
+                                        .padding(.trailing, 22)
+                                })
                                 
-                                if self.currentTrack.first!.preview {
-                                    HStack {
-                                        BrowseOnlyMode(size: "min")
+                                HStack {
+                                    Text(self.currentTrack.first!.readable_full_position)
+                                        .foregroundColor(.black)
+                                    
+                                    ZStack {
+                                        ProgressBar(progress: self.currentTrack.first!.full_progress)
+                                            .padding(.leading, 6)
+                                            .padding(.trailing, 6)
+                                            .frame(height: 4)
+                                        
+                                        if self.currentTrack.first!.preview {
+                                            HStack {
+                                                BrowseOnlyMode(size: "min")
+                                            }
+                                            .padding(.top, 2)
+                                            .padding(.bottom, 2)
+                                            .padding(.leading, 8)
+                                            .padding(.trailing, 12)
+                                            .background(Color.black)
+                                            //.cornerRadius(14)
+                                            .opacity(0.6)
+                                        }
                                     }
-                                    .padding(.top, 2)
-                                    .padding(.bottom, 2)
-                                    .padding(.leading, 8)
-                                    .padding(.trailing, 12)
-                                    .background(Color.black)
-                                    //.cornerRadius(14)
-                                    .opacity(0.6)
+                                    
+                                    Text(self.recording.readableLength)
+                                        .foregroundColor(.black)
                                 }
+                                .font(.custom("Sanchez-Regular", size: 11))
                             }
-                            
-                            Text(self.recording.readableLength)
-                                .foregroundColor(.black)
+                            .padding(.top, 4)
+                        } else {
+                            HStack {
+                                Spacer()
+                                SpotifyDisconnected(size: "min")
+                                Spacer()
+                            }
                         }
-                        .font(.custom("Sanchez-Regular", size: 11))
                     }
-                    .padding(.top, 4)
                 }
             } else {
                 HStack {

@@ -131,6 +131,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
     func sceneWillResignActive(_ scene: UIScene) {
         // Called when the scene will move from an active state to an inactive state.
         // This may occur due to temporary interruptions (ex. an incoming phone call).
+        
+        self.appRemote.disconnect()
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
@@ -148,6 +150,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
         //
         
         print ("⛔️ AppRemote error")
+        
+        if self.playState.forceConnection {
+            self.playState.logAndPlay = false
+            self.sessionManager.initiateSession(with: AppConstants.SpotifyAuthScopes, options: .default)
+        }
     }
     
     func appRemote(_ appRemote: SPTAppRemote, didDisconnectWithError error: Error?) {
@@ -162,20 +169,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
         
         print("🎆 CONNECTION ESTABLISHED WITH THE SPOTIFY APP! 🎉")
         
+        self.playState.forceConnection = false
         self.appRemote.playerAPI?.delegate = self
         
         // subscribe to the player state
         
           self.appRemote.playerAPI?.subscribe(toPlayerState: { (result, error) in
             if let error = error {
-              print("😱 ERROR IN SUBSCRIBING TO THE PLAYER STATE")
+              print("😱 ERROR SUBSCRIBING TO THE PLAYER STATE")
               debugPrint(error.localizedDescription)
             }
           })
         
         // playing the music
         
-        if !playState.playing {
+        if playState.logAndPlay {
             APIBearerGet("\(AppConstants.SpotifyAPI)/me/player/devices", bearer: self.settingStore.accessToken) { results in
                 print(String(decoding: results, as: UTF8.self))
                 if let devicesData: Devices = safeJSON(results) {
@@ -186,6 +194,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
                             
                             if self.settingStore.lastPlayState.count > 0 {
                                 APIBearerPut("\(AppConstants.SpotifyAPI)/me/player/play?device_id=\($0.id)", body: "{ \"uris\": \(self.settingStore.lastPlayState.first!.jsonTracks), \"offset\": { \"position\": 0 } }", bearer: self.settingStore.accessToken) { results in
+                                    self.playState.logAndPlay = false
                                     print(String(decoding: results, as: UTF8.self))
                                 }
                             }
@@ -198,14 +207,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
     
     func playerStateDidChange(_ playerState: SPTAppRemotePlayerState) {
         print("⚠️ CHANGED PLAYER STATE")
-        
-        dump (playerState)
-        
         self.playState.playerstate = PlayerState (isConnected: true, isPlaying: !playerState.isPaused, trackId: playerState.track.uri, position: Int(ceil(Double(playerState.playbackPosition/1000))))
-        
-        if let pstate = self.playState.playerstate {
-            dump (pstate)
-        }
     }
     
     func sessionManager(manager: SPTSessionManager, didFailWith error: Error) {

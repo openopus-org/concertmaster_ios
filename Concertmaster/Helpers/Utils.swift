@@ -140,6 +140,8 @@ final class PlayState: ObservableObject {
     var keepQueue = false
     var autoplay = true
     var preview = false
+    var logAndPlay = false
+    var forceConnection = false
 }
 
 class TimerHolder: ObservableObject {

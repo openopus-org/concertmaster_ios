@@ -97,6 +97,7 @@ struct Player: View {
                         )]
                         
                         if (!self.appRemote!.isConnected) {
+                            self.playState.logAndPlay = true
                             self.sessionManager?.initiateSession(with: AppConstants.SpotifyAuthScopes, options: .default)
                         } else {
                             APIBearerPut("\(AppConstants.SpotifyAPI)/me/player/play?device_id=\(self.settingStore.deviceId)", body: "{ \"uris\": \(self.playState.recording.first!.jsonTracks), \"offset\": { \"position\": 0 } }", bearer: self.settingStore.accessToken) { results in
@@ -424,10 +425,7 @@ struct Player: View {
                 
                 if let playerstate = playState.playerstate {
                         
-                    if !playerstate.isConnected {
-                        self.currentTrack = [CurrentTrack]()
-                    }
-                    else {
+                    if playerstate.isConnected {
                         if let trackIndex = self.playState.recording.first!.spotify_tracks!.firstIndex(of: playerstate.trackId) {
                             if trackIndex >= self.currentTrack.first!.zero_index + self.playState.recording.first!.spotify_tracks!.count {
                                 // next recording
@@ -468,22 +466,30 @@ struct Player: View {
                                 self.currentTrack[0].full_position = (self.playState.recording.first!.tracks![trackIndex - self.currentTrack[0].zero_index].starting_point)
                                 self.currentTrack[0].track_length = (self.playState.recording.first!.tracks![trackIndex - self.currentTrack[0].zero_index].length)
                             }
-                        }
-                        
-                        if playerstate.isPlaying {
-                                print("🆗 started")
+                            
+                            if playerstate.isPlaying {
+                                    print("🆗 started")
+                                    self.currentTrack[0].loading = false
+                                    self.timerHolder.start()
+                            }
+                            else {
                                 self.currentTrack[0].loading = false
-                                self.timerHolder.start()
+                                print("⛔️ stopped")
+                                self.timerHolder.stop()
+                            }
+                            
+                            self.currentTrack[0].playing = playerstate.isPlaying
+                            print("⏯ playing: ", playerstate.isPlaying)
+                            dump(self.currentTrack)
                         }
-                        else {
-                            self.currentTrack[0].loading = false
-                            print("⛔️ stopped")
-                            self.timerHolder.stop()
-                        }
+                    } else {
+                        // not connected anymore
                         
-                        self.currentTrack[0].playing = playerstate.isPlaying
-                        print("⏯ playing: ", playerstate.isPlaying)
-                        dump(self.currentTrack)
+                        self.timerHolder.stop()
+                        
+                        self.currentTrack[0].playing = false
+                        self.currentTrack[0].track_position = 0
+                        self.currentTrack[0].full_position = 0
                     }
                 }
             }

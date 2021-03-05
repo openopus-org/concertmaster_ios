@@ -88,6 +88,7 @@
 		09AD2CD924341E6600375277 /* RadioStationsGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09AD2CD824341E6600375277 /* RadioStationsGrid.swift */; };
 		09AD2CDB2434211D00375277 /* RadioStationSuperButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09AD2CDA2434211D00375277 /* RadioStationSuperButton.swift */; };
 		09BAA81423E9C53F00157611 /* ComposersWorksSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BAA81323E9C53F00157611 /* ComposersWorksSearch.swift */; };
+		09DD814525F1943A0074C69B /* SpotifyDisconnected.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DD814425F194390074C69B /* SpotifyDisconnected.swift */; };
 		09DEEB0B241352F700350397 /* BrowseOnlyMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DEEB0A241352F700350397 /* BrowseOnlyMode.swift */; };
 		09DEEB0F241EF9F800350397 /* RecordingNotAvailable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DEEB0E241EF9F800350397 /* RecordingNotAvailable.swift */; };
 		09DEEB112421830C00350397 /* PlaylistButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DEEB102421830C00350397 /* PlaylistButtons.swift */; };
@@ -203,6 +204,7 @@
 		09AD2CD824341E6600375277 /* RadioStationsGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioStationsGrid.swift; sourceTree = "<group>"; };
 		09AD2CDA2434211D00375277 /* RadioStationSuperButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioStationSuperButton.swift; sourceTree = "<group>"; };
 		09BAA81323E9C53F00157611 /* ComposersWorksSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposersWorksSearch.swift; sourceTree = "<group>"; };
+		09DD814425F194390074C69B /* SpotifyDisconnected.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyDisconnected.swift; sourceTree = "<group>"; };
 		09DEEB0A241352F700350397 /* BrowseOnlyMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseOnlyMode.swift; sourceTree = "<group>"; };
 		09DEEB0E241EF9F800350397 /* RecordingNotAvailable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingNotAvailable.swift; sourceTree = "<group>"; };
 		09DEEB102421830C00350397 /* PlaylistButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistButtons.swift; sourceTree = "<group>"; };
@@ -436,6 +438,7 @@
 				09647BFA2546144900B14DD0 /* RecordingDetailTracks.swift */,
 				093093642558B2D1005FB69E /* RecordingPlayButton.swift */,
 				093093672559E311005FB69E /* AlbumPlayButtons.swift */,
+				09DD814425F194390074C69B /* SpotifyDisconnected.swift */,
 			);
 			path = Elements;
 			sourceTree = "<group>";
@@ -611,6 +614,7 @@
 				097325EE2404BD1900A1C9E6 /* CircleAnimation.swift in Sources */,
 				09AD2CDB2434211D00375277 /* RadioStationSuperButton.swift in Sources */,
 				097325F8240A111400A1C9E6 /* FavoriteComposersList.swift in Sources */,
+				09DD814525F1943A0074C69B /* SpotifyDisconnected.swift in Sources */,
 				090625682431910500E8FC3E /* RadioSwitcher.swift in Sources */,
 				09A6741D23F778C4000000D6 /* ErrorMessage.swift in Sources */,
 				0922D47024105973001E8DFE /* PlaylistsMenu.swift in Sources */,
