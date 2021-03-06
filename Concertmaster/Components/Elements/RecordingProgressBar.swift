@@ -14,28 +14,30 @@ struct RecordingProgressBar: View {
     
     var body: some View {
         HStack {
-            Text(track.index == (self.currentTrack.first!.track_index - self.currentTrack.first!.zero_index) ? self.currentTrack.first!.readable_track_position : "0:00")
-            
-            ZStack {
-                ProgressBar(progress: track.index == (self.currentTrack.first!.track_index - self.currentTrack.first!.zero_index) ? self.currentTrack.first!.track_progress : 0)
-                    .padding(.leading, 6)
-                    .padding(.trailing, 6)
-                    .frame(height: 4)
+            if self.currentTrack.count > 0 {
+                Text(track.index == (self.currentTrack.first!.track_index - self.currentTrack.first!.zero_index) ? self.currentTrack.first!.readable_track_position : "0:00")
                 
-                if self.currentTrack.first!.preview {
-                    HStack {
-                        Text("preview".uppercased())
-                            .font(.custom("ZillaSlab-Medium", size: 8))
+                ZStack {
+                    ProgressBar(progress: track.index == (self.currentTrack.first!.track_index - self.currentTrack.first!.zero_index) ? self.currentTrack.first!.track_progress : 0)
+                        .padding(.leading, 6)
+                        .padding(.trailing, 6)
+                        .frame(height: 4)
+                    
+                    if self.currentTrack.first!.preview {
+                        HStack {
+                            Text("preview".uppercased())
+                                .font(.custom("ZillaSlab-Medium", size: 8))
+                        }
+                        .padding(.init(top: 2, leading: 6, bottom: 2, trailing: 6))
+                        .background(Color.black)
+                        //.cornerRadius(12)
+                        .opacity(0.6)
                     }
-                    .padding(.init(top: 2, leading: 6, bottom: 2, trailing: 6))
-                    .background(Color.black)
-                    //.cornerRadius(12)
-                    .opacity(0.6)
                 }
-            }
 
-            Text(track.readableLength)
-                .frame(minWidth: 30)
+                Text(track.readableLength)
+                    .frame(minWidth: 30)
+            }
         }
         .font(.custom("Sanchez-Regular", size: 11))
         .padding(.bottom, 14)

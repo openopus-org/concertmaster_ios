@@ -98,6 +98,7 @@ struct Player: View {
                         
                         if (!self.appRemote!.isConnected) {
                             self.playState.logAndPlay = true
+                            //self.appRemote?.authorizeAndPlayURI((self.playState.recording.first!.tracks?.first!.spotify_trackid)!)
                             self.sessionManager?.initiateSession(with: AppConstants.SpotifyAuthScopes, options: .default)
                         } else {
                             APIBearerPut("\(AppConstants.SpotifyAPI)/me/player/play?device_id=\(self.settingStore.deviceId)", body: "{ \"uris\": \(self.playState.recording.first!.jsonTracks), \"offset\": { \"position\": 0 } }", bearer: self.settingStore.accessToken) { results in
@@ -481,15 +482,25 @@ struct Player: View {
                             self.currentTrack[0].playing = playerstate.isPlaying
                             print("⏯ playing: ", playerstate.isPlaying)
                             dump(self.currentTrack)
+                        } else {
+                            if !self.playState.logAndPlay {
+                                print("🔴 EIA NAO É A GRAVACAO CERTA")
+                                self.currentTrack = [CurrentTrack]()
+                                self.timerHolder.stop()
+                            }
                         }
                     } else {
                         // not connected anymore
                         
-                        self.timerHolder.stop()
-                        
-                        self.currentTrack[0].playing = false
-                        self.currentTrack[0].track_position = 0
-                        self.currentTrack[0].full_position = 0
+                        if let firsttrack = self.currentTrack.first {
+                            if firsttrack.playing {
+                                self.timerHolder.stop()
+                                
+                                self.currentTrack[0].playing = false
+                                self.currentTrack[0].track_position = 0
+                                self.currentTrack[0].full_position = 0
+                            }
+                        }
                     }
                 }
             }
