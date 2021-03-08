@@ -132,7 +132,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
         // Called when the scene will move from an active state to an inactive state.
         // This may occur due to temporary interruptions (ex. an incoming phone call).
         
-        self.appRemote.disconnect()
+        if !playState.logAndPlay {
+            self.appRemote.disconnect()
+        }
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
@@ -183,7 +185,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
         
         // playing the music
         
-        if playState.logAndPlay {
+        if playState.logAndPlay && false {
             APIBearerGet("\(AppConstants.SpotifyAPI)/me/player/devices", bearer: self.settingStore.accessToken) { results in
                 print(String(decoding: results, as: UTF8.self))
                 if let devicesData: Devices = safeJSON(results) {
