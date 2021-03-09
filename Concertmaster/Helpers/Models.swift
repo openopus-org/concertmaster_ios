@@ -393,3 +393,12 @@ struct Device: Codable {
     var name: String
     var type: String
 }
+
+struct SpotifyPlayer: Codable {
+    var device: Device?
+    var item: SpotifyItem?
+}
+
+struct SpotifyItem: Codable {
+    var uri: String
+}

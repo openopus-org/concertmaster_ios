@@ -101,7 +101,52 @@ struct Player: View {
                             self.sessionManager?.initiateSession(with: AppConstants.SpotifyAuthScopes, options: .default)
                         } else {
                             APIBearerPut("\(AppConstants.SpotifyAPI)/me/player/play?device_id=\(self.settingStore.deviceId)", body: "{ \"uris\": \(self.playState.recording.first!.jsonTracks), \"offset\": { \"position\": 0 } }", bearer: self.settingStore.accessToken) { results in
-                                print(String(decoding: results, as: UTF8.self))
+                                //print(String(decoding: results, as: UTF8.self))
+                            }
+                        }
+                    }
+                }
+            }
+        } else if !self.settingStore.accessToken.isEmpty {
+            // opening concertmaster but with a token defined
+            
+            if let firstrecording = self.playState.recording.first {
+                if let firstrecordingsptracks = firstrecording.spotify_tracks {
+                    APIBearerGet("\(AppConstants.SpotifyAPI)/me/player/", bearer: self.settingStore.accessToken) { results in
+                        //print(String(decoding: results, as: UTF8.self))
+                        
+                        if !results.isEmpty {
+                            if let player: SpotifyPlayer = safeJSON(results) {
+                                if let item = player.item {
+                                    if firstrecordingsptracks.firstIndex(of: item.uri) != nil {
+                                        // playing the last played recording on Spotify
+                                        
+                                        print("🟢 the last recording is being played right now")
+                                        
+                                        if let firstrecordingtracks = firstrecording.tracks {
+                                            if let firsttrack = firstrecordingtracks.first {
+                                                
+                                                DispatchQueue.main.async {
+                                                    self.currentTrack = [CurrentTrack (
+                                                        track_index: 0,
+                                                        zero_index: 0,
+                                                        playing: false,
+                                                        loading: false,
+                                                        starting_point: 0,
+                                                        track_position: 0,
+                                                        track_length: firsttrack.length,
+                                                        full_position: 0,
+                                                        full_length: firstrecording.length ?? 0,
+                                                        preview: false,
+                                                        id: (self.playState.recording.first!.spotify_tracks?.first!)!
+                                                    )]
+                                                    
+                                                    self.playState.playerstate = PlayerState (isConnected: false, isPlaying: false, trackId: "", position: 0)
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
