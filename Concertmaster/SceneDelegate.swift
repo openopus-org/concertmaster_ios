@@ -185,25 +185,37 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
         
         // playing the music
         
-        if playState.logAndPlay && false {
-            APIBearerGet("\(AppConstants.SpotifyAPI)/me/player/devices", bearer: self.settingStore.accessToken) { results in
-                print(String(decoding: results, as: UTF8.self))
-                if let devicesData: Devices = safeJSON(results) {
-                    devicesData.devices.forEach() {
-                        if $0.is_active {
-                            self.settingStore.deviceId = $0.id
-                            print ("device id \($0.id)")
-                            
-                            if self.settingStore.lastPlayState.count > 0 {
-                                APIBearerPut("\(AppConstants.SpotifyAPI)/me/player/play?device_id=\($0.id)", body: "{ \"uris\": \(self.settingStore.lastPlayState.first!.jsonTracks), \"offset\": { \"position\": 0 } }", bearer: self.settingStore.accessToken) { results in
-                                    self.playState.logAndPlay = false
-                                    print(String(decoding: results, as: UTF8.self))
+        if playState.logAndPlay {
+            self.appRemote.playerAPI?.getPlayerState({ (result, error) in
+                print("log and play: checking current playstate")
+                let currplayer = result as! SPTAppRemotePlayerState
+                print("playing ", currplayer.track.uri)
+                
+                APIBearerGet("\(AppConstants.SpotifyAPI)/me/player/devices", bearer: self.settingStore.accessToken) { results in
+                    print(String(decoding: results, as: UTF8.self))
+                    if let devicesData: Devices = safeJSON(results) {
+                        devicesData.devices.forEach() {
+                            if $0.is_active {
+                                self.settingStore.deviceId = $0.id
+                                print ("device id \($0.id)")
+                                
+                                if self.settingStore.lastPlayState.count > 0 {
+                                    if self.settingStore.lastPlayState.first!.spotify_tracks!.firstIndex(of: currplayer.track.uri) == nil {
+                                        APIBearerPut("\(AppConstants.SpotifyAPI)/me/player/play?device_id=\($0.id)", body: "{ \"uris\": \(self.settingStore.lastPlayState.first!.jsonTracks), \"offset\": { \"position\": 0 } }", bearer: self.settingStore.accessToken) { results in
+                                            
+                                            //print(String(decoding: results, as: UTF8.self))
+                                            
+                                            DispatchQueue.main.async {
+                                                self.playState.logAndPlay = false
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
                     }
                 }
-            }
+            })
         }
     }
     

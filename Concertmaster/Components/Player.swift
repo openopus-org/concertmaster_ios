@@ -98,7 +98,6 @@ struct Player: View {
                         
                         if (!self.appRemote!.isConnected) {
                             self.playState.logAndPlay = true
-                            //self.appRemote?.authorizeAndPlayURI((self.playState.recording.first!.tracks?.first!.spotify_trackid)!)
                             self.sessionManager?.initiateSession(with: AppConstants.SpotifyAuthScopes, options: .default)
                         } else {
                             APIBearerPut("\(AppConstants.SpotifyAPI)/me/player/play?device_id=\(self.settingStore.deviceId)", body: "{ \"uris\": \(self.playState.recording.first!.jsonTracks), \"offset\": { \"position\": 0 } }", bearer: self.settingStore.accessToken) { results in
