@@ -44,9 +44,16 @@ struct RecordingProgressBars: View {
                                                 
                                                 APIBearerPut("\(AppConstants.SpotifyAPI)/me/player/play?device_id=\(self.settingStore.deviceId)", body: "{ \"uris\": \(self.playState.recording.first!.jsonTracks), \"offset\": { \"position\": \(offset) } }", bearer: self.settingStore.accessToken) { results in
                                                     
-                                                    self.playState.playerstate = PlayerState (isConnected: true, isPlaying: true, trackId: track.spotify_trackid, position: 0)
-                                                    
-                                                    print(String(decoding: results, as: UTF8.self))
+                                                    DispatchQueue.main.async {
+                                                        print("TRACK CHANGED TO ", track.spotify_trackid)
+                                                        self.playState.playerstate = PlayerState (isConnected: true, isPlaying: true, trackId: "spotify:track:\(track.spotify_trackid)", position: 0)
+                                                        
+                                                        if let _ = self.appRemote!.connectionParameters.accessToken {
+                                                            self.appRemote!.connect()
+                                                        }
+                                                        
+                                                        //print(String(decoding: results, as: UTF8.self))
+                                                    }
                                                 }
                                             }
                                             /*

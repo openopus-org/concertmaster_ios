@@ -27,7 +27,9 @@ struct SpotifyDisconnected: View {
     var body: some View {
         Button(action: {
             self.playState.forceConnection = true
-            self.appRemote!.connect()
+            if let _ = self.appRemote!.connectionParameters.accessToken {
+                self.appRemote!.connect()
+            }
         }, label: {
             HStack {
                 Image("forbidden")

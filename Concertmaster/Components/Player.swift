@@ -76,8 +76,6 @@ struct Player: View {
         // logging in to spotify and to concertmaster
         
         if (self.playState.autoplay) {
-            print("is connected - \(self.appRemote?.isConnected)")
-            //print("playerstate - \(self.appRemote?.playerAPI?.getPlayerState())")
             
             if let firstrecording = self.playState.recording.first {
                 if let firstrecordingtracks = firstrecording.tracks {
@@ -107,8 +105,8 @@ struct Player: View {
                     }
                 }
             }
-        } else if !self.settingStore.accessToken.isEmpty {
-            // opening concertmaster but with a token defined
+        } else if !self.settingStore.accessToken.isEmpty && !timeframe(timestamp: settingStore.lastLogged, minutes: AppConstants.minsToToken) {
+            // opening concertmaster but with a token recently defined
             
             if let firstrecording = self.playState.recording.first {
                 if let firstrecordingsptracks = firstrecording.spotify_tracks {
@@ -528,7 +526,7 @@ struct Player: View {
                             dump(self.currentTrack)
                         } else {
                             if !self.playState.logAndPlay {
-                                print("🔴 EIA NAO É A GRAVACAO CERTA")
+                                print("🔴 Not the right recording: ", playerstate.trackId)
                                 self.currentTrack = [CurrentTrack]()
                                 self.timerHolder.stop()
                             }

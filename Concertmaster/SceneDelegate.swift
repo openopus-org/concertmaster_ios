@@ -164,7 +164,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
         
         print ("⛔️ AppRemote disconnected")
         
-        self.playState.playerstate = PlayerState (isConnected: false, isPlaying: false, trackId: "", position: 0)
+        if let firstrecording = self.playState.recording.first {
+            if let tracks = firstrecording.tracks {
+                if let track = tracks.first {
+                    self.playState.playerstate = PlayerState (isConnected: false, isPlaying: false, trackId: track.spotify_trackid, position: 0)
+                }
+            }
+        } else {
+            self.playState.playerstate = PlayerState (isConnected: false, isPlaying: false, trackId: "", position: 0)
+        }
     }
     
     func appRemoteDidEstablishConnection(_ appRemote: SPTAppRemote) {
@@ -188,25 +196,28 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
         if playState.logAndPlay {
             self.appRemote.playerAPI?.getPlayerState({ (result, error) in
                 print("log and play: checking current playstate")
-                let currplayer = result as! SPTAppRemotePlayerState
-                print("playing ", currplayer.track.uri)
                 
-                APIBearerGet("\(AppConstants.SpotifyAPI)/me/player/devices", bearer: self.settingStore.accessToken) { results in
-                    print(String(decoding: results, as: UTF8.self))
-                    if let devicesData: Devices = safeJSON(results) {
-                        devicesData.devices.forEach() {
-                            if $0.is_active {
-                                self.settingStore.deviceId = $0.id
-                                print ("device id \($0.id)")
-                                
-                                if self.settingStore.lastPlayState.count > 0 {
-                                    if self.settingStore.lastPlayState.first!.spotify_tracks!.firstIndex(of: currplayer.track.uri) == nil {
-                                        APIBearerPut("\(AppConstants.SpotifyAPI)/me/player/play?device_id=\($0.id)", body: "{ \"uris\": \(self.settingStore.lastPlayState.first!.jsonTracks), \"offset\": { \"position\": 0 } }", bearer: self.settingStore.accessToken) { results in
-                                            
-                                            //print(String(decoding: results, as: UTF8.self))
-                                            
-                                            DispatchQueue.main.async {
-                                                self.playState.logAndPlay = false
+                if error == nil {
+                    let currplayer = result as! SPTAppRemotePlayerState
+                    print("playing ", currplayer.track.uri)
+                    
+                    APIBearerGet("\(AppConstants.SpotifyAPI)/me/player/devices", bearer: self.settingStore.accessToken) { results in
+                        print(String(decoding: results, as: UTF8.self))
+                        if let devicesData: Devices = safeJSON(results) {
+                            devicesData.devices.forEach() {
+                                if $0.is_active {
+                                    self.settingStore.deviceId = $0.id
+                                    print ("device id \($0.id)")
+                                    
+                                    if self.settingStore.lastPlayState.count > 0 {
+                                        if self.settingStore.lastPlayState.first!.spotify_tracks!.firstIndex(of: currplayer.track.uri) == nil {
+                                            APIBearerPut("\(AppConstants.SpotifyAPI)/me/player/play?device_id=\($0.id)", body: "{ \"uris\": \(self.settingStore.lastPlayState.first!.jsonTracks), \"offset\": { \"position\": 0 } }", bearer: self.settingStore.accessToken) { results in
+                                                
+                                                //print(String(decoding: results, as: UTF8.self))
+                                                
+                                                DispatchQueue.main.async {
+                                                    self.playState.logAndPlay = false
+                                                }
                                             }
                                         }
                                     }
