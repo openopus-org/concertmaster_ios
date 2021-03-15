@@ -155,6 +155,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
         
         if self.playState.forceConnection {
             self.playState.logAndPlay = false
+            self.playState.forceConnection = false
             self.sessionManager.initiateSession(with: AppConstants.SpotifyAuthScopes, options: .default)
         }
     }

@@ -100,6 +100,12 @@ struct Player: View {
                         } else {
                             APIBearerPut("\(AppConstants.SpotifyAPI)/me/player/play?device_id=\(self.settingStore.deviceId)", body: "{ \"uris\": \(self.playState.recording.first!.jsonTracks), \"offset\": { \"position\": 0 } }", bearer: self.settingStore.accessToken) { results in
                                 //print(String(decoding: results, as: UTF8.self))
+                                
+                                DispatchQueue.main.async {
+                                    if let _ = self.appRemote!.connectionParameters.accessToken {
+                                        self.appRemote!.connect()
+                                    }
+                                }
                             }
                         }
                     }

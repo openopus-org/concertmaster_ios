@@ -29,6 +29,9 @@ struct SpotifyDisconnected: View {
             self.playState.forceConnection = true
             if let _ = self.appRemote!.connectionParameters.accessToken {
                 self.appRemote!.connect()
+            } else {
+                self.playState.logAndPlay = false
+                self.sessionManager?.initiateSession(with: AppConstants.SpotifyAuthScopes, options: .default)
             }
         }, label: {
             HStack {
