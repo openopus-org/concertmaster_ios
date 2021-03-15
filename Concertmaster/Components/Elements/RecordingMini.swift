@@ -81,6 +81,9 @@ struct RecordingMini: View {
                                         } else {
                                             if self.currentTrack.first!.playing {
                                                 appRemote?.playerAPI?.pause()
+                                                if let _ = self.appRemote!.connectionParameters.accessToken {
+                                                    self.appRemote!.connect()
+                                                }
                                             } else {
                                                 appRemote?.playerAPI?.resume()
                                             }
