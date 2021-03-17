@@ -254,7 +254,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
         
         if timeframe(timestamp: settingStore.lastLogged, minutes: AppConstants.minsToLogin)  {
             APIpost("\(AppConstants.concBackend)/dyn/user/login/", parameters: ["token": session.accessToken ]) { results in
-                //print("👀 User details 👇🏻")
+                print("👀 User details 👇🏻")
                 //print(String(decoding: results, as: UTF8.self))
                 
                 if let login: Login = safeJSON(results) {
@@ -302,6 +302,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
                                 } else {
                                     RequestAppStoreReview()
                                 }
+                            }
+                        }
+                        
+                        if let product = login.user.product {
+                            if product != "premium" {
+                                self.appRemote.playerAPI?.pause()
+                                self.appState.showingWarning = true
                             }
                         }
                     }

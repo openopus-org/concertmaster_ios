@@ -20,75 +20,42 @@ struct Warning: View {
             VStack {
                 Text("warning".uppercased())
                     .foregroundColor(Color(hex: 0x717171))
-                    .font(.custom("Sanchez-Regular", size: 10))
+                    .font(.custom("ZillaSlab-Medium", size: 12))
                     .multilineTextAlignment(.leading)
                 
-                Text("Concertmaster needs an active Spotify subscription to play music")
+                Text("Concertmaster needs a Spotify Premium subscription to play music")
                     .foregroundColor(Color.white)
-                    .font(.custom("PetitaBold", size: 15))
-                    .padding(.top, 20)
+                    .font(.custom("PetitaBold", size: 17))
+                    .padding(.top, 30)
                     .multilineTextAlignment(.center)
-                
-                if !appState.apmusEligible {
-                    Text("Unfortunately, this device is not eligible for Apple Music.")
-                        .foregroundColor(Color.white)
-                        .font(.custom("PetitaMedium", size: 14))
-                        .padding(.top, 10)
-                        .multilineTextAlignment(.center)
-                }
                 
                 Text("You can browse Concertmaster's catalogue, create playlists, favorite works, composers and recordings, but playback is restricted to 30 seconds samples.")
                     .foregroundColor(Color.white)
-                    .font(.custom("PetitaMedium", size: 11))
+                    .font(.custom("PetitaMedium", size: 14))
                     .padding(.top, 10)
                     .padding(.bottom, 18)
                     .multilineTextAlignment(.center)
                 
-                HStack(spacing: 10) {
+                HStack(spacing: 12) {
                     
-                    if appState.apmusEligible {
-                        Button(
-                            action: {
-                                SKCloudServiceController.requestAuthorization { status in
-                                    if (SKCloudServiceController.authorizationStatus() == .authorized)
-                                    {
-                                        let controller = SKCloudServiceController()
-                                        controller.requestCapabilities { capabilities, error in
-                                            if capabilities.contains(.musicCatalogPlayback) {
-                                                self.playState.recording = self.playState.recording
-                                            }
-                                            else {
-                                                if capabilities.contains(.musicCatalogSubscriptionEligible) {
-                                                    DispatchQueue.main.async {
-                                                        let amc = AppleMusicSubscribeController()
-                                                        amc.showAppleMusicSignup()
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                    else {
-                                        DispatchQueue.main.async {
-                                            UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:], completionHandler: nil)
-                                        }
-                                    }
-                                }
-                            },
-                            label: {
+                    Button(
+                        action: {
+                            UIApplication.shared.open(URL(string: "https://www.spotify.com/br/premium/")!)
+                        },
+                        label: {
+                            HStack {
                                 HStack {
-                                    HStack {
-                                        Spacer()
-                                        Text("enable playback".uppercased())
-                                            .font(.custom("ZillaSlab-Medium", size: 10))
-                                        Spacer()
-                                    }
+                                    Spacer()
+                                    Text("Go Premium".uppercased())
+                                        .font(.custom("ZillaSlab-Medium", size: 13))
+                                    Spacer()
                                 }
-                                .padding(12)
-                                .foregroundColor(.white)
-                                .background(Color(hex: 0xfce546))
-                                //.cornerRadius(16)
-                        })
-                    }
+                            }
+                            .padding(12)
+                            .foregroundColor(.black)
+                            .background(Color(hex: 0xfce546))
+                            //.cornerRadius(16)
+                    })
                     
                     Button(
                         action: {
@@ -99,7 +66,7 @@ struct Warning: View {
                                 HStack {
                                     Spacer()
                                     Text("close".uppercased())
-                                        .font(.custom("Sanchez-Regular", size: 10))
+                                        .font(.custom("ZillaSlab-Medium", size: 13))
                                     Spacer()
                                 }
                             }
@@ -111,7 +78,7 @@ struct Warning: View {
                 }
                 .padding(.top, 20)
             }
-            .padding(15)
+            .padding(25)
             .background(Color(hex: 0x2b2b2f))
             //.cornerRadius(20)
             .frame(maxWidth: 320)

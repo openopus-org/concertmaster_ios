@@ -287,6 +287,7 @@ struct User: Codable, Identifiable {
     var auth: String?
     var heavyuser: Int?
     var country: String?
+    var product: String?
 }
 
 struct Token: Codable {
