@@ -232,8 +232,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
     }
     
     func playerStateDidChange(_ playerState: SPTAppRemotePlayerState) {
-        print("⚠️ CHANGED PLAYER STATE")
-        self.playState.playerstate = PlayerState (isConnected: true, isPlaying: !playerState.isPaused, trackId: playerState.track.uri, position: Int(ceil(Double(playerState.playbackPosition/1000))))
+        print("⚠️ CHANGED PLAYER STATE = ", playerState.track.uri)
+        
+        if !playerState.track.uri.isEmpty {
+            self.playState.playerstate = PlayerState (isConnected: true, isPlaying: !playerState.isPaused, trackId: playerState.track.uri, position: Int(ceil(Double(playerState.playbackPosition/1000))))
+        }
     }
     
     func sessionManager(manager: SPTSessionManager, didFailWith error: Error) {

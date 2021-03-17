@@ -12,6 +12,7 @@ import URLImage
 struct MiniRecordingRow: View {
     var recording: Recording
     var accentColor: Color
+    var textColor: Color
     
     var body: some View {
         HStack(alignment: .top) {
@@ -51,12 +52,14 @@ struct MiniRecordingRow: View {
                         .padding(.bottom, 6)
                         .lineLimit(20)
                         .fixedSize(horizontal: false, vertical: true)
+                        .foregroundColor(self.textColor)
                 }
                 
                 if recording.observation != "" && recording.observation != nil {
                     Text(recording.observation ?? "")
                     .font(.custom("PetitaMedium", size: 9))
                     .padding(.bottom, 6)
+                    .foregroundColor(self.textColor)
                 }
                 
                 ForEach(recording.performers, id: \.name) { performer in
@@ -70,7 +73,7 @@ struct MiniRecordingRow: View {
                         }
                     }
                 }
-                .foregroundColor(.white)
+                .foregroundColor(self.textColor)
                 .lineLimit(20)
             }
             Spacer()
