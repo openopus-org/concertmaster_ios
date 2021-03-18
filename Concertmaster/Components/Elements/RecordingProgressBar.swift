@@ -11,6 +11,7 @@ import SwiftUI
 struct RecordingProgressBar: View {
     var track: Track
     @Binding var currentTrack: [CurrentTrack]
+    @EnvironmentObject var playState: PlayState
     
     var body: some View {
         HStack {
@@ -23,15 +24,16 @@ struct RecordingProgressBar: View {
                         .padding(.trailing, 6)
                         .frame(height: 4)
                     
-                    if self.currentTrack.first!.preview {
+                    if self.playState.preview {
                         HStack {
                             Text("preview".uppercased())
-                                .font(.custom("ZillaSlab-Medium", size: 8))
+                                .font(.custom("ZillaSlab-Medium", size: 10))
+                                .foregroundColor(Color(hex: 0xFCE546))
                         }
                         .padding(.init(top: 2, leading: 6, bottom: 2, trailing: 6))
                         .background(Color.black)
                         //.cornerRadius(12)
-                        .opacity(0.6)
+                        .opacity(0.7)
                     }
                 }
 

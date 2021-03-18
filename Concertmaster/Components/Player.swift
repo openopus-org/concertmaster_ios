@@ -94,16 +94,23 @@ struct Player: View {
                             id: (self.playState.recording.first!.spotify_tracks?.first!)!
                         )]
                         
-                        if (!self.appRemote!.isConnected) {
-                            self.playState.logAndPlay = true
-                            self.sessionManager?.initiateSession(with: AppConstants.SpotifyAuthScopes, options: .default)
+                        if self.playState.preview {
+                            if let previews = self.playState.recording.first!.previews {
+                                self.currentTrack[0].preview = true
+                                self.previewBridge.setQueueAndPlay(tracks: previews, starttrack: 0, autoplay: true, zeroqueue: false)
+                            }
                         } else {
-                            APIBearerPut("\(AppConstants.SpotifyAPI)/me/player/play?device_id=\(self.settingStore.deviceId)", body: "{ \"uris\": \(self.playState.recording.first!.jsonTracks), \"offset\": { \"position\": 0 } }", bearer: self.settingStore.accessToken) { results in
-                                //print(String(decoding: results, as: UTF8.self))
-                                
-                                DispatchQueue.main.async {
-                                    if let _ = self.appRemote!.connectionParameters.accessToken {
-                                        self.appRemote!.connect()
+                            if (!self.appRemote!.isConnected) {
+                                self.playState.logAndPlay = true
+                                self.sessionManager?.initiateSession(with: AppConstants.SpotifyAuthScopes, options: .default)
+                            } else {
+                                APIBearerPut("\(AppConstants.SpotifyAPI)/me/player/play?device_id=\(self.settingStore.deviceId)", body: "{ \"uris\": \(self.playState.recording.first!.jsonTracks), \"offset\": { \"position\": 0 } }", bearer: self.settingStore.accessToken) { results in
+                                    //print(String(decoding: results, as: UTF8.self))
+                                    
+                                    DispatchQueue.main.async {
+                                        if let _ = self.appRemote!.connectionParameters.accessToken {
+                                            self.appRemote!.connect()
+                                        }
                                     }
                                 }
                             }
@@ -419,7 +426,7 @@ struct Player: View {
                                 RecordingProgressBars(recording: playState.recording.first!, currentTrack: $currentTrack)
                                 
                                 if self.currentTrack.count > 0 {
-                                    if self.currentTrack.first!.preview {
+                                    if self.playState.preview {
                                         HStack {
                                             Spacer()
                                             
@@ -564,15 +571,14 @@ struct Player: View {
         .onReceive(timerHolder.objectWillChange, perform: {
             if (self.currentTrack.count > 0) {
                 
-                if self.currentTrack[0].preview {
+                if self.playState.preview {
                     self.currentTrack[0].track_position = self.previewBridge.getCurrentPlaybackTime()
                 } else {
-                    //self.currentTrack[0].track_position = self.mediaBridge.getCurrentPlaybackTime()
                     self.currentTrack[0].track_position += 1
                 }
                 
                 if self.currentTrack[0].track_position < 2 {
-                    if self.currentTrack[0].preview {
+                    if self.playState.preview {
                         self.currentTrack[0].playing = self.previewBridge.getCurrentPlaybackState()
                     } else {
                         if let playerstate = playState.playerstate {
@@ -588,107 +594,11 @@ struct Player: View {
                 self.currentTrack[0].full_position = self.currentTrack[0].starting_point + self.currentTrack[0].track_position
             }
         })
-        /*
-        .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name.MPMusicPlayerControllerPlaybackStateDidChange)) { status in
-                if self.currentTrack.count > 0 {
-                    if let isPlaying = status.userInfo?["playing"] as? Bool {
-                        
-                        // removing loading
-                        
-                        if isPlaying {
-                            self.currentTrack[0].loading = false
-                            self.timerHolder.start()
-                        }
-                        else if !self.currentTrack[0].preview {
-                            self.timerHolder.stop()
-                        }
-                        
-                        self.currentTrack[0].playing = isPlaying
-                        self.playState.playerstate?.isPlaying = isPlaying
-                    }
-                }
-            }
-        .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name.MPMusicPlayerControllerNowPlayingItemDidChange)) { status in
-            if self.currentTrack.count > 0 {
-                
-                if let success = status.userInfo?["success"] as? Bool {
-                    if !success {
-                        /*
-                        print("🔴 Playing Item is nil!")
-                        self.currentTrack.removeAll()
-                        self.playState.playing = false
-                        self.radioState.isActive = false
-                        */
-                        self.currentTrack[0].loading = false
-                    }
-                    else {
-                        if let trackIndex = status.userInfo?["index"] as? Int {
-                            //print(self.playState.recording)
-                            
-                            if let currenttrackfirst = self.currentTrack.first {
-                                if let playstaterecordingfirst = self.playState.recording.first {
-                                    if let appletracks = playstaterecordingfirst.spotify_tracks {
-                                        if let playstaterecordingfirsttracks = playstaterecordingfirst.tracks {
-                                            if trackIndex >= currenttrackfirst.zero_index + appletracks.count {
-                                                // next recording
-                                                
-                                                if self.radioState.nextRecordings.count > 0 {
-                                                    
-                                                    self.playState.keepQueue = true
-                                                    self.playState.recording = [self.radioState.nextRecordings.removeFirst()]
-                                                    print("🆗 next recording APPLE MUSIC")
-                                                    
-                                                    if let newplaystaterecordingfirst = self.playState.recording.first {
-                                                        if let newplaystaterecordingfirsttracks = newplaystaterecordingfirst.tracks {
-                                                            if let newplaystaterecordingfirsttracksfirst = newplaystaterecordingfirsttracks.first {
-                                                                self.currentTrack = [CurrentTrack (
-                                                                    track_index: trackIndex,
-                                                                    zero_index: trackIndex,
-                                                                    playing: false,
-                                                                    loading: false,
-                                                                    starting_point: 0,
-                                                                    track_position: 0,
-                                                                    track_length: newplaystaterecordingfirsttracksfirst.length,
-                                                                    full_position: 0,
-                                                                    full_length: newplaystaterecordingfirst.length ?? 0,
-                                                                    preview: false
-                                                                )]
-                                                                //print(self.currentTrack)
-                                                                self.radioState.canSkip = false
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                            else {
-                                                    print("radio state: \(self.radioState.isActive)")
-                                                
-                                                    if trackIndex == 0 && self.currentTrack[0].zero_index != 0 {
-                                                        self.currentTrack[0].zero_index = 0
-                                                        
-                                                        self.mediaBridge.setQueue(tracks: appletracks)
-                                                    }
-                                                
-                                                    self.currentTrack[0].track_index = trackIndex
-                                                    self.currentTrack[0].track_position = 0
-                                                    self.currentTrack[0].starting_point = (playstaterecordingfirsttracks[trackIndex - self.currentTrack[0].zero_index].starting_point)
-                                                    self.currentTrack[0].full_position = (playstaterecordingfirsttracks[trackIndex - self.currentTrack[0].zero_index].starting_point)
-                                                    self.currentTrack[0].track_length = (playstaterecordingfirsttracks[trackIndex - self.currentTrack[0].zero_index].length)
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        */
         .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name.previewPlayerItemChanged)) { status in
             print("New track: \(self.previewBridge.getCurrentTrackIndex())")
             
             if self.currentTrack.count > 0 {
+                self.currentTrack[0].preview = true
                 let trackIndex = self.previewBridge.getCurrentTrackIndex()
                 
                 if trackIndex >= self.currentTrack.first!.zero_index + self.playState.recording.first!.spotify_tracks!.count {

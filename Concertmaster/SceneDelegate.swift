@@ -16,6 +16,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
     var appState = AppState()
     var settingStore = SettingStore()
     var playState = PlayState()
+    var previewBridge = PreviewBridge()
     
     lazy var configuration: SPTConfiguration = {
         let configuration = SPTConfiguration(clientID: AppConstants.SpotifyClientID, redirectURL: AppConstants.SpotifyRedirectURL)
@@ -86,7 +87,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
                             .environmentObject(MediaBridge())
                             .environmentObject(settingStore)
                             .environmentObject(RadioState())
-                            .environmentObject(PreviewBridge())
+                            .environmentObject(previewBridge)
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
@@ -124,7 +125,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
         
         if let _ = self.appRemote.connectionParameters.accessToken {
-            self.appRemote.connect()
+            if !playState.logAndPlay {
+                self.appRemote.connect()
+            }
         }
     }
 
@@ -250,7 +253,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
         print ("access token - \(session.accessToken)")
         appRemote.connectionParameters.accessToken = session.accessToken
         self.settingStore.accessToken = session.accessToken
-        appRemote.connect()
         
         if timeframe(timestamp: settingStore.lastLogged, minutes: AppConstants.minsToLogin)  {
             APIpost("\(AppConstants.concBackend)/dyn/user/login/", parameters: ["token": session.accessToken ]) { results in
@@ -307,8 +309,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
                         
                         if let product = login.user.product {
                             if product != "premium" {
-                                self.appRemote.playerAPI?.pause()
+                                //self.appRemote.playerAPI?.pause()
                                 self.appState.showingWarning = true
+                                
+                                // playing preview
+                                
+                                if let previews = self.playState.recording.first!.previews {
+                                    self.playState.preview = true
+                                    self.previewBridge.setQueueAndPlay(tracks: previews, starttrack: 0, autoplay: true, zeroqueue: false)
+                                }
+                            } else {
+                                self.appRemote.connect()
                             }
                         }
                     }

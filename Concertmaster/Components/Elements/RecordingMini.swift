@@ -9,7 +9,7 @@
 import SwiftUI
 import URLImage
 
-struct RecordingMini: View {
+struct RecordingMiniView: View {
     var recording: Recording
     @Binding var currentTrack: [CurrentTrack]
     @EnvironmentObject var mediaBridge: MediaBridge
@@ -22,6 +22,74 @@ struct RecordingMini: View {
             return (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.appRemote
         }
     }
+    
+    var body: some View {
+        HStack {
+            Button(
+                action: {
+                    if self.playState.preview {
+                        self.previewBridge.togglePlay()
+                    } else {
+                        if self.currentTrack.first!.playing {
+                            appRemote?.playerAPI?.pause()
+                            if let _ = self.appRemote!.connectionParameters.accessToken {
+                                self.appRemote!.connect()
+                            }
+                        } else {
+                            appRemote?.playerAPI?.resume()
+                        }
+                    }
+            },
+            label: {
+                Image(self.currentTrack.first!.playing ? "pause" : "play")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(height: 22)
+                    .foregroundColor(.black)
+                    .padding(.leading, 18)
+                    .padding(.trailing, 22)
+            })
+            
+            HStack {
+                Text(self.currentTrack.first!.readable_full_position)
+                    .foregroundColor(.black)
+                
+                ZStack {
+                    ProgressBar(progress: self.currentTrack.first!.full_progress)
+                        .padding(.leading, 6)
+                        .padding(.trailing, 6)
+                        .frame(height: 4)
+                    
+                    if self.playState.preview {
+                        HStack {
+                            BrowseOnlyMode(size: "min")
+                        }
+                        .padding(.top, 2)
+                        .padding(.bottom, 2)
+                        .padding(.leading, 8)
+                        .padding(.trailing, 12)
+                        .background(Color.black)
+                        //.cornerRadius(14)
+                        .opacity(0.6)
+                    }
+                }
+                
+                Text(self.recording.readableLength)
+                    .foregroundColor(.black)
+            }
+            .font(.custom("Sanchez-Regular", size: 11))
+        }
+        .padding(.top, 4)
+    }
+}
+
+struct RecordingMini: View {
+    var recording: Recording
+    @Binding var currentTrack: [CurrentTrack]
+    @EnvironmentObject var mediaBridge: MediaBridge
+    @EnvironmentObject var previewBridge: PreviewBridge
+    @EnvironmentObject var settingStore: SettingStore
+    @EnvironmentObject var playState: PlayState
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -73,62 +141,7 @@ struct RecordingMini: View {
                 else {
                     if let playerstate = playState.playerstate {
                         if playerstate.isConnected {
-                            HStack {
-                                Button(
-                                    action: {
-                                        if self.currentTrack.first!.preview {
-                                            self.previewBridge.togglePlay()
-                                        } else {
-                                            if self.currentTrack.first!.playing {
-                                                appRemote?.playerAPI?.pause()
-                                                if let _ = self.appRemote!.connectionParameters.accessToken {
-                                                    self.appRemote!.connect()
-                                                }
-                                            } else {
-                                                appRemote?.playerAPI?.resume()
-                                            }
-                                        }
-                                },
-                                label: {
-                                    Image(self.currentTrack.first!.playing ? "pause" : "play")
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                        .frame(height: 22)
-                                        .foregroundColor(.black)
-                                        .padding(.leading, 18)
-                                        .padding(.trailing, 22)
-                                })
-                                
-                                HStack {
-                                    Text(self.currentTrack.first!.readable_full_position)
-                                        .foregroundColor(.black)
-                                    
-                                    ZStack {
-                                        ProgressBar(progress: self.currentTrack.first!.full_progress)
-                                            .padding(.leading, 6)
-                                            .padding(.trailing, 6)
-                                            .frame(height: 4)
-                                        
-                                        if self.currentTrack.first!.preview {
-                                            HStack {
-                                                BrowseOnlyMode(size: "min")
-                                            }
-                                            .padding(.top, 2)
-                                            .padding(.bottom, 2)
-                                            .padding(.leading, 8)
-                                            .padding(.trailing, 12)
-                                            .background(Color.black)
-                                            //.cornerRadius(14)
-                                            .opacity(0.6)
-                                        }
-                                    }
-                                    
-                                    Text(self.recording.readableLength)
-                                        .foregroundColor(.black)
-                                }
-                                .font(.custom("Sanchez-Regular", size: 11))
-                            }
-                            .padding(.top, 4)
+                            RecordingMiniView(recording: self.recording, currentTrack: $currentTrack)
                         } else {
                             HStack {
                                 Spacer()
@@ -136,6 +149,8 @@ struct RecordingMini: View {
                                 Spacer()
                             }
                         }
+                    } else if self.playState.preview {
+                        RecordingMiniView(recording: self.recording, currentTrack: $currentTrack)
                     }
                 }
             } else {
