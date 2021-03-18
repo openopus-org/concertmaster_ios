@@ -14,6 +14,7 @@ struct Player: View {
     @State private var currentTrack = [CurrentTrack]()
     @EnvironmentObject var mediaBridge: MediaBridge
     @EnvironmentObject var previewBridge: PreviewBridge
+    @EnvironmentObject var appState: AppState
     @EnvironmentObject var playState: PlayState
     @EnvironmentObject var timerHolder: TimerHolder
     @EnvironmentObject var AppState: AppState
@@ -53,20 +54,24 @@ struct Player: View {
         let center = MPNowPlayingInfoCenter.default()
         var songInfo = [String: AnyObject]()
         
-        if let cover = self.playState.recording.first!.cover {
-            imageGet(url: cover) { img in
-                DispatchQueue.main.async {
-                    songInfo[MPMediaItemPropertyArtist] = self.playState.recording.first!.work!.composer!.name as AnyObject
-                    songInfo[MPMediaItemPropertyAlbumTitle] = self.playState.recording.first!.work!.title as AnyObject
-                    songInfo[MPMediaItemPropertyArtwork] = img as AnyObject
-                    
-                    if center.nowPlayingInfo?.count ?? 0 > 0 {
-                        songInfo[MPMediaItemPropertyPlaybackDuration] = center.nowPlayingInfo![MPMediaItemPropertyPlaybackDuration] as AnyObject?
-                        songInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = center.nowPlayingInfo![MPNowPlayingInfoPropertyElapsedPlaybackTime] as AnyObject?
-                        songInfo[MPNowPlayingInfoPropertyPlaybackRate] = center.nowPlayingInfo![MPNowPlayingInfoPropertyPlaybackRate] as AnyObject?
+        if self.playState.recording.first!.previewUrls.isEmpty {
+            center.nowPlayingInfo = nil
+        } else {
+            if let cover = self.playState.recording.first!.cover {
+                imageGet(url: cover) { img in
+                    DispatchQueue.main.async {
+                        songInfo[MPMediaItemPropertyArtist] = self.playState.recording.first!.work!.composer!.name as AnyObject
+                        songInfo[MPMediaItemPropertyAlbumTitle] = self.playState.recording.first!.work!.title as AnyObject
+                        songInfo[MPMediaItemPropertyArtwork] = img as AnyObject
+                        
+                        if center.nowPlayingInfo?.count ?? 0 > 0 {
+                            songInfo[MPMediaItemPropertyPlaybackDuration] = center.nowPlayingInfo![MPMediaItemPropertyPlaybackDuration] as AnyObject?
+                            songInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = center.nowPlayingInfo![MPNowPlayingInfoPropertyElapsedPlaybackTime] as AnyObject?
+                            songInfo[MPNowPlayingInfoPropertyPlaybackRate] = center.nowPlayingInfo![MPNowPlayingInfoPropertyPlaybackRate] as AnyObject?
+                        }
+                        
+                        center.nowPlayingInfo = songInfo
                     }
-                    
-                    center.nowPlayingInfo = songInfo
                 }
             }
         }
@@ -95,9 +100,14 @@ struct Player: View {
                         )]
                         
                         if self.playState.preview {
-                            if let previews = self.playState.recording.first!.previews {
-                                self.currentTrack[0].preview = true
-                                self.previewBridge.setQueueAndPlay(tracks: previews, starttrack: 0, autoplay: true, zeroqueue: false)
+                            self.currentTrack[0].preview = true
+                            
+                            if !self.playState.recording.first!.previewUrls.isEmpty {
+                                self.appState.noPreviewAvailable = false
+                                self.previewBridge.setQueueAndPlay(tracks: self.playState.recording.first!.previewUrls, starttrack: 0, autoplay: true, zeroqueue: false)
+                            } else {
+                                self.previewBridge.emptyQueue()
+                                self.appState.noPreviewAvailable = true
                             }
                         } else {
                             if (!self.appRemote!.isConnected) {

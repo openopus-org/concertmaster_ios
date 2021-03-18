@@ -163,7 +163,7 @@ struct Recording: Codable {
     var length: Int?
     var tracks: [Track]?
     var spotify_tracks: [String]?
-    var previews: [URL]?
+    var previews: [String?]?
     var work: Work?
     var position: Int?
     var recording_id: String?
@@ -201,6 +201,25 @@ struct Recording: Codable {
             } catch {
                 return ""
             }
+        }
+    }
+    
+    var previewUrls: [URL] {
+        get {
+            var previewurls = [URL]()
+            do {
+                if let previews = previews {
+                    for track in previews {
+                        if let track = track {
+                            if let trackurl = URL(string: track) {
+                                previewurls.append(trackurl)
+                            }
+                        }
+                    }
+                }
+            }
+            
+            return previewurls
         }
     }
 }

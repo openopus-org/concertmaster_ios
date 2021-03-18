@@ -314,9 +314,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
                                 
                                 // playing preview
                                 
-                                if let previews = self.playState.recording.first!.previews {
-                                    self.playState.preview = true
-                                    self.previewBridge.setQueueAndPlay(tracks: previews, starttrack: 0, autoplay: true, zeroqueue: false)
+                                self.playState.preview = true
+                                
+                                if !self.playState.recording.first!.previewUrls.isEmpty {
+                                    self.appState.noPreviewAvailable = false
+                                    self.previewBridge.setQueueAndPlay(tracks: self.playState.recording.first!.previewUrls, starttrack: 0, autoplay: true, zeroqueue: false)
+                                } else {
+                                    self.previewBridge.emptyQueue()
+                                    self.appState.noPreviewAvailable = true
                                 }
                             } else {
                                 self.appRemote.connect()

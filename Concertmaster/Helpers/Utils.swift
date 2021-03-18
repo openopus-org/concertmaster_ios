@@ -23,7 +23,8 @@ final class AppState: ObservableObject  {
     @Published var fullPlayer = false
     @Published var isLoading = true
     @Published var showingWarning = false
-    @Published var apmusEligible = true
+    @Published var noSpotify = false
+    @Published var noPreviewAvailable = false
     @Published var askDonation = false {
         didSet {
             askDonationChanged.send()
@@ -565,6 +566,11 @@ class PreviewBridge: ObservableObject {
     func stop() {
         player.pause()
         player.seek(to: CMTimeMake(value: 0, timescale: 1))
+    }
+    
+    func emptyQueue() {
+        self.stop()
+        player.removeAllItems()
     }
     
     @objc func playerItemDidReachEnd(_ notification:Notification) {

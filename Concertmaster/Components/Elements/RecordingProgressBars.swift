@@ -12,6 +12,7 @@ struct RecordingProgressBars: View {
     var recording: Recording
     @Binding var currentTrack: [CurrentTrack]
     @EnvironmentObject var mediaBridge: MediaBridge
+    @EnvironmentObject var appState: AppState
     @EnvironmentObject var previewBridge: PreviewBridge
     @EnvironmentObject var playState: PlayState
     @EnvironmentObject var radioState: RadioState
@@ -26,7 +27,7 @@ struct RecordingProgressBars: View {
     var body: some View {
         Group {
             if self.recording.tracks != nil {
-                if self.currentTrack.count > 0 {
+                if self.currentTrack.count > 0 && !self.appState.noPreviewAvailable {
                     if let playerstate = playState.playerstate {
                         if playerstate.isConnected {
                             ForEach(self.recording.tracks!, id: \.id) { track in
@@ -74,7 +75,7 @@ struct RecordingProgressBars: View {
                                     self.currentTrack[0].zero_index = 0
                                     
                                     self.previewBridge.stop()
-                                    self.previewBridge.setQueueAndPlay(tracks: self.radioState.nextRecordings.count > 0 ? self.playState.recording.first!.previews! + self.radioState.nextRecordings.first!.previews! : self.playState.recording.first!.previews!, starttrack: self.recording.tracks!.firstIndex{$0.spotify_trackid == track.spotify_trackid} ?? 0, autoplay: true, zeroqueue: false)
+                                    self.previewBridge.setQueueAndPlay(tracks: self.radioState.nextRecordings.count > 0 ? self.playState.recording.first!.previewUrls + self.radioState.nextRecordings.first!.previewUrls : self.playState.recording.first!.previewUrls, starttrack: self.recording.tracks!.firstIndex{$0.spotify_trackid == track.spotify_trackid} ?? 0, autoplay: true, zeroqueue: false)
                                     
                                 }, label: {
                                     Text(track.title)

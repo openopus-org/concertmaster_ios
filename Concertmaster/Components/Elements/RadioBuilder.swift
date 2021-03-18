@@ -195,7 +195,7 @@ struct RadioBuilder: View {
                             if self.playState.preview {
                                 self.previewBridge.stop()
                                 if let firstrecording = self.playState.recording.first {
-                                    self.previewBridge.setQueueAndPlay(tracks: firstrecording.previews!, starttrack: 0, autoplay: false, zeroqueue: false)
+                                    self.previewBridge.setQueueAndPlay(tracks: firstrecording.previewUrls, starttrack: 0, autoplay: false, zeroqueue: false)
                                 }
                             } else {
                                 self.mediaBridge.stop()
