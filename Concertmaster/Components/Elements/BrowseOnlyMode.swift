@@ -9,11 +9,12 @@
 import SwiftUI
 
 struct BrowseOnlyMode: View {
+    @EnvironmentObject var appState: AppState
     var size: String
     
     var body: some View {
         Button(action: {
-            UIApplication.shared.open(URL(string: "https://www.spotify.com/br/premium/")!)
+            UIApplication.shared.open(URL(string: appState.warningType == .notPremium ? AppConstants.SpotifyPremiumURL : AppConstants.SpotifyAppStoreURL)!)
         }, label: {
             HStack {
                 Image("forbidden")

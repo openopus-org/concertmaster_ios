@@ -23,6 +23,7 @@ final class AppState: ObservableObject  {
     @Published var fullPlayer = false
     @Published var isLoading = true
     @Published var showingWarning = false
+    @Published var warningType = WarningType()
     @Published var noSpotify = false
     @Published var noPreviewAvailable = false
     @Published var askDonation = false {
@@ -1414,4 +1415,14 @@ public func APIBearerPut(_ url: String, body: String, bearer: String, completion
         }
         
     }.resume()
+}
+
+public enum WarningType {
+    case notPremium
+    case notInstalled
+    case other
+    
+    init() {
+        self = .other
+    }
 }

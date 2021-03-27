@@ -23,10 +23,10 @@ struct Warning: View {
                     .font(.custom("ZillaSlab-Medium", size: 12))
                     .multilineTextAlignment(.leading)
                 
-                Text("Concertmaster needs a Spotify Premium subscription to play music")
+                Text(appState.warningType == .notPremium ? "Concertmaster needs a Spotify Premium subscription to play music" : "Concertmaster needs the Spotify app installed on your device")
                     .foregroundColor(Color.white)
                     .font(.custom("PetitaBold", size: 17))
-                    .padding(.top, 30)
+                    .padding(.top, 22)
                     .multilineTextAlignment(.center)
                 
                 Text("You can browse Concertmaster's catalogue, create playlists, favorite works, composers and recordings, but playback is restricted to 30 seconds samples.")
@@ -40,13 +40,13 @@ struct Warning: View {
                     
                     Button(
                         action: {
-                            UIApplication.shared.open(URL(string: "https://www.spotify.com/br/premium/")!)
+                            UIApplication.shared.open(URL(string: appState.warningType == .notPremium ? AppConstants.SpotifyPremiumURL : AppConstants.SpotifyAppStoreURL)!)
                         },
                         label: {
                             HStack {
                                 HStack {
                                     Spacer()
-                                    Text("Go Premium".uppercased())
+                                    Text(appState.warningType == .notPremium ? "Go Premium".uppercased() : "Install".uppercased())
                                         .font(.custom("ZillaSlab-Medium", size: 13))
                                     Spacer()
                                 }

@@ -110,18 +110,37 @@ struct Player: View {
                                 self.appState.noPreviewAvailable = true
                             }
                         } else {
-                            if (!self.appRemote!.isConnected) {
-                                self.playState.logAndPlay = true
-                                self.sessionManager?.initiateSession(with: AppConstants.SpotifyAuthScopes, options: .default)
-                            } else {
-                                APIBearerPut("\(AppConstants.SpotifyAPI)/me/player/play?device_id=\(self.settingStore.deviceId)", body: "{ \"uris\": \(self.playState.recording.first!.jsonTracks), \"offset\": { \"position\": 0 } }", bearer: self.settingStore.accessToken) { results in
-                                    //print(String(decoding: results, as: UTF8.self))
-                                    
-                                    DispatchQueue.main.async {
-                                        if let _ = self.appRemote!.connectionParameters.accessToken {
-                                            self.appRemote!.connect()
+                            if UIApplication.shared.canOpenURL(URL(string: "spotify:")!) {
+                                if (!self.appRemote!.isConnected) {
+                                    self.playState.logAndPlay = true
+                                    self.sessionManager?.initiateSession(with: AppConstants.SpotifyAuthScopes, options: .default)
+                                } else {
+                                    APIBearerPut("\(AppConstants.SpotifyAPI)/me/player/play?device_id=\(self.settingStore.deviceId)", body: "{ \"uris\": \(self.playState.recording.first!.jsonTracks), \"offset\": { \"position\": 0 } }", bearer: self.settingStore.accessToken) { results in
+                                        //print(String(decoding: results, as: UTF8.self))
+                                        
+                                        DispatchQueue.main.async {
+                                            if let _ = self.appRemote!.connectionParameters.accessToken {
+                                                self.appRemote!.connect()
+                                            }
                                         }
                                     }
+                                }
+                            } else {
+                                print("⚠️ Spotify not installed on device!")
+                                
+                                self.appState.showingWarning = true
+                                self.appState.warningType = .notInstalled
+                                
+                                // playing preview
+                                
+                                self.playState.preview = true
+                                
+                                if !self.playState.recording.first!.previewUrls.isEmpty {
+                                    self.appState.noPreviewAvailable = false
+                                    self.previewBridge.setQueueAndPlay(tracks: self.playState.recording.first!.previewUrls, starttrack: 0, autoplay: true, zeroqueue: false)
+                                } else {
+                                    self.previewBridge.emptyQueue()
+                                    self.appState.noPreviewAvailable = true
                                 }
                             }
                         }

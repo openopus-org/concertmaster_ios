@@ -311,6 +311,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
                             if product != "premium" {
                                 //self.appRemote.playerAPI?.pause()
                                 self.appState.showingWarning = true
+                                self.appState.warningType = .notPremium
                                 
                                 // playing preview
                                 
