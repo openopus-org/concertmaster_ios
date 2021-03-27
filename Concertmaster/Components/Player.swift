@@ -443,13 +443,13 @@ struct Player: View {
                                             HStack {
                                                 BrowseOnlyMode(size: "max")
                                             }
-                                            .padding(.top, 6)
+                                            .padding(.top, 12)
                                             .padding(.bottom, 6)
                                             .padding(.leading, 12)
                                             .padding(.trailing, 18)
-                                            .background(Color.black)
+                                            //.background(Color.black)
                                             //.cornerRadius(24)
-                                            .opacity(0.4)
+                                            .opacity(0.8)
                                             
                                             Spacer()
                                         }
@@ -464,7 +464,11 @@ struct Player: View {
 
                         Spacer()
                         
-                        RecordingPlaybackControl(currentTrack: $currentTrack)
+                        if !self.appState.noPreviewAvailable {
+                            RecordingPlaybackControl(currentTrack: $currentTrack)
+                        } else {
+                            PreviewNotAvailable(size: "max")
+                        }
                     }
                     else {
                         RecordingMini(recording: playState.recording.first!, currentTrack: $currentTrack)

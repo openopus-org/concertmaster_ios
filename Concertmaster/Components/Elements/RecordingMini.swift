@@ -12,6 +12,7 @@ import URLImage
 struct RecordingMiniView: View {
     var recording: Recording
     @Binding var currentTrack: [CurrentTrack]
+    @EnvironmentObject var appState: AppState
     @EnvironmentObject var mediaBridge: MediaBridge
     @EnvironmentObject var previewBridge: PreviewBridge
     @EnvironmentObject var settingStore: SettingStore
@@ -25,59 +26,68 @@ struct RecordingMiniView: View {
     
     var body: some View {
         HStack {
-            Button(
-                action: {
-                    if self.playState.preview {
-                        self.previewBridge.togglePlay()
-                    } else {
-                        if self.currentTrack.first!.playing {
-                            appRemote?.playerAPI?.pause()
-                            if let _ = self.appRemote!.connectionParameters.accessToken {
-                                self.appRemote!.connect()
+            if self.currentTrack.count > 0 {
+                if !self.appState.noPreviewAvailable {
+                    Button(
+                        action: {
+                            if self.playState.preview {
+                                self.previewBridge.togglePlay()
+                            } else {
+                                if self.currentTrack.first!.playing {
+                                    appRemote?.playerAPI?.pause()
+                                    if let _ = self.appRemote!.connectionParameters.accessToken {
+                                        self.appRemote!.connect()
+                                    }
+                                } else {
+                                    appRemote?.playerAPI?.resume()
+                                }
                             }
-                        } else {
-                            appRemote?.playerAPI?.resume()
-                        }
-                    }
-            },
-            label: {
-                Image(self.currentTrack.first!.playing ? "pause" : "play")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(height: 22)
-                    .foregroundColor(.black)
-                    .padding(.leading, 18)
-                    .padding(.trailing, 22)
-            })
-            
-            HStack {
-                Text(self.currentTrack.first!.readable_full_position)
-                    .foregroundColor(.black)
-                
-                ZStack {
-                    ProgressBar(progress: self.currentTrack.first!.full_progress)
-                        .padding(.leading, 6)
-                        .padding(.trailing, 6)
-                        .frame(height: 4)
+                    },
+                    label: {
+                        Image(self.currentTrack.first!.playing ? "pause" : "play")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(height: 22)
+                            .foregroundColor(.black)
+                            .padding(.leading, 18)
+                            .padding(.trailing, 22)
+                    })
                     
-                    if self.playState.preview {
-                        HStack {
-                            BrowseOnlyMode(size: "min")
+                    HStack {
+                        Text(self.currentTrack.first!.readable_full_position)
+                            .foregroundColor(.black)
+                        
+                        ZStack {
+                            ProgressBar(progress: self.currentTrack.first!.full_progress)
+                                .padding(.leading, 6)
+                                .padding(.trailing, 6)
+                                .frame(height: 4)
+                            
+                            if self.playState.preview {
+                                HStack {
+                                    BrowseOnlyMode(size: "min")
+                                }
+                                .padding(.top, 2)
+                                .padding(.bottom, 2)
+                                .padding(.leading, 8)
+                                .padding(.trailing, 12)
+                                .background(Color.black)
+                                //.cornerRadius(14)
+                                .opacity(0.7)
+                            }
                         }
-                        .padding(.top, 2)
-                        .padding(.bottom, 2)
-                        .padding(.leading, 8)
-                        .padding(.trailing, 12)
-                        .background(Color.black)
-                        //.cornerRadius(14)
-                        .opacity(0.6)
+                        
+                        Text(self.recording.readableLength)
+                            .foregroundColor(.black)
                     }
+                    .font(.custom("Sanchez-Regular", size: 11))
+
+                } else {
+                    Spacer()
+                    PreviewNotAvailable(size: "min")
+                    Spacer()
                 }
-                
-                Text(self.recording.readableLength)
-                    .foregroundColor(.black)
             }
-            .font(.custom("Sanchez-Regular", size: 11))
         }
         .padding(.top, 4)
     }

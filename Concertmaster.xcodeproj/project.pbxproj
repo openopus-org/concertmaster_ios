@@ -64,6 +64,7 @@
 		097C15DD242DB75C006FBBEE /* MiniRecordingRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097C15DC242DB75C006FBBEE /* MiniRecordingRow.swift */; };
 		097CE15423F20E6B00050846 /* ComposerHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097CE15323F20E6B00050846 /* ComposerHeader.swift */; };
 		097CE15823F24C7700050846 /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097CE15723F24C7700050846 /* Library.swift */; };
+		098CE487260F9CAB004988E4 /* PreviewNotAvailable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098CE486260F9CAA004988E4 /* PreviewNotAvailable.swift */; };
 		099F90CB23EE15AF004A7021 /* ComposerBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099F90CA23EE15AF004A7021 /* ComposerBox.swift */; };
 		099F90CD23EE1855004A7021 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099F90CC23EE1855004A7021 /* ActivityIndicator.swift */; };
 		09A0083C23F35AA9001C696E /* ComposerDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A0083B23F35AA9001C696E /* ComposerDetail.swift */; };
@@ -181,6 +182,7 @@
 		097C15DC242DB75C006FBBEE /* MiniRecordingRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniRecordingRow.swift; sourceTree = "<group>"; };
 		097CE15323F20E6B00050846 /* ComposerHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposerHeader.swift; sourceTree = "<group>"; };
 		097CE15723F24C7700050846 /* Library.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Library.swift; sourceTree = "<group>"; };
+		098CE486260F9CAA004988E4 /* PreviewNotAvailable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewNotAvailable.swift; sourceTree = "<group>"; };
 		099F90CA23EE15AF004A7021 /* ComposerBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposerBox.swift; sourceTree = "<group>"; };
 		099F90CC23EE1855004A7021 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		09A0083B23F35AA9001C696E /* ComposerDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposerDetail.swift; sourceTree = "<group>"; };
@@ -439,6 +441,7 @@
 				093093642558B2D1005FB69E /* RecordingPlayButton.swift */,
 				093093672559E311005FB69E /* AlbumPlayButtons.swift */,
 				09DD814425F194390074C69B /* SpotifyDisconnected.swift */,
+				098CE486260F9CAA004988E4 /* PreviewNotAvailable.swift */,
 			);
 			path = Elements;
 			sourceTree = "<group>";
@@ -614,6 +617,7 @@
 				097325EE2404BD1900A1C9E6 /* CircleAnimation.swift in Sources */,
 				09AD2CDB2434211D00375277 /* RadioStationSuperButton.swift in Sources */,
 				097325F8240A111400A1C9E6 /* FavoriteComposersList.swift in Sources */,
+				098CE487260F9CAB004988E4 /* PreviewNotAvailable.swift in Sources */,
 				09DD814525F1943A0074C69B /* SpotifyDisconnected.swift in Sources */,
 				090625682431910500E8FC3E /* RadioSwitcher.swift in Sources */,
 				09A6741D23F778C4000000D6 /* ErrorMessage.swift in Sources */,
