@@ -65,6 +65,7 @@
 		097CE15423F20E6B00050846 /* ComposerHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097CE15323F20E6B00050846 /* ComposerHeader.swift */; };
 		097CE15823F24C7700050846 /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097CE15723F24C7700050846 /* Library.swift */; };
 		098CE487260F9CAB004988E4 /* PreviewNotAvailable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098CE486260F9CAA004988E4 /* PreviewNotAvailable.swift */; };
+		098CE48D26140607004988E4 /* silence.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 098CE48B26140607004988E4 /* silence.mp3 */; };
 		099F90CB23EE15AF004A7021 /* ComposerBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099F90CA23EE15AF004A7021 /* ComposerBox.swift */; };
 		099F90CD23EE1855004A7021 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099F90CC23EE1855004A7021 /* ActivityIndicator.swift */; };
 		09A0083C23F35AA9001C696E /* ComposerDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A0083B23F35AA9001C696E /* ComposerDetail.swift */; };
@@ -183,6 +184,7 @@
 		097CE15323F20E6B00050846 /* ComposerHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposerHeader.swift; sourceTree = "<group>"; };
 		097CE15723F24C7700050846 /* Library.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Library.swift; sourceTree = "<group>"; };
 		098CE486260F9CAA004988E4 /* PreviewNotAvailable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewNotAvailable.swift; sourceTree = "<group>"; };
+		098CE48B26140607004988E4 /* silence.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = silence.mp3; sourceTree = "<group>"; };
 		099F90CA23EE15AF004A7021 /* ComposerBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposerBox.swift; sourceTree = "<group>"; };
 		099F90CC23EE1855004A7021 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		09A0083B23F35AA9001C696E /* ComposerDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposerDetail.swift; sourceTree = "<group>"; };
@@ -279,6 +281,14 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		098CE489261405DD004988E4 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				098CE48B26140607004988E4 /* silence.mp3 */,
+			);
+			path = Sounds;
+			sourceTree = "<group>";
+		};
 		09E19F2823E24F1F0011D718 = {
 			isa = PBXGroup;
 			children = (
@@ -301,6 +311,7 @@
 		09E19F3323E24F1F0011D718 /* Concertmaster */ = {
 			isa = PBXGroup;
 			children = (
+				098CE489261405DD004988E4 /* Sounds */,
 				09E19F3423E24F1F0011D718 /* AppDelegate.swift */,
 				09E19F3A23E24F210011D718 /* Assets.xcassets */,
 				09E19F4B23E253660011D718 /* Components */,
@@ -512,6 +523,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				098CE48D26140607004988E4 /* silence.mp3 in Resources */,
 				09599D8F25800D8C007DF896 /* Sanchez-Regular.ttf in Resources */,
 				09599D7D257ECD37007DF896 /* ZillaSlab-Medium.ttf in Resources */,
 				09E19F4123E24F210011D718 /* LaunchScreen.storyboard in Resources */,

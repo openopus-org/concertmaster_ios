@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftUI
+import AVFoundation
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, SPTSessionManagerDelegate, SPTAppRemotePlayerStateDelegate {
     
@@ -17,6 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
     var settingStore = SettingStore()
     var playState = PlayState()
     var previewBridge = PreviewBridge()
+    var player: AVAudioPlayer?
     
     lazy var configuration: SPTConfiguration = {
         let configuration = SPTConfiguration(clientID: AppConstants.SpotifyClientID, redirectURL: AppConstants.SpotifyRedirectURL)
@@ -74,6 +76,28 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
+        
+        // playing silence in background
+        
+        try! AVAudioSession.sharedInstance().setCategory(
+            AVAudioSession.Category.playback,
+            mode: AVAudioSession.Mode.default,
+            options: [
+                AVAudioSession.CategoryOptions.mixWithOthers
+            ]
+        )
+        
+        let url = Bundle.main.url(forResource: "silence", withExtension: "mp3")!
+        
+        do {
+            try AVAudioSession.sharedInstance().setActive(true)
+            player = try AVAudioPlayer.init(contentsOf: url)
+            player?.numberOfLoops = -1
+            
+            player?.play()
+        } catch {
+            //
+        }
 
         // Create the SwiftUI view that provides the window contents.
         let contentView = Structure()
@@ -126,7 +150,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
         
         if let _ = self.appRemote.connectionParameters.accessToken {
             if !playState.logAndPlay {
-                self.appRemote.connect()
+                //self.appRemote.connect()
             }
         }
     }
@@ -136,7 +160,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
         // This may occur due to temporary interruptions (ex. an incoming phone call).
         
         if !playState.logAndPlay {
-            self.appRemote.disconnect()
+           // self.appRemote.disconnect()
         }
     }
 

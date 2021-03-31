@@ -17,7 +17,6 @@ struct Player: View {
     @EnvironmentObject var appState: AppState
     @EnvironmentObject var playState: PlayState
     @EnvironmentObject var timerHolder: TimerHolder
-    @EnvironmentObject var AppState: AppState
     @EnvironmentObject var settingStore: SettingStore
     @EnvironmentObject var radioState: RadioState
     private var appRemote: SPTAppRemote? {
@@ -425,11 +424,11 @@ struct Player: View {
         ZStack(alignment: .top) {
             Rectangle()
                 .fill(Color(hex: 0xFCE546))
-                .frame(minHeight: 130, maxHeight: self.AppState.fullPlayer ? .infinity : 130)
+                .frame(minHeight: 130, maxHeight: self.appState.fullPlayer ? .infinity : 130)
 
             VStack {
                 Button(
-                    action: { self.AppState.fullPlayer.toggle() },
+                    action: { self.appState.fullPlayer.toggle() },
                     label: {
                         HStack {
                             Spacer()
@@ -438,16 +437,16 @@ struct Player: View {
                                 .resizable()
                                 .frame(width: 7, height: 32)
                                 .foregroundColor(Color(hex: 0x696969))
-                                .rotationEffect(.degrees(self.AppState.fullPlayer ? 90 : 270))
+                                .rotationEffect(.degrees(self.appState.fullPlayer ? 90 : 270))
                             
                             Spacer()
                         }
                     })
                     .frame(height: 7)
-                    .padding(.top, (self.AppState.fullPlayer ? 14 : 10))
+                    .padding(.top, (self.appState.fullPlayer ? 14 : 10))
                     
                 if (playState.recording.count > 0) {
-                    if self.AppState.fullPlayer {
+                    if self.appState.fullPlayer {
                         ScrollView(showsIndicators: false) {
                             VStack(alignment: .leading) {
                                 RecordingWorkPerformers(recording: playState.recording.first!, isSheet: false, isPlayer: true)
@@ -608,6 +607,68 @@ struct Player: View {
                     self.currentTrack[0].track_position = self.previewBridge.getCurrentPlaybackTime()
                 } else {
                     self.currentTrack[0].track_position += 1
+                    
+                    if let currenttrack = self.currentTrack.first {
+                        if let firstrecording = self.playState.recording.first {
+                            if let firstrecordingtracks = firstrecording.tracks {
+                                if currenttrack.track_index == firstrecordingtracks.count - 1 {
+                                    
+                                    // last track
+                                    
+                                    if currenttrack.track_position >= currenttrack.track_length - 1 {
+                                        print("🚨🚨🚨🚨🚨🚨 LAST TRACK OVER 🚨🚨🚨🚨🚨🚨")
+                                        
+                                        if self.radioState.nextWorks.count > 0 {
+                                            DispatchQueue.main.async {
+                                                print("🔄 Radio ON, fetching a random recording!")
+                                                
+                                                if let indexPlayed = self.radioState.nextWorks.firstIndex(where: { $0.id == self.playState.recording.first!.work!.id }) {
+                                                    self.radioState.nextWorks = Array(self.radioState.nextWorks.suffix(from: indexPlayed+1))
+                                                }
+                                                
+                                                if self.radioState.nextWorks.count > 0 {
+                                                    randomRecording(workQueue: self.radioState.nextWorks, hideIncomplete:  self.settingStore.hideIncomplete, country: self.settingStore.country) { rec in
+                                                        if rec.count > 0 {
+                                                            DispatchQueue.main.async {
+                                                                self.playState.recording = rec
+                                                                self.radioState.canSkip = true
+                                                            }
+                                                        }
+                                                        else {
+                                                            DispatchQueue.main.async {
+                                                                self.radioState.isActive = false
+                                                            }
+                                                        }
+                                                    }
+                                                } else {
+                                                    DispatchQueue.main.async {
+                                                        self.radioState.isActive = false
+                                                    }
+                                                }
+                                            }
+                                        } else if self.radioState.nextRecordings.count > 0 {
+                                            print("⏭ Radio ON, fetching the next recording details!")
+                                            
+                                            getRecordingDetail(recording: self.radioState.nextRecordings.removeFirst(), country: self.settingStore.country) { recordingData in
+                                                if recordingData.count > 0 {
+                                                    DispatchQueue.main.async {
+                                                        self.playState.recording = recordingData
+                                                        self.radioState.canSkip = true
+                                                    }
+                                                } else {
+                                                    self.radioState.isActive = false
+                                                }
+                                            }
+                                        } else if self.radioState.isActive {
+                                            DispatchQueue.main.async {
+                                                self.radioState.isActive = false
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
                 
                 if self.currentTrack[0].track_position < 2 {
