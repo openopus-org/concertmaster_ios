@@ -118,6 +118,8 @@ struct Player: View {
                                         //print(String(decoding: results, as: UTF8.self))
                                         
                                         DispatchQueue.main.async {
+                                            //print("🙄 trying to renew session")
+                                            //self.sessionManager?.renewSession()
                                             if let _ = self.appRemote!.connectionParameters.accessToken {
                                                 self.appRemote!.connect()
                                             }

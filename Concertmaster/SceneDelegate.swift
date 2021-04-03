@@ -17,6 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
     var appState = AppState()
     var settingStore = SettingStore()
     var playState = PlayState()
+    var radioState = RadioState()
     var previewBridge = PreviewBridge()
     var player: AVAudioPlayer?
     
@@ -110,7 +111,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
                             .environmentObject(TimerHolder())
                             .environmentObject(MediaBridge())
                             .environmentObject(settingStore)
-                            .environmentObject(RadioState())
+                            .environmentObject(radioState)
                             .environmentObject(previewBridge)
 
         // Use a UIHostingController as window root view controller.
@@ -184,6 +185,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
             self.playState.logAndPlay = false
             self.playState.forceConnection = false
             self.sessionManager.initiateSession(with: AppConstants.SpotifyAuthScopes, options: .default)
+        } else {
+            self.radioState.isActive = false
+            
+            if let firstrecording = self.playState.recording.first {
+                if let tracks = firstrecording.tracks {
+                    if let track = tracks.first {
+                        self.playState.playerstate = PlayerState (isConnected: false, isPlaying: false, trackId: track.spotify_trackid, position: 0)
+                    }
+                }
+            } else {
+                self.playState.playerstate = PlayerState (isConnected: false, isPlaying: false, trackId: "", position: 0)
+            }
         }
     }
     
@@ -192,15 +205,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
         
         print ("⛔️ AppRemote disconnected")
         
-        if let firstrecording = self.playState.recording.first {
-            if let tracks = firstrecording.tracks {
-                if let track = tracks.first {
-                    self.playState.playerstate = PlayerState (isConnected: false, isPlaying: false, trackId: track.spotify_trackid, position: 0)
-                }
-            }
-        } else {
-            self.playState.playerstate = PlayerState (isConnected: false, isPlaying: false, trackId: "", position: 0)
-        }
+        self.appRemote.connect()
     }
     
     func appRemoteDidEstablishConnection(_ appRemote: SPTAppRemote) {
@@ -270,13 +275,28 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
       print("fail", error)
     }
     func sessionManager(manager: SPTSessionManager, didRenew session: SPTSession) {
-      print("renewed", session)
+        print("🎉🎉🎉 session renewed!", session)
+        
+        /*
+        print ("access token - \(session.accessToken)")
+        print ("refresh token - \(session.refreshToken)")
+        
+        appRemote.connectionParameters.accessToken = session.accessToken
+        sessionManager.session?.setValue(session.accessToken, forKey: "accessToken")
+        sessionManager.session?.setValue(session.refreshToken, forKey: "refreshToken")
+        */
     }
     
     func sessionManager(manager: SPTSessionManager, didInitiate session: SPTSession) {
         print ("access token - \(session.accessToken)")
+        print ("refresh token - \(session.refreshToken)")
+        
         appRemote.connectionParameters.accessToken = session.accessToken
+        sessionManager.session?.setValue(session.accessToken, forKey: "accessToken")
+        sessionManager.session?.setValue(session.refreshToken, forKey: "refreshToken")
+        
         self.settingStore.accessToken = session.accessToken
+        self.settingStore.refreshToken = session.refreshToken
         
         if timeframe(timestamp: settingStore.lastLogged, minutes: AppConstants.minsToLogin)  {
             APIpost("\(AppConstants.concBackend)/dyn/user/login/", parameters: ["token": session.accessToken ]) { results in

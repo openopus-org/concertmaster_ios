@@ -880,6 +880,7 @@ final class SettingStore: ObservableObject {
     @UserDefault("concertmaster.country", defaultValue: "") var country: String
     @UserDefault("concertmaster.deviceId", defaultValue: "") var deviceId: String
     @UserDefault("concertmaster.accessToken", defaultValue: "") var accessToken: String
+    @UserDefault("concertmaster.refreshToken", defaultValue: "") var refreshToken: String
     
     @RecentSearchesUserDefault("concertmaster.recentlySearched") var recentSearches: [RecentSearch] {
         didSet {
