@@ -10,6 +10,7 @@ import SwiftUI
 import StoreKit
 
 struct SpotifyDisconnected: View {
+    @Binding var currentTrack: [CurrentTrack]
     var size: String
     @EnvironmentObject var playState: PlayState
     
@@ -26,6 +27,7 @@ struct SpotifyDisconnected: View {
     
     var body: some View {
         Button(action: {
+            self.currentTrack[0].loading = true
             self.playState.forceConnection = true
             if let _ = self.appRemote!.connectionParameters.accessToken {
                 self.appRemote!.connect()

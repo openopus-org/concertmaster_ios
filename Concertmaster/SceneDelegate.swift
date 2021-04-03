@@ -186,7 +186,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
             self.playState.forceConnection = false
             self.sessionManager.initiateSession(with: AppConstants.SpotifyAuthScopes, options: .default)
         } else {
-            self.radioState.isActive = false
+            //self.radioState.isActive = false
             
             if let firstrecording = self.playState.recording.first {
                 if let tracks = firstrecording.tracks {
@@ -276,7 +276,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
     }
     func sessionManager(manager: SPTSessionManager, didRenew session: SPTSession) {
         print("🎉🎉🎉 session renewed!", session)
-        
+        appRemote.connectionParameters.accessToken = session.accessToken
+        self.settingStore.accessToken = session.accessToken
+        self.settingStore.refreshToken = session.refreshToken
         /*
         print ("access token - \(session.accessToken)")
         print ("refresh token - \(session.refreshToken)")
@@ -292,15 +294,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
         print ("refresh token - \(session.refreshToken)")
         
         appRemote.connectionParameters.accessToken = session.accessToken
-        sessionManager.session?.setValue(session.accessToken, forKey: "accessToken")
-        sessionManager.session?.setValue(session.refreshToken, forKey: "refreshToken")
+        //sessionManager.session?.setValue(session.accessToken, forKey: "accessToken")
+        //sessionManager.session?.setValue(session.refreshToken, forKey: "refreshToken")
         
         self.settingStore.accessToken = session.accessToken
         self.settingStore.refreshToken = session.refreshToken
         
         if timeframe(timestamp: settingStore.lastLogged, minutes: AppConstants.minsToLogin)  {
             APIpost("\(AppConstants.concBackend)/dyn/user/login/", parameters: ["token": session.accessToken ]) { results in
-                print("👀 User details 👇🏻")
+                print("👀 User logged in")
                 //print(String(decoding: results, as: UTF8.self))
                 
                 if let login: Login = safeJSON(results) {

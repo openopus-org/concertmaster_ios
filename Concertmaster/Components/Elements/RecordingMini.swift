@@ -155,7 +155,7 @@ struct RecordingMini: View {
                         } else {
                             HStack {
                                 Spacer()
-                                SpotifyDisconnected(size: "min")
+                                SpotifyDisconnected(currentTrack: $currentTrack, size: "min")
                                 Spacer()
                             }
                         }

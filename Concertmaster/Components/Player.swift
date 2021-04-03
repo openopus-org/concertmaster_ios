@@ -84,6 +84,9 @@ struct Player: View {
             if let firstrecording = self.playState.recording.first {
                 if let firstrecordingtracks = firstrecording.tracks {
                     if let firsttrack = firstrecordingtracks.first {
+                        
+                        // current recording
+                        
                         self.currentTrack = [CurrentTrack (
                             track_index: 0,
                             zero_index: 0,
@@ -97,6 +100,8 @@ struct Player: View {
                             preview: false,
                             id: (self.playState.recording.first!.spotify_tracks?.first!)!
                         )]
+                        
+                        // playing
                         
                         if self.playState.preview {
                             self.currentTrack[0].preview = true
@@ -143,6 +148,62 @@ struct Player: View {
                                     self.previewBridge.emptyQueue()
                                     self.appState.noPreviewAvailable = true
                                 }
+                            }
+                        }
+                        
+                        // radio? define the next recording
+                        
+                        if self.radioState.nextWorks.count > 0 {
+                            
+                            // random works
+                            
+                            DispatchQueue.main.async {
+                                print("🔄 Radio ON, fetching a random recording!")
+                                
+                                if let indexPlayed = self.radioState.nextWorks.firstIndex(where: { $0.id == self.playState.recording.first!.work!.id }) {
+                                    self.radioState.nextWorks = Array(self.radioState.nextWorks.suffix(from: indexPlayed+1))
+                                }
+                                
+                                if self.radioState.nextWorks.count > 0 {
+                                    randomRecording(workQueue: self.radioState.nextWorks, hideIncomplete:  self.settingStore.hideIncomplete, country: self.settingStore.country) { rec in
+                                        if rec.count > 0 {
+                                            DispatchQueue.main.async {
+                                                self.radioState.nextRecordings[0] = rec.first!
+                                                self.radioState.canSkip = true
+                                            }
+                                        }
+                                        else {
+                                            DispatchQueue.main.async {
+                                                self.radioState.isActive = false
+                                            }
+                                        }
+                                    }
+                                } else {
+                                    DispatchQueue.main.async {
+                                        self.radioState.isActive = false
+                                    }
+                                }
+                            }
+                        } else if self.radioState.nextRecordings.count > 0 {
+                            
+                            // playlist
+                            
+                            print("⏭ Radio ON, fetching the next recording details!")
+                            
+                            getRecordingDetail(recording: self.radioState.nextRecordings.first!, country: self.settingStore.country) { recordingData in
+                                if recordingData.count > 0 {
+                                    DispatchQueue.main.async {
+                                        self.radioState.nextRecordings[0] = recordingData.first!
+                                        self.radioState.canSkip = true
+                                    }
+                                } else {
+                                    print("Couldn't find the next recording")
+                                    self.radioState.isActive = false
+                                }
+                            }
+                        } else if self.radioState.isActive {
+                            DispatchQueue.main.async {
+                                self.radioState.isActive = false
                             }
                         }
                     }
@@ -517,6 +578,7 @@ struct Player: View {
                         
                     if playerstate.isConnected {
                         if let trackIndex = self.playState.recording.first!.spotify_tracks!.firstIndex(of: playerstate.trackId) {
+                            /*
                             if trackIndex >= self.currentTrack.first!.zero_index + self.playState.recording.first!.spotify_tracks!.count {
                                 // next recording
                                 
@@ -544,18 +606,19 @@ struct Player: View {
                                 }
                             }
                             else {
-                                print("radio state: \(self.radioState.isActive)")
-                                
-                                if trackIndex == 0 {
-                                    self.currentTrack[0].zero_index = 0
-                                }
-                                
-                                self.currentTrack[0].track_index = trackIndex
-                                self.currentTrack[0].track_position = playerstate.position
-                                self.currentTrack[0].starting_point = (self.playState.recording.first!.tracks![trackIndex - self.currentTrack[0].zero_index].starting_point)
-                                self.currentTrack[0].full_position = (self.playState.recording.first!.tracks![trackIndex - self.currentTrack[0].zero_index].starting_point)
-                                self.currentTrack[0].track_length = (self.playState.recording.first!.tracks![trackIndex - self.currentTrack[0].zero_index].length)
+                            */
+                            
+                            print("radio state: \(self.radioState.isActive)")
+                            
+                            if trackIndex == 0 {
+                                self.currentTrack[0].zero_index = 0
                             }
+                            
+                            self.currentTrack[0].track_index = trackIndex
+                            self.currentTrack[0].track_position = playerstate.position
+                            self.currentTrack[0].starting_point = (self.playState.recording.first!.tracks![trackIndex - self.currentTrack[0].zero_index].starting_point)
+                            self.currentTrack[0].full_position = (self.playState.recording.first!.tracks![trackIndex - self.currentTrack[0].zero_index].starting_point)
+                            self.currentTrack[0].track_length = (self.playState.recording.first!.tracks![trackIndex - self.currentTrack[0].zero_index].length)
                             
                             if playerstate.isPlaying {
                                     print("🆗 started")
@@ -572,8 +635,10 @@ struct Player: View {
                             print("⏯ playing: ", playerstate.isPlaying)
                             dump(self.currentTrack)
                         } else {
-                            if !self.playState.logAndPlay {
+                            if !self.playState.logAndPlay && !self.radioState.isActive {
                                 print("🔴 Not the right recording: ", playerstate.trackId)
+                                print("Should be any of:")
+                                dump(self.playState.recording.first!.spotify_tracks)
                                 self.currentTrack = [CurrentTrack]()
                                 self.timerHolder.stop()
                             }
@@ -620,50 +685,19 @@ struct Player: View {
                                     if currenttrack.track_position >= currenttrack.track_length - 1 {
                                         print("🚨🚨🚨🚨🚨🚨 LAST TRACK OVER 🚨🚨🚨🚨🚨🚨")
                                         
-                                        if self.radioState.nextWorks.count > 0 {
-                                            DispatchQueue.main.async {
-                                                print("🔄 Radio ON, fetching a random recording!")
-                                                
-                                                if let indexPlayed = self.radioState.nextWorks.firstIndex(where: { $0.id == self.playState.recording.first!.work!.id }) {
-                                                    self.radioState.nextWorks = Array(self.radioState.nextWorks.suffix(from: indexPlayed+1))
-                                                }
-                                                
-                                                if self.radioState.nextWorks.count > 0 {
-                                                    randomRecording(workQueue: self.radioState.nextWorks, hideIncomplete:  self.settingStore.hideIncomplete, country: self.settingStore.country) { rec in
-                                                        if rec.count > 0 {
-                                                            DispatchQueue.main.async {
-                                                                self.playState.recording = rec
-                                                                self.radioState.canSkip = true
-                                                            }
-                                                        }
-                                                        else {
-                                                            DispatchQueue.main.async {
-                                                                self.radioState.isActive = false
-                                                            }
-                                                        }
-                                                    }
-                                                } else {
-                                                    DispatchQueue.main.async {
-                                                        self.radioState.isActive = false
-                                                    }
-                                                }
-                                            }
-                                        } else if self.radioState.nextRecordings.count > 0 {
-                                            print("⏭ Radio ON, fetching the next recording details!")
+                                        if self.radioState.nextRecordings.count > 0 {
+                                            print("⏭ Radio ON, playing the next recording!")
                                             
-                                            getRecordingDetail(recording: self.radioState.nextRecordings.removeFirst(), country: self.settingStore.country) { recordingData in
-                                                if recordingData.count > 0 {
-                                                    DispatchQueue.main.async {
-                                                        self.playState.recording = recordingData
-                                                        self.radioState.canSkip = true
-                                                    }
-                                                } else {
-                                                    self.radioState.isActive = false
-                                                }
-                                            }
-                                        } else if self.radioState.isActive {
                                             DispatchQueue.main.async {
-                                                self.radioState.isActive = false
+                                                if self.playState.preview {
+                                                    self.previewBridge.stop()
+                                                } else {
+                                                    //appRemote?.playerAPI?.pause()
+                                                }
+                                                
+                                                self.playState.autoplay = true
+                                                self.currentTrack[0].track_position = 0
+                                                self.playState.recording = [self.radioState.nextRecordings.removeFirst()]
                                             }
                                         }
                                     }

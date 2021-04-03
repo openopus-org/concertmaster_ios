@@ -83,14 +83,39 @@ struct RecordingPlaybackControlButtons: View {
             
             Button(
                 action: {
-                    if self.playState.preview {
-                        self.previewBridge.nextTrack()
-                    } else {
-                        appRemote?.playerAPI?.skip(toNext: {_, error in
-                            if let error = error {
-                                dump(error as NSError)
+                    if self.radioState.isActive && self.radioState.canSkip && self.currentTrack.first!.track_index == self.playState.recording.first!.tracks!.count - 1 {
+                        if self.radioState.nextRecordings.count > 0 {
+                            if self.playState.preview {
+                                self.previewBridge.stop()
+                            } else {
+                                appRemote?.playerAPI?.pause()
                             }
-                        })
+                            
+                            self.playState.autoplay = true
+                            self.currentTrack[0].track_position = 0
+                            self.playState.recording = [self.radioState.nextRecordings.removeFirst()]
+                        } else if self.radioState.isActive {
+                            self.radioState.isActive = false
+                            if self.playState.preview {
+                                self.previewBridge.nextTrack()
+                            } else {
+                                appRemote?.playerAPI?.skip(toNext: {_, error in
+                                    if let error = error {
+                                        dump(error as NSError)
+                                    }
+                                })
+                            }
+                        }
+                    } else {
+                        if self.playState.preview {
+                            self.previewBridge.nextTrack()
+                        } else {
+                            appRemote?.playerAPI?.skip(toNext: {_, error in
+                                if let error = error {
+                                    dump(error as NSError)
+                                }
+                            })
+                        }
                     }
                 },
                 label: {
@@ -105,7 +130,6 @@ struct RecordingPlaybackControlButtons: View {
                 action: {
                     if self.radioState.isActive && self.radioState.canSkip  {
                         if self.radioState.nextRecordings.count > 0 {
-                            
                             if self.playState.preview {
                                 self.previewBridge.stop()
                             } else {
@@ -142,8 +166,6 @@ struct RecordingPlaybackControl: View {
     @EnvironmentObject var radioState: RadioState
     @EnvironmentObject var playState: PlayState
     
-    
-    
     var body: some View {
         Group {
             if self.currentTrack.count > 0 {
@@ -163,7 +185,7 @@ struct RecordingPlaybackControl: View {
                             HStack {
                                 Spacer()
                                 
-                                SpotifyDisconnected(size: "max")
+                                SpotifyDisconnected(currentTrack: $currentTrack, size: "max")
                                 
                                 Spacer()
                             }

@@ -23,7 +23,7 @@ struct TabButton: View {
                     Spacer()
                     
                     if tab == "radio" {
-                        AnimatedRadioIcon(color: Color(hex: self.AppState.currentTab == self.tab ? 0xfce546 : (self.radioState.isActive ? 0x000000 : 0x7C726E)), isAnimated: self.radioState.isActive)
+                        AnimatedRadioIcon(color: Color(hex: self.AppState.currentTab == self.tab ? 0xfce546 : (self.radioState.isActive ? 0xFFFFFF : 0x7C726E)), isAnimated: self.radioState.isActive)
                             .frame(width: 60, height: 32)
                             .padding(.top, -4)
                             .padding(.bottom, 7)
