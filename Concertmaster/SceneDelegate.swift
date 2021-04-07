@@ -19,11 +19,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
     var playState = PlayState()
     var radioState = RadioState()
     var previewBridge = PreviewBridge()
-    var player: AVAudioPlayer?
+    var bgPlayer = BGPlayer()
     
     lazy var configuration: SPTConfiguration = {
         let configuration = SPTConfiguration(clientID: AppConstants.SpotifyClientID, redirectURL: AppConstants.SpotifyRedirectURL)
-        configuration.playURI = AppConstants.SpotifySilentTrack
+        configuration.playURI = AppConstants.SpotifySilentPlaylist
         configuration.tokenSwapURL = URL(string: AppConstants.concTokenAPI)
         configuration.tokenRefreshURL = URL(string: AppConstants.concTokenAPI)
         return configuration
@@ -72,33 +72,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
     }
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-            
-        
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        
-        // playing silence in background
-        
-        try! AVAudioSession.sharedInstance().setCategory(
-            AVAudioSession.Category.playback,
-            mode: AVAudioSession.Mode.default,
-            options: [
-                AVAudioSession.CategoryOptions.mixWithOthers
-            ]
-        )
-        
-        let url = Bundle.main.url(forResource: "silence", withExtension: "mp3")!
-        
-        do {
-            try AVAudioSession.sharedInstance().setActive(true)
-            player = try AVAudioPlayer.init(contentsOf: url)
-            player?.numberOfLoops = -1
-            
-            player?.play()
-        } catch {
-            //
-        }
 
         // Create the SwiftUI view that provides the window contents.
         let contentView = Structure()
@@ -109,10 +85,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
                             .environmentObject(WorkSearch())
                             .environmentObject(playState)
                             .environmentObject(TimerHolder())
-                            .environmentObject(MediaBridge())
                             .environmentObject(settingStore)
                             .environmentObject(radioState)
                             .environmentObject(previewBridge)
+                            .environmentObject(bgPlayer)
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
@@ -217,12 +193,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
         
         // subscribe to the player state
         
-          self.appRemote.playerAPI?.subscribe(toPlayerState: { (result, error) in
-            if let error = error {
-              print("😱 ERROR SUBSCRIBING TO THE PLAYER STATE")
-              debugPrint(error.localizedDescription)
-            }
-          })
+        if !self.playState.isSubscribed || true {
+            self.appRemote.playerAPI?.subscribe(toPlayerState: { (result, error) in
+              if let error = error {
+                print("😱 ERROR SUBSCRIBING TO THE PLAYER STATE")
+                debugPrint(error.localizedDescription)
+              } else {
+                self.playState.isSubscribed = true
+              }
+            })
+        }
+        
+        // say hi to spotify every 4 minutes
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4 * 60) {
+            self.appRemote.connect()
+        }
         
         // playing the music
         
@@ -244,11 +230,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
                                     
                                     if self.settingStore.lastPlayState.count > 0 {
                                         if self.settingStore.lastPlayState.first!.spotify_tracks!.firstIndex(of: currplayer.track.uri) == nil {
-                                            APIBearerPut("\(AppConstants.SpotifyAPI)/me/player/play?device_id=\($0.id)", body: "{ \"uris\": \(self.settingStore.lastPlayState.first!.jsonTracks), \"offset\": { \"position\": 0 } }", bearer: self.settingStore.accessToken) { results in
+                                            APIBearerPut("\(AppConstants.SpotifyAPI)/me/player/play?device_id=\($0.id)", body: "{ \"uris\": \(self.radioState.nextRecordings.count > 0 ? self.playState.recording.first!.jsonRadioTracks : self.playState.recording.first!.jsonTracks), \"offset\": { \"position\": 0 } }", bearer: self.settingStore.accessToken) { results in
                                                 
                                                 //print(String(decoding: results, as: UTF8.self))
                                                 
                                                 DispatchQueue.main.async {
+                                                    print("log and play, auto play = false")
+                                                    self.playState.autoplay = false
                                                     self.playState.logAndPlay = false
                                                 }
                                             }
@@ -264,10 +252,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
     }
     
     func playerStateDidChange(_ playerState: SPTAppRemotePlayerState) {
-        print("⚠️ CHANGED PLAYER STATE = ", playerState.track.uri)
-        
         if !playerState.track.uri.isEmpty {
-            self.playState.playerstate = PlayerState (isConnected: true, isPlaying: !playerState.isPaused, trackId: playerState.track.uri, position: Int(ceil(Double(playerState.playbackPosition/1000))))
+            let newplaystate = PlayerState (isConnected: true, isPlaying: !playerState.isPaused, trackId: playerState.track.uri, position: Int(ceil(Double(playerState.playbackPosition/1000))))
+            
+            if self.playState.lastPlayerState != newplaystate || true {
+                print("⚠️ CHANGED PLAYER STATE = ", playerState.track.uri)
+                print("current time = ", playerState.playbackPosition/1000)
+                self.playState.playerstate = newplaystate
+                self.playState.lastPlayerState = newplaystate
+            }
         }
     }
     
@@ -279,6 +272,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
         appRemote.connectionParameters.accessToken = session.accessToken
         self.settingStore.accessToken = session.accessToken
         self.settingStore.refreshToken = session.refreshToken
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 30 * 60) {
+            // renew the token before it expires
+            self.sessionManager.renewSession()
+        }
+        
         /*
         print ("access token - \(session.accessToken)")
         print ("refresh token - \(session.refreshToken)")
@@ -299,6 +298,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
         
         self.settingStore.accessToken = session.accessToken
         self.settingStore.refreshToken = session.refreshToken
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 30 * 60) {
+            // renew the token before it expires
+            self.sessionManager.renewSession()
+        }
         
         if timeframe(timestamp: settingStore.lastLogged, minutes: AppConstants.minsToLogin)  {
             APIpost("\(AppConstants.concBackend)/dyn/user/login/", parameters: ["token": session.accessToken ]) { results in
@@ -347,7 +351,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
                                 if timeframe(timestamp: self.settingStore.lastAskedDonation, minutes: self.settingStore.hasDonated ? AppConstants.minsToAskDonationHasDonated : AppConstants.minsToAskDonation)  {
                                     self.settingStore.hasDonated = false
                                     self.appState.askDonation = true
-                                } else {
+                                } else if timeframe(timestamp: self.settingStore.lastLogged, minutes: AppConstants.minsToReview) {
                                     RequestAppStoreReview()
                                 }
                             }
@@ -355,7 +359,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
                         
                         if let product = login.user.product {
                             if product != "premium" {
-                                //self.appRemote.playerAPI?.pause()
                                 self.appState.showingWarning = true
                                 self.appState.warningType = .notPremium
                                 
@@ -376,14 +379,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
                         }
                     }
                 }
-                
-                //if self.settingStore.deviceId == "" {
-                    
-                /*} else if self.settingStore.lastPlayState.count > 0 {
-                    APIBearerPut("\(AppConstants.SpotifyAPI)/me/player/play?device_id=\(self.settingStore.deviceId)", body: "{ \"uris\": \(self.settingStore.lastPlayState.first!.jsonTracks), \"offset\": { \"position\": 0 } }", bearer: self.settingStore.accessToken) { results in
-                        print(String(decoding: results, as: UTF8.self))
-                    }
-                }*/
             }
         }
     }

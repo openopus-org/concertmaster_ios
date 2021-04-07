@@ -12,11 +12,16 @@ struct WorksRadioButton: View {
     @EnvironmentObject var playState: PlayState
     @EnvironmentObject var settingStore: SettingStore
     @EnvironmentObject var radioState: RadioState
-    @EnvironmentObject var mediaBridge: MediaBridge
     @EnvironmentObject var previewBridge: PreviewBridge
     @EnvironmentObject var AppState: AppState
     @State var isLoading = false
     var genreId: String
+    
+    private var appRemote: SPTAppRemote? {
+        get {
+            return (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.appRemote
+        }
+    }
     
     func initRadio() {
         self.isLoading = true
@@ -76,73 +81,13 @@ struct WorksRadioButton: View {
                         self.previewBridge.stop()
                         self.previewBridge.setQueueAndPlay(tracks: self.playState.recording.first!.previewUrls, starttrack: 0, autoplay: false, zeroqueue: false)
                     } else {
-                        self.mediaBridge.stop()
-                        if let firstrecording = self.playState.recording.first {
-                            self.mediaBridge.setQueueAndPlay(tracks: firstrecording.spotify_tracks!, starttrack: firstrecording.spotify_tracks!.first!, autoplay: false)
+                        appRemote?.playerAPI?.pause()
+                        if let _ = self.appRemote!.connectionParameters.accessToken {
+                            self.appRemote!.connect()
                         }
                     }
                 } else {
-                    if self.settingStore.userId != "" {
-                        self.initRadio()
-                    } else {
-                        self.isLoading = true
-                        
-                        /*
-                        userLogin(self.playState.autoplay) { country, canPlay, apmusEligible, loginResults in
-                            if let login = loginResults {
-                                
-                                DispatchQueue.main.async {
-                                    self.settingStore.userId = login.user.id
-                                    self.settingStore.lastLogged = Int(Date().millisecondsSince1970 / (60 * 1000) | 0)
-                                    self.settingStore.country = country
-                                    
-                                    if let auth = login.user.auth {
-                                        self.settingStore.userAuth = auth
-                                    }
-                                    
-                                    if let favoritecomposers = login.favorite {
-                                        self.settingStore.favoriteComposers = favoritecomposers
-                                    }
-                                    
-                                    if let favoriteworks = login.works {
-                                        self.settingStore.favoriteWorks = favoriteworks
-                                    }
-                                    
-                                    if let composersfavoriteworks = login.composerworks {
-                                        self.settingStore.composersFavoriteWorks = composersfavoriteworks
-                                    }
-                                    
-                                    if let favoriterecordings = login.favoriterecordings {
-                                        self.settingStore.favoriteRecordings = favoriterecordings
-                                    }
-                                    
-                                    if let forbiddencomposers = login.forbidden {
-                                        self.settingStore.forbiddenComposers = forbiddencomposers
-                                    }
-                                    
-                                    if let playlists = login.playlists {
-                                        self.settingStore.playlists = playlists
-                                    }
-                                    
-                                    if let heavyuser = login.user.heavyuser {
-                                        if heavyuser == 1 {
-                                            if timeframe(timestamp: settingStore.lastAskedDonation, minutes: self.settingStore.hasDonated ? AppConstants.minsToAskDonationHasDonated : AppConstants.minsToAskDonation)  {
-                                                self.settingStore.hasDonated = false
-                                                self.AppState.askDonation = true
-                                            } else {
-                                                RequestAppStoreReview()
-                                            }
-                                        }
-                                    }
-                                    
-                                    self.initRadio()
-                                }
-                            } else {
-                                self.isLoading = false
-                            }
-                        }
-                        */
-                    }
+                    self.initRadio()
                 }
             },
             label: {

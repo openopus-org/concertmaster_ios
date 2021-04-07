@@ -204,6 +204,22 @@ struct Recording: Codable {
         }
     }
     
+    var jsonRadioTracks: String {
+        get {
+            do {
+                if var tracks = spotify_tracks {
+                    tracks.append(AppConstants.SpotifySilentTrack)
+                    let jsonData = try JSONEncoder().encode(tracks)
+                    return String(data: jsonData, encoding: .utf8)!
+                } else {
+                    return ""
+                }
+            } catch {
+                return ""
+            }
+        }
+    }
+    
     var previewUrls: [URL] {
         get {
             var previewurls = [URL]()
@@ -346,6 +362,12 @@ struct PlayerState: Codable {
     var isPlaying: Bool
     var trackId: String
     var position: Int
+}
+
+extension PlayerState: Equatable {
+    static func == (lhs: PlayerState, rhs: PlayerState) -> Bool {
+      return (lhs.isConnected == rhs.isConnected && lhs.isPlaying == rhs.isPlaying && lhs.trackId == rhs.trackId && lhs.position == rhs.position)
+    }
 }
 
 struct AddComposer: Codable {

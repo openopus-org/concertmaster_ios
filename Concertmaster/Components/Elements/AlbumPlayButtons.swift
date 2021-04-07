@@ -12,12 +12,17 @@ struct AlbumPlayButtons: View {
     @EnvironmentObject var playState: PlayState
     @EnvironmentObject var settingStore: SettingStore
     @EnvironmentObject var radioState: RadioState
-    @EnvironmentObject var mediaBridge: MediaBridge
     @EnvironmentObject var previewBridge: PreviewBridge
     @State var isLoading = false
     @State private var showPlaylistSheet = false
     var album: Album
     var recordings: [Recording]
+    
+    private var appRemote: SPTAppRemote? {
+        get {
+            return (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.appRemote
+        }
+    }
     
     var body: some View {
         HStack(spacing: 6) {
@@ -33,8 +38,10 @@ struct AlbumPlayButtons: View {
                             self.previewBridge.stop()
                             self.previewBridge.setQueueAndPlay(tracks: self.playState.recording.first!.previewUrls, starttrack: 0, autoplay: false, zeroqueue: false)
                         } else {
-                            self.mediaBridge.stop()
-                            self.mediaBridge.setQueueAndPlay(tracks: self.playState.recording.first!.spotify_tracks!, starttrack: self.playState.recording.first!.spotify_tracks!.first!, autoplay: false)
+                            appRemote?.playerAPI?.pause()
+                            if let _ = self.appRemote!.connectionParameters.accessToken {
+                                self.appRemote!.connect()
+                            }
                         }
                     } else {
                         self.isLoading = true

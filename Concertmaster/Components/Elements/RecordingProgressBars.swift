@@ -11,7 +11,6 @@ import SwiftUI
 struct RecordingProgressBars: View {
     var recording: Recording
     @Binding var currentTrack: [CurrentTrack]
-    @EnvironmentObject var mediaBridge: MediaBridge
     @EnvironmentObject var appState: AppState
     @EnvironmentObject var previewBridge: PreviewBridge
     @EnvironmentObject var playState: PlayState
@@ -39,7 +38,7 @@ struct RecordingProgressBars: View {
                                         
                                         if let offset = self.recording.tracks!.firstIndex(where: {$0.spotify_trackid == track.spotify_trackid}) {
                                             
-                                            APIBearerPut("\(AppConstants.SpotifyAPI)/me/player/play?device_id=\(self.settingStore.deviceId)", body: "{ \"uris\": \(self.playState.recording.first!.jsonTracks), \"offset\": { \"position\": \(offset) } }", bearer: self.settingStore.accessToken) { results in
+                                            APIBearerPut("\(AppConstants.SpotifyAPI)/me/player/play?device_id=\(self.settingStore.deviceId)", body: "{ \"uris\": \(self.radioState.nextRecordings.count > 0 ? self.playState.recording.first!.jsonRadioTracks : self.playState.recording.first!.jsonTracks), \"offset\": { \"position\": \(offset) } }", bearer: self.settingStore.accessToken) { results in
                                                 
                                                 DispatchQueue.main.async {
                                                     print("TRACK CHANGED TO ", track.spotify_trackid)

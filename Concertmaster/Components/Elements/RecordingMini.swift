@@ -13,7 +13,6 @@ struct RecordingMiniView: View {
     var recording: Recording
     @Binding var currentTrack: [CurrentTrack]
     @EnvironmentObject var appState: AppState
-    @EnvironmentObject var mediaBridge: MediaBridge
     @EnvironmentObject var previewBridge: PreviewBridge
     @EnvironmentObject var settingStore: SettingStore
     @EnvironmentObject var playState: PlayState
@@ -96,7 +95,6 @@ struct RecordingMiniView: View {
 struct RecordingMini: View {
     var recording: Recording
     @Binding var currentTrack: [CurrentTrack]
-    @EnvironmentObject var mediaBridge: MediaBridge
     @EnvironmentObject var previewBridge: PreviewBridge
     @EnvironmentObject var settingStore: SettingStore
     @EnvironmentObject var playState: PlayState
@@ -199,23 +197,6 @@ struct RecordingMini: View {
                 .padding(.top, 4)
 
             }
-            /*
-            else {
-                if self.settingStore.userId > 0 || self.settingStore.firstUsage {
-                    //RecordingNotAvailable(size: "min")
-                    HStack {
-                        Spacer()
-                        ActivityIndicator(isAnimating: true)
-                            .configure { $0.color = Color(hex: 0xfce546).uiColor(); $0.style = .medium }
-                        Spacer()
-                    }
-                    .padding(.top, 4)
-                }
-                else {
-                    BrowseOnlyMode(size: "min")
-                }
-            }
-            */
         }
     }
 }

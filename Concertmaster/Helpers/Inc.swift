@@ -9,7 +9,7 @@
 import Foundation
 
 struct AppConstants {
-    static let version = "1.20.1202 alpha"
+    static let version = "1.21 beta"
     static let openOpusBackend = "https://api.openopus.org"
     static let concBackend = "https://beta.api.concertmaster.app"
     static let concFrontend = "https://concertmaster.app"
@@ -29,14 +29,15 @@ struct AppConstants {
     static let inAppPurchases = ["org.openopus.concertmaster.ios.tip", "org.openopus.concertmaster.ios.vgtip", "org.openopus.concertmaster.ios.sgtip"]
     static let minsToAskDonation = 7 * 24 * 60
     static let minsToAskDonationHasDonated = 30 * 24 * 60
-    //static let minsToLogin = 2 * 60
+    static let minsToReview = 2 * 24 * 60
     static let minsToLogin = 0
     static let minsToToken = 4 * 60
     static let SpotifyClientID = "d51f903ebcac46d9a036b4a2da05b299"
     static let SpotifyRedirectURL = URL(string: "concertmaster-app://spotify-login-callback")!
     static let concTokenAPI = "https://beta.api.concertmaster.app/dyn/token/"
     static let SpotifyAuthScopes: SPTScope = [.appRemoteControl, .userReadPlaybackState, .userModifyPlaybackState, .userReadCurrentlyPlaying, .streaming, .userReadEmail, .userReadPrivate]
-    static let SpotifySilentTrack = "spotify:playlist:0MrWndPwlGqGr4VzjoIbU3"
+    static let SpotifySilentPlaylist = "spotify:playlist:0MrWndPwlGqGr4VzjoIbU3"
+    static let SpotifySilentTrack = "spotify:track:647hR0e3Rp07l8MtPSMu2s"
     static let SpotifyAPI = "https://api.spotify.com/v1"
     static let SpotifyPremiumURL = "https://www.spotify.com/premium"
     static let SpotifyAppStoreURL = "itms-apps://apple.com/app/id324684580"

@@ -37,8 +37,6 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSAppleMusicUsageDescription</key>
-	<string>Concertmaster needs to access the Apple Music catalog, so that you can play music</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>ZillaSlab-Medium.ttf</string>

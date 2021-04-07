@@ -13,12 +13,17 @@ struct RadioBuilder: View {
     @EnvironmentObject var AppState: AppState
     @EnvironmentObject var playState: PlayState
     @EnvironmentObject var radioState: RadioState
-    @EnvironmentObject var mediaBridge: MediaBridge
     @EnvironmentObject var previewBridge: PreviewBridge
     @State private var isLoading = false
     @State private var selectedWorks = "All"
     @State private var selectedPeriods = "All"
     @State private var selectedGenres = "All"
+    
+    private var appRemote: SPTAppRemote? {
+        get {
+            return (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.appRemote
+        }
+    }
     
     func initRadio() {
         var parameters = [String: String]()
@@ -48,7 +53,6 @@ struct RadioBuilder: View {
                         self.radioState.genreId = ""
                         self.radioState.nextRecordings.removeAll()
                         self.radioState.nextWorks = wrks
-                        
                         
                         randomRecording(workQueue: self.radioState.nextWorks, hideIncomplete: self.settingStore.hideIncomplete, country: !self.settingStore.country.isEmpty ? self.settingStore.country : "us") { rec in
                             if rec.count > 0 {
@@ -132,7 +136,6 @@ struct RadioBuilder: View {
                     Text("Periods".uppercased())
                         .foregroundColor(Color(hex: 0x717171))
                         .font(.custom("Sanchez-Regular", size: 12))
-                        
                     
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(alignment: .top, spacing: 14) {
@@ -194,76 +197,14 @@ struct RadioBuilder: View {
                             
                             if self.playState.preview {
                                 self.previewBridge.stop()
-                                if let firstrecording = self.playState.recording.first {
-                                    self.previewBridge.setQueueAndPlay(tracks: firstrecording.previewUrls, starttrack: 0, autoplay: false, zeroqueue: false)
-                                }
                             } else {
-                                self.mediaBridge.stop()
-                                if let firstrecording = self.playState.recording.first {
-                                    self.mediaBridge.setQueueAndPlay(tracks: firstrecording.spotify_tracks!, starttrack: firstrecording.spotify_tracks!.first!, autoplay: false)
+                                appRemote?.playerAPI?.pause()
+                                if let _ = self.appRemote!.connectionParameters.accessToken {
+                                    self.appRemote!.connect()
                                 }
                             }
                         } else {
-                            if self.settingStore.userId != "" {
-                                self.initRadio()
-                            } else {
-                                self.isLoading = true
-                                /*
-                                userLogin(self.playState.autoplay) { country, canPlay, apmusEligible, loginResults in
-                                    if let login = loginResults {
-                                        
-                                        DispatchQueue.main.async {
-                                            self.settingStore.userId = login.user.id
-                                            self.settingStore.lastLogged = Int(Date().millisecondsSince1970 / (60 * 1000) | 0)
-                                            self.settingStore.country = country
-                                            
-                                            if let auth = login.user.auth {
-                                                self.settingStore.userAuth = auth
-                                            }
-                                            
-                                            if let favoritecomposers = login.favorite {
-                                                self.settingStore.favoriteComposers = favoritecomposers
-                                            }
-                                            
-                                            if let favoriteworks = login.works {
-                                                self.settingStore.favoriteWorks = favoriteworks
-                                            }
-                                            
-                                            if let composersfavoriteworks = login.composerworks {
-                                                self.settingStore.composersFavoriteWorks = composersfavoriteworks
-                                            }
-                                            
-                                            if let favoriterecordings = login.favoriterecordings {
-                                                self.settingStore.favoriteRecordings = favoriterecordings
-                                            }
-                                            
-                                            if let forbiddencomposers = login.forbidden {
-                                                self.settingStore.forbiddenComposers = forbiddencomposers
-                                            }
-                                            
-                                            if let playlists = login.playlists {
-                                                self.settingStore.playlists = playlists
-                                            }
-                                            
-                                            if let heavyuser = login.user.heavyuser {
-                                                if heavyuser == 1 {
-                                                    if timeframe(timestamp: settingStore.lastAskedDonation, minutes: self.settingStore.hasDonated ? AppConstants.minsToAskDonationHasDonated : AppConstants.minsToAskDonation)  {
-                                                        self.settingStore.hasDonated = false
-                                                        self.AppState.askDonation = true
-                                                    } else {
-                                                        RequestAppStoreReview()
-                                                    }
-                                                }
-                                            }
-                                            
-                                            self.initRadio()
-                                        }
-                                    } else {
-                                        self.isLoading = false
-                                    }
-                                }
-                                */
-                            }
+                            self.initRadio()
                         }
                     },
                     label: {

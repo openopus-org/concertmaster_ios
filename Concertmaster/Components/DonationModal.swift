@@ -52,7 +52,7 @@ struct DonationModal: View {
                         .multilineTextAlignment(.center)
                         .lineLimit(20)
                     
-                    Text("Help keeping Concertmaster free. Please donate and back our development and hosting costs!")
+                    Text("Help keep Concertmaster free. Please donate and back our development and hosting costs!")
                         .foregroundColor(Color(hex: 0xfce546))
                         .font(.custom("PetitaBold", size: 14))
                         .multilineTextAlignment(.center)
@@ -60,7 +60,7 @@ struct DonationModal: View {
                     
                     Text("Choose a tip value below".uppercased())
                         .foregroundColor(Color(hex: 0x717171))
-                        .font(.custom("Sanchez-Regular", size: 12))
+                        .font(.custom("Sanchez-Regular", size: 13))
                         .multilineTextAlignment(.center)
                         .lineLimit(20)
                         .padding(.top, 40)
@@ -117,9 +117,9 @@ struct DonationModal: View {
                                     },
                                     label: {
                                         Text("\(product.localizedPrice!)")
-                                            .foregroundColor(.white)
-                                            .font(.custom("Sanchez-Regular", size: 13))
-                                            .padding(13)
+                                            .foregroundColor(.black)
+                                            .font(.custom("PetitaBold", size: 15))
+                                            .padding(10)
                                             .background(Color(hex: 0xfce546))
                                             //.cornerRadius(16)
                                     })

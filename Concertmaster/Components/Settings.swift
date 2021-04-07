@@ -15,11 +15,7 @@ import StoreKit
 struct Settings: View {
     @Environment(\.window) var window: UIWindow?
     @EnvironmentObject var settingStore: SettingStore
-    @State var appleSignInDelegates: SignInWithAppleDelegates! = nil
     @State private var supporters = [String]()
-    @State private var showSignIn = false
-    @State private var alreadyLogged = false
-    @State private var signInLoading = false
     @State private var donationIsLoading = true
     @State private var donationDone = false
     @State private var inAppOffers = [SKProduct]()
@@ -33,71 +29,6 @@ struct Settings: View {
                 }
             }
         }
-    }
-    
-    private func performSignIn(using requests: [ASAuthorizationRequest]) {
-      self.signInLoading = true
-        
-      appleSignInDelegates = SignInWithAppleDelegates(window: window) { appleId in
-        if appleId != "error" {
-            APIpost("\(AppConstants.concBackend)/dyn/user/sync/", parameters: ["auth": authGen(userId: settingStore.userId, userAuth: settingStore.userAuth) ?? "", "id": settingStore.userId, "recid": appleId]) { results in
-                
-                if let login: Login = safeJSON(results) {
-                    
-                    print(login)
-                    
-                    DispatchQueue.main.async {
-                        self.settingStore.userId = login.user.id
-                        
-                        if let auth = login.user.auth {
-                            self.settingStore.userAuth = auth
-                        }
-                        
-                        if let favoritecomposers = login.favorite {
-                            self.settingStore.favoriteComposers = favoritecomposers
-                        }
-                        
-                        if let favoriteworks = login.works {
-                            self.settingStore.favoriteWorks = favoriteworks
-                        }
-                        
-                        if let composersfavoriteworks = login.composerworks {
-                            self.settingStore.composersFavoriteWorks = composersfavoriteworks
-                        }
-                        
-                        if let favoriterecordings = login.favoriterecordings {
-                            self.settingStore.favoriteRecordings = favoriterecordings
-                        }
-                        
-                        if let forbiddencomposers = login.forbidden {
-                            self.settingStore.forbiddenComposers = forbiddencomposers
-                        }
-                        
-                        if let playlists = login.playlists {
-                            self.settingStore.playlists = playlists
-                        }
-                        
-                        self.signInLoading = false
-                        self.alreadyLogged = true
-                    }
-                }
-            }
-        } else {
-            self.signInLoading = false
-        }
-      }
-
-      let controller = ASAuthorizationController(authorizationRequests: requests)
-      controller.delegate = appleSignInDelegates
-      controller.presentationContextProvider = appleSignInDelegates
-
-      controller.performRequests()
-    }
-
-    private func showAppleLogin() {
-        let request = ASAuthorizationAppleIDProvider().createRequest()
-        
-        performSignIn(using: [request])
     }
     
     var body: some View {
@@ -143,13 +74,13 @@ struct Settings: View {
                             .font(.custom("ZillaSlab-SemiBold", size: 13))
                             .foregroundColor(Color(hex: 0xfce546))
                         if #available(iOS 14.0, *) {
-                            Text("Help us keeping Concertmaster free! Donate and back our development and hosting costs. Choose a tip value below. You will be charged only once and the transaction will be processed through Apple.")
+                            Text("Help us keep Concertmaster free! Donate and back our development and hosting costs. Choose a tip value below. You will be charged only once and the transaction will be processed through Apple.")
                                 .textCase(.none)
                                 .font(.custom("PetitaMedium", size: 14))
                                 .foregroundColor(.white)
                                 .lineLimit(20)
                         } else {
-                            Text("Help us keeping Concertmaster free! Donate and back our development and hosting costs. Choose a tip value below. You will be charged only once and the transaction will be processed through Apple.")
+                            Text("Help us keep Concertmaster free! Donate and back our development and hosting costs. Choose a tip value below. You will be charged only once and the transaction will be processed through Apple.")
                                 .font(.custom("PetitaMedium", size: 14))
                                 .foregroundColor(.white)
                                 .lineLimit(20)
@@ -206,9 +137,9 @@ struct Settings: View {
                                         },
                                         label: {
                                             Text("\(product.localizedPrice!)")
-                                                .foregroundColor(.white)
-                                                .font(.custom("Sanchez-Regular", size: 13))
-                                                .padding(13)
+                                                .foregroundColor(.black)
+                                                .font(.custom("PetitaBold", size: 15))
+                                                .padding(10)
                                                 .background(Color(hex: 0xfce546))
                                                 //.cornerRadius(16)
                                         })
@@ -292,9 +223,6 @@ struct Settings: View {
                 self.loadData()
             }
             
-            self.showSignIn = false
-            self.alreadyLogged = false
-            
             SwiftyStoreKit.retrieveProductsInfo(Set(AppConstants.inAppPurchases)) { result in
                 if result.retrievedProducts.first != nil {
                     for prod in result.retrievedProducts {
@@ -303,11 +231,6 @@ struct Settings: View {
                     self.donationIsLoading = false
                 }
             }
-        })
-        .onReceive(settingStore.userIdDidChange, perform: {
-            print("🆗 user id changed")
-            self.showSignIn = false
-            self.alreadyLogged = false
         })
     }
 }

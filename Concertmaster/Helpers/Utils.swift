@@ -144,6 +144,8 @@ final class PlayState: ObservableObject {
     var preview = false
     var logAndPlay = false
     var forceConnection = false
+    var isSubscribed = false
+    var lastPlayerState: PlayerState?
 }
 
 class TimerHolder: ObservableObject {
@@ -340,6 +342,38 @@ public func convertSeconds (seconds: Int) -> String {
 extension Notification.Name {
     static let previewPlayerStatusChanged = Notification.Name("previewPlayerStatusChanged")
     static let previewPlayerItemChanged = Notification.Name("previewPlayerItemChanged")
+}
+
+class BGPlayer: ObservableObject {
+    var bgPlayer: AVAudioPlayer?
+    
+    init() {
+        try! AVAudioSession.sharedInstance().setCategory(
+            AVAudioSession.Category.playback,
+            mode: AVAudioSession.Mode.default,
+            options: [
+                AVAudioSession.CategoryOptions.mixWithOthers
+            ]
+        )
+        
+        let url = Bundle.main.url(forResource: "silence", withExtension: "mp3")!
+        
+        do {
+            try AVAudioSession.sharedInstance().setActive(true)
+            bgPlayer = try AVAudioPlayer.init(contentsOf: url)
+            bgPlayer?.numberOfLoops = -1
+        } catch {
+            //
+        }
+    }
+    
+    func play() {
+        bgPlayer?.play()
+    }
+    
+    func pause() {
+        bgPlayer?.pause()
+    }
 }
 
 class PreviewBridge: ObservableObject {
@@ -584,172 +618,6 @@ class PreviewBridge: ObservableObject {
     
     @objc func playerStatusChanged(_ notification:Notification) {
         
-    }
-}
-
-class MediaBridge: ObservableObject {
-    let player = MPMusicPlayerController.applicationQueuePlayer
-
-    init() {
-      NotificationCenter.default.addObserver(
-        self,
-        selector: #selector(MediaBridge.playItemChanged(_:)),
-        name: NSNotification.Name.MPMusicPlayerControllerNowPlayingItemDidChange,
-        object: player
-      )
-      NotificationCenter.default.addObserver(
-        self,
-        selector: #selector(MediaBridge.playbackStateChanged(_:)),
-        name: NSNotification.Name.MPMusicPlayerControllerPlaybackStateDidChange,
-        object: player
-      )
-      player.beginGeneratingPlaybackNotifications()
-    }
-
-    deinit {
-      player.endGeneratingPlaybackNotifications()
-      player.stop()
-    }
-    
-    func setQueue(tracks: [String]) {
-        let queue = MPMusicPlayerStoreQueueDescriptor(storeIDs: tracks)
-        
-        player.setQueue(with: queue)
-    }
-    
-    func setQueueAndPlay(tracks: [String], starttrack: String?, autoplay: Bool) {
-        let queue = MPMusicPlayerStoreQueueDescriptor(storeIDs: tracks)
-        
-        if let sttrack = starttrack {
-            queue.startItemID = sttrack
-        }
-        
-        player.setQueue(with: queue)
-        
-        if !player.isPreparedToPlay {
-            print("preparing to play...")
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0) {
-                self.prepareToPlay(autoplay)
-            }
-        } else if autoplay {
-            self.player.play()
-        }
-    }
-    
-    func prepareToPlay(_ autoplay: Bool) {
-        player.prepareToPlay(completionHandler: {(error) in
-            if error != nil {
-                DispatchQueue.main.async {
-                    print("⛔️ error while preparing to play")
-                    
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                        print("⛔️ trying again")
-                        self.prepareToPlay(autoplay)
-                    }
-                    
-                    /*
-                    let status: [String : Any] = [
-                        "index": 0,
-                        "title": 0,
-                        "success": false
-                    ]
-                    NotificationCenter.default.post(name: NSNotification.Name.MPMusicPlayerControllerNowPlayingItemDidChange, object: self, userInfo: status)
-                    */
-                }
-            } else if autoplay {
-                DispatchQueue.main.async {
-                    self.player.play()
-                }
-            } else {
-                DispatchQueue.main.async {
-                    print("👍🏻 preparation to play succedeed")
-                    let status: [String : Any] = [
-                        "index": 0,
-                        "title": 0,
-                        "success": false
-                    ]
-                    NotificationCenter.default.post(name: NSNotification.Name.MPMusicPlayerControllerNowPlayingItemDidChange, object: self, userInfo: status)
-                }
-            }
-        })
-    }
-    
-    func addToQueue(tracks: [String]) {
-        let queue = MPMusicPlayerStoreQueueDescriptor(storeIDs: tracks)
-        
-        player.append(queue)
-    }
-    
-    @objc func playItemChanged(_ notification:Notification) {
-        let status: [String : Any] = [
-            "index": player.indexOfNowPlayingItem,
-            "title": player.nowPlayingItem?.title ?? "",
-            "success": player.nowPlayingItem != nil
-            ]
-        
-        if player.indexOfNowPlayingItem < 1000 {
-            NotificationCenter.default.post(name: NSNotification.Name.MPMusicPlayerControllerNowPlayingItemDidChange, object: self, userInfo: status)
-        }
-    }
-    
-    @objc func playbackStateChanged(_ notification:Notification) {
-        NotificationCenter.default.post(name: NSNotification.Name.MPMusicPlayerControllerPlaybackStateDidChange, object: self, userInfo: ["playing": (player.playbackState == .playing)])
-    }
-    
-    func getCurrentPlaybackState() -> Bool {
-        if (player.playbackState == .playing) {
-            return true
-        } else {
-            return false
-        }
-    }
-    
-    func getCurrentPlaybackTime() -> Int {
-        if (player.nowPlayingItem != nil) {
-            return Int(player.currentPlaybackTime)
-        } else {
-            return 0
-        }
-    }
-    
-    func getCurrentTrackIndex() -> Int {
-        if (player.nowPlayingItem != nil) {
-            return Int(player.indexOfNowPlayingItem)
-        } else {
-            return 0
-        }
-    }
-    
-    func togglePlay() {
-        if player.isPreparedToPlay {
-            if (player.playbackState == .playing) {
-                player.pause()
-            } else {
-                player.play()
-            }
-        } else {
-            self.prepareToPlay(true)
-        }
-    }
-    
-    func nextTrack() {
-        player.skipToNextItem()
-    }
-    
-    func skipToBeginning() {
-        player.skipToBeginning()
-    }
-    
-    func previousTrack() {
-        if (player.indexOfNowPlayingItem > 0) {
-          player.skipToPreviousItem()
-        } else {
-          player.skipToBeginning()
-        }
-    }
-    
-    func stop() {
-        player.stop()
     }
 }
 
@@ -1006,24 +874,6 @@ func MarkSearched(allSearches: [RecentSearch], recentSearch: RecentSearch) -> [R
     return Array(asearch.prefix(10))
 }
 
-class AppleMusicSubscribeController: UIViewController {
-    func showAppleMusicSignup() {
-        let vc = SKCloudServiceSetupViewController()
-        vc.delegate = self as? SKCloudServiceSetupViewControllerDelegate
-
-        let options: [SKCloudServiceSetupOptionsKey: Any] = [
-            .action: SKCloudServiceSetupAction.subscribe,
-            .messageIdentifier: SKCloudServiceSetupMessageIdentifier.join
-        ]
-            
-        vc.load(options: options) { success, error in
-            if success {
-                UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.rootViewController?.present(vc, animated: true)
-            }
-        }
-    }
-}
-
 public func startRadio(userId: String, parameters: [String: Any], completion: @escaping (Data) -> ()) {
     APIpost("\(AppConstants.concBackend)/dyn/user/work/random/", parameters: ["id": userId, "popularcomposer": parameters["popularcomposer"] ?? "", "recommendedcomposer": parameters["recommendedcomposer"] ?? "", "popularwork": parameters["popularwork"] ?? "", "recommendedwork": parameters["recommendedwork"] ?? "", "genre": parameters["genre"] ?? "", "epoch": parameters["epoch"] ?? "", "composer": parameters["composer"] ?? "", "work": parameters["work"] ?? ""]) { results in
             completion(results)
@@ -1257,52 +1107,6 @@ public func paddingCalc() -> CGFloat {
     }
     
     return CGFloat(-1 * padding)
-}
-
-final class SignInWithApple: UIViewRepresentable {
-  func makeUIView(context: Context) -> ASAuthorizationAppleIDButton {
-    let button = ASAuthorizationAppleIDButton(authorizationButtonType: .signIn, authorizationButtonStyle: .white)
-    button.cornerRadius = 10
-    return button
-  }
-  
-  func updateUIView(_ uiView: ASAuthorizationAppleIDButton, context: Context) {
-  }
-}
-
-class SignInWithAppleDelegates: NSObject {
-  private let appleId: (String) -> Void
-  private weak var window: UIWindow!
-  
-  init(window: UIWindow?, appleId: @escaping (_ appleId: String) -> Void) {
-    self.window = window
-    self.appleId = appleId
-  }
-}
-
-extension SignInWithAppleDelegates: ASAuthorizationControllerDelegate {
-  
-  func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
-    switch authorization.credential {
-        case let appleIdCredential as ASAuthorizationAppleIDCredential:
-            self.appleId(appleIdCredential.user)
-          break
-          
-        default:
-            self.appleId("error")
-          break
-    }
-  }
-  
-  func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
-    self.appleId("error")
-  }
-}
-
-extension SignInWithAppleDelegates: ASAuthorizationControllerPresentationContextProviding {
-  func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
-    return self.window
-  }
 }
 
 struct WindowKey: EnvironmentKey {

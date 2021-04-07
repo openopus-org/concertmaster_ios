@@ -92,7 +92,6 @@
 		09BAA81423E9C53F00157611 /* ComposersWorksSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BAA81323E9C53F00157611 /* ComposersWorksSearch.swift */; };
 		09DD814525F1943A0074C69B /* SpotifyDisconnected.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DD814425F194390074C69B /* SpotifyDisconnected.swift */; };
 		09DEEB0B241352F700350397 /* BrowseOnlyMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DEEB0A241352F700350397 /* BrowseOnlyMode.swift */; };
-		09DEEB0F241EF9F800350397 /* RecordingNotAvailable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DEEB0E241EF9F800350397 /* RecordingNotAvailable.swift */; };
 		09DEEB112421830C00350397 /* PlaylistButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DEEB102421830C00350397 /* PlaylistButtons.swift */; };
 		09DEEB1324231DB700350397 /* AnimatedRadioIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DEEB1224231DB700350397 /* AnimatedRadioIcon.swift */; };
 		09DEEB152425A09300350397 /* WorksRadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DEEB142425A09300350397 /* WorksRadioButton.swift */; };
@@ -210,7 +209,6 @@
 		09BAA81323E9C53F00157611 /* ComposersWorksSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposersWorksSearch.swift; sourceTree = "<group>"; };
 		09DD814425F194390074C69B /* SpotifyDisconnected.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyDisconnected.swift; sourceTree = "<group>"; };
 		09DEEB0A241352F700350397 /* BrowseOnlyMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseOnlyMode.swift; sourceTree = "<group>"; };
-		09DEEB0E241EF9F800350397 /* RecordingNotAvailable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingNotAvailable.swift; sourceTree = "<group>"; };
 		09DEEB102421830C00350397 /* PlaylistButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistButtons.swift; sourceTree = "<group>"; };
 		09DEEB1224231DB700350397 /* AnimatedRadioIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedRadioIcon.swift; sourceTree = "<group>"; };
 		09DEEB142425A09300350397 /* WorksRadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorksRadioButton.swift; sourceTree = "<group>"; };
@@ -421,7 +419,6 @@
 				090625652431707D00E8FC3E /* RecordingBox.swift */,
 				09E5441D23FB749C005B8AEE /* RecordingDisclaimer.swift */,
 				09E5441F23FB87B7005B8AEE /* RecordingMini.swift */,
-				09DEEB0E241EF9F800350397 /* RecordingNotAvailable.swift */,
 				097325EB24047D0600A1C9E6 /* RecordingPlaybackControl.swift */,
 				09E5441923FB571E005B8AEE /* RecordingPlayButtons.swift */,
 				0919D09C2441492800EF4B50 /* RecordingProgressBar.swift */,
@@ -603,7 +600,6 @@
 				094B25D0253E087200A65113 /* DonationModal.swift in Sources */,
 				09AAD65323E6226F004CDAB6 /* ComposersList.swift in Sources */,
 				09BAA81423E9C53F00157611 /* ComposersWorksSearch.swift in Sources */,
-				09DEEB0F241EF9F800350397 /* RecordingNotAvailable.swift in Sources */,
 				09E19F5E23E257A50011D718 /* TabButton.swift in Sources */,
 				0922D4762410A0C6001E8DFE /* FavoritesButton.swift in Sources */,
 				097325F62408B5E000A1C9E6 /* WorkSearchRow.swift in Sources */,

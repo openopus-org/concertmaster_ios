@@ -72,7 +72,7 @@ struct RecordingPlaybackControlButtons: View {
                     }
                 },
                 label: {
-                    Image(self.currentTrack.first!.playing ? "pause" : "play")
+                    Image(self.currentTrack.first?.playing ?? false ? "pause" : "play")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(height: 58)
@@ -194,8 +194,7 @@ struct RecordingPlaybackControl: View {
                         RecordingPlaybackControlButtons(currentTrack: $currentTrack)
                     }
                 }
-            }
-            else {
+            } else {
                 HStack {
                     Spacer()
                     
@@ -217,16 +216,6 @@ struct RecordingPlaybackControl: View {
                     
                     Spacer()
                 }
-                
-                /*
-                if self.settingStore.userId > 0 || self.settingStore.firstUsage {
-                    //RecordingNotAvailable(size: "max")
-                    
-                }
-                else {
-                    BrowseOnlyMode(size: "max")
-                }
-                */
             }
         }
         .padding(.top, 16)
