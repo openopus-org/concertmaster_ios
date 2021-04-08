@@ -46,7 +46,7 @@ struct MicroRecordingRow: View {
                     }
                     
                     Text(recording.work!.title)
-                        .font(.custom("PetitaMedium", size: 12))
+                        .font(.custom("PetitaMedium", size: 13))
                         .foregroundColor(.white)
                         .padding(.bottom, 6)
                         .lineLimit(20)

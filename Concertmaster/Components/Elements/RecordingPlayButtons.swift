@@ -52,10 +52,10 @@ struct RecordingPlayButtons: View {
                                 Spacer()
                             }
                         }
-                        .padding(15)
+                        .padding(16)
                         .foregroundColor(.white)
                         .background(Color(hex: 0x4F4F4F))
-                        //.cornerRadius(16)
+                        .cornerRadius(5)
                 })
             } else {
                 Button(
@@ -85,10 +85,12 @@ struct RecordingPlayButtons: View {
                                 Spacer()
                             }
                         }
-                        .frame(minHeight: 38)
+                        .padding(13)
+                        //.frame(minHeight: 38)
                         .clipped()
                         .foregroundColor(.white)
                         .background(Color(hex: 0xfce546))
+                        .cornerRadius(5)
                 })
             }
             
@@ -104,9 +106,11 @@ struct RecordingPlayButtons: View {
                             .frame(height: 22)
                         Spacer()
                     }
-                    .frame(minHeight: 38)
+                    .padding(12)
+                    //.frame(minHeight: 38)
                     .clipped()
                     .background(Color(hex: 0x2B2B2F))
+                    .cornerRadius(5)
             })
         }
         .onAppear(perform: { self.isPlaying = self.playState.playing })

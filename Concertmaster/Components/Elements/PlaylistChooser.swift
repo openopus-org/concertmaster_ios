@@ -38,7 +38,7 @@ struct PlaylistChooser: View {
                     
                     Text(playlist.name)
                         .foregroundColor(Color(hex: (self.active ? 0x000000 : 0xfce546)))
-                        .font(.custom("Sanchez-Regular", size: 16))
+                        .font(.custom("Sanchez-Regular", size: 15))
                         .fixedSize(horizontal: false, vertical: true)
                         .lineLimit(20)
                 }
@@ -59,7 +59,7 @@ struct PlaylistChooser: View {
         }
         .frame(minWidth: 125, maxWidth: .infinity, minHeight: 80,  maxHeight: 80)
         .background(Color(hex: (self.active ? 0xfce546 : 0x202023)))
-        //.cornerRadius(13)
+        .cornerRadius(5)
     }
 }
 

@@ -68,7 +68,7 @@ struct AlbumPlayButtons: View {
                             
                             if self.isLoading {
                                 ActivityIndicator(isAnimating: self.isLoading)
-                                .configure { $0.color = .white; $0.style = .medium }
+                                .configure { $0.color = .black; $0.style = .medium }
                             } else if self.radioState.isActive && self.radioState.playlistId == "album-\(self.album.spotify_albumid)" {
                                 AnimatedRadioIcon(color: Color(hex: 0x000000), isAnimated: true)
                                     .frame(width: 40, height: 20)
@@ -92,11 +92,11 @@ struct AlbumPlayButtons: View {
                             Spacer()
                         }
                     }
-                    .frame(minHeight: 38)
+                    .padding(13)
                     .clipped()
                     .foregroundColor(.white)
                     .background(Color(hex: self.radioState.isActive && self.radioState.playlistId == "album-\(self.album.spotify_albumid)" ? 0x696969 : 0xfce546))
-                    //.cornerRadius(16)
+                    .cornerRadius(5)
             })
             
             Button(
@@ -110,10 +110,10 @@ struct AlbumPlayButtons: View {
                             .frame(height: 22)
                         Spacer()
                     }
-                    .frame(minHeight: 38)
+                    .padding(13)
                     .clipped()
                     .background(Color(hex: 0x2B2B2F))
-                    //.cornerRadius(16)
+                    .cornerRadius(5)
             })
         }
     }

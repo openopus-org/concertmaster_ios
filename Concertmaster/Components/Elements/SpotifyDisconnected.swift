@@ -46,11 +46,11 @@ struct SpotifyDisconnected: View {
                 
                 VStack(alignment: .leading) {
                     Text("Spotify out of sync")
-                        .font(.custom("ZillaSlab-Medium", size: size == "min" ? 10 : 15))
+                        .font(.custom("ZillaSlab-SemiBold", size: size == "min" ? 10 : 15))
                         .padding(.top, size == "min" ? 0 : 2)
                     Text("Tap to re-connect")
                         .font(.custom("Sanchez-Regular", size: size == "min" ? 8 : 11))
-                        .padding(.top, size == "min" ? -6 : -6)
+                        .padding(.top, size == "min" ? -8 : -8)
                 }
                 .foregroundColor(Color(.black))
             }

@@ -77,7 +77,7 @@ struct AddToPlaylist: View {
             //}
             
             Text("New Playlist".uppercased())
-                .font(.custom("ZillaSlab-Medium", size: 13))
+                .font(.custom("ZillaSlab-SemiBold", size: 13))
                 .foregroundColor(Color(hex: 0xfce546))
             Text("Create a new playlist and add this recording to it")
                 .font(.custom("PetitaMedium", size: 16))
@@ -90,7 +90,7 @@ struct AddToPlaylist: View {
                 .foregroundColor(Color.white)
                 .textFieldStyle(EditFieldStyle())
                 .background(
-                    RoundedRectangle(cornerRadius: 12)
+                    RoundedRectangle(cornerRadius: 5)
                         .foregroundColor(.black)
                 )
             
@@ -107,7 +107,7 @@ struct AddToPlaylist: View {
                 .frame(maxWidth: .infinity, alignment: .center)
             
             Text("Existing Playlist".uppercased())
-                .font(.custom("ZillaSlab-Medium", size: 13))
+                .font(.custom("ZillaSlab-SemiBold", size: 13))
                 .foregroundColor(Color(hex: 0xfce546))
             Text("Add this recording to an existing playlist")
                 .font(.custom("PetitaMedium", size: 16))

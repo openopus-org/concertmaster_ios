@@ -25,14 +25,15 @@ struct ComposerRow: View {
                     .aspectRatio(contentMode: .fill)
                     .clipped()
             }
+            .cornerRadius(5)
             .frame(width: 60, height: 60)
+            
             VStack {
                 VStack(alignment: .leading) {
                     
                     Text(composer.name.uppercased())
-                        
                         .foregroundColor(Color(hex: 0xfce546))
-                        .font(.custom("ZillaSlab-Medium", size: 15))
+                        .font(.custom("ZillaSlab-SemiBold", size: 15))
                     Group{
                         Text(composer.complete_name)
                         Text("(" + composer.birth!.prefix(4)) + Text(composer.death != nil ? "-" : "") + Text((composer.death?.prefix(4) ?? "")) + Text(")")
@@ -44,6 +45,8 @@ struct ComposerRow: View {
                 .padding(8)
             }
         }
+        .padding(.top, 4)
+        .padding(.bottom, 4)
     }
 }
 

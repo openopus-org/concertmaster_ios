@@ -40,7 +40,7 @@ struct RecordingRemover: View {
         }
         .frame(minWidth: 125, maxWidth: .infinity)
         .background(Color(hex: (self.isSelected ? 0xfce546 : 0x202023)))
-        //.cornerRadius(20)
+        .cornerRadius(5)
     }
 }
 

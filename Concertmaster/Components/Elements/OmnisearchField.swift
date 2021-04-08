@@ -59,7 +59,7 @@ struct OmnisearchField: View {
             .padding(EdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 6))
             .foregroundColor(.black)
             .background(Color(.white))
-            //.cornerRadius(12)
+            .cornerRadius(5)
             .clipped()
             
             if self.isEditing || !self.omnisearch.searchstring.isEmpty {
@@ -71,7 +71,7 @@ struct OmnisearchField: View {
                        label: { Text("Cancel")
                         
                         .foregroundColor(Color(hex: 0xfce546))
-                        .font(.custom("Sanchez-Regular", size: 13))
+                        .font(.custom("Sanchez-Regular", size: 12))
                         .padding(4)
                 })
             }

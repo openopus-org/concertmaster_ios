@@ -24,13 +24,13 @@ struct FavoritesButton: View {
             
             Text(playlist == "fav" ? "Your favorites" : "Recently played")
                 .foregroundColor(Color(hex: (self.active ? 0x000000 : 0xfce546)))
-                .font(.custom("Sanchez-Regular", size: 12))
+                .font(.custom("Sanchez-Regular", size: 11))
                 .lineLimit(20)
                 .lineSpacing(-4)
         }
         .frame(minWidth: 95, maxWidth: 95, minHeight: 130,  maxHeight: 130)
         .background(Color(hex: (self.active ? 0xfce546 : 0x202023)))
-        //.cornerRadius(13)
+        .cornerRadius(5)
     }
 }
 

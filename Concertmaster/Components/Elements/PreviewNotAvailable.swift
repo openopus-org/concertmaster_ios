@@ -49,7 +49,7 @@ struct PreviewNotAvailable_Message: View {
     var body: some View {
         Text("This album has no previews")
             .foregroundColor(Color(hex: 0x202023))
-            .font(.custom("ZillaSlab-Medium", size: size == "min" ? 11 : 13))
+            .font(.custom("Sanchez-Regular", size: size == "min" ? 11 : 13))
             .padding(.top, size == "min" ? 0 : 2)
     }
 }

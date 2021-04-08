@@ -37,7 +37,7 @@ struct Settings: View {
                 Section(header:
                     VStack(alignment: .leading) {
                         Text("Library filters".uppercased())
-                            .font(.custom("ZillaSlab-SemiBold", size: 13))
+                            .font(.custom("ZillaSlab-SemiBold", size: 14))
                             .foregroundColor(Color(hex: 0xfce546))
                         if #available(iOS 14.0, *) {
                             Text("Automatic filters that try to eliminate bad or undesirable recordings from the library. They are not perfect, but definitely can improve your playing experience.")
@@ -71,7 +71,7 @@ struct Settings: View {
                 Section(header:
                     VStack(alignment: .leading) {
                         Text("Support us!".uppercased())
-                            .font(.custom("ZillaSlab-SemiBold", size: 13))
+                            .font(.custom("ZillaSlab-SemiBold", size: 14))
                             .foregroundColor(Color(hex: 0xfce546))
                         if #available(iOS 14.0, *) {
                             Text("Help us keep Concertmaster free! Donate and back our development and hosting costs. Choose a tip value below. You will be charged only once and the transaction will be processed through Apple.")
@@ -141,7 +141,7 @@ struct Settings: View {
                                                 .font(.custom("PetitaBold", size: 15))
                                                 .padding(10)
                                                 .background(Color(hex: 0xfce546))
-                                                //.cornerRadius(16)
+                                                .cornerRadius(5)
                                         })
                                         .buttonStyle(BorderlessButtonStyle())
                                 }
@@ -156,7 +156,7 @@ struct Settings: View {
                 Section(header:
                     VStack(alignment: .leading) {
                         Text("Become our patron".uppercased())
-                            .font(.custom("ZillaSlab-SemiBold", size: 13))
+                            .font(.custom("ZillaSlab-SemiBold", size: 14))
                             .foregroundColor(Color(hex: 0xfce546))
                             
                         if #available(iOS 14.0, *) {
@@ -194,7 +194,7 @@ struct Settings: View {
                 
                 Section(header:
                     Text("About".uppercased())
-                        .font(.custom("ZillaSlab-SemiBold", size: 13))
+                        .font(.custom("ZillaSlab-SemiBold", size: 14))
                         .foregroundColor(Color(hex: 0xfce546))
                     ){
                         SettingsMenuItem(title: "Version", description: AppConstants.version)

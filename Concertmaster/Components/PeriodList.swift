@@ -18,7 +18,7 @@ struct PeriodList: View {
             Text("Browse by period".uppercased())
                 
                 .foregroundColor(Color(hex: 0x717171))
-                .font(.custom("Sanchez-Regular", size: 12))
+                .font(.custom("Sanchez-Regular", size: 11))
                 .padding(EdgeInsets(top: 20, leading: 20, bottom: 0, trailing: 0))
             
             ScrollView(.horizontal, showsIndicators: false) {

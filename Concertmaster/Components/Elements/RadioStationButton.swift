@@ -92,6 +92,7 @@ struct RadioStationButton: View {
                     })
                 .padding(0)
                 .clipped()
+                .cornerRadius(5)
             })
             .frame(minWidth: 200, idealWidth: 200, maxWidth: 200, minHeight: 138, idealHeight: 138, maxHeight: 138, alignment: .topLeading)
     }

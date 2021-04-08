@@ -56,7 +56,8 @@ struct ComposerHeader: View {
             URLImage(composer.portrait!, placeholder: { _ in
                 Rectangle()
                     .fill(Color(hex: 0x2B2B2F))
-                    .frame(width: 70, height: 70)
+                    .frame(width: 64, height: 64)
+                    .cornerRadius(5)
             }) { img in
                 img.image
                     .renderingMode(.original)
@@ -64,14 +65,17 @@ struct ComposerHeader: View {
                     .aspectRatio(contentMode: .fill)
                     .clipped()
             }
-            .frame(width: 70, height: 70)
+            .frame(width: 64, height: 64)
+            .cornerRadius(5)
+            .padding(.trailing, 4)
+            .padding(.leading, 4)
             
             VStack {
                 VStack(alignment: .leading) {
                     
                     Text(composer.name.uppercased())
                         .foregroundColor(Color(hex: 0xfce546))
-                        .font(.custom("ZillaSlab-SemiBold", size: 17))
+                        .font(.custom("ZillaSlab-SemiBold", size: 18))
                     
                     Group{
                         Text(composer.complete_name)
@@ -79,7 +83,7 @@ struct ComposerHeader: View {
                     }
                     .foregroundColor(.white)
                     .lineLimit(20)
-                    .font(.custom("Sanchez-Regular", size: 14))
+                    .font(.custom("Sanchez-Regular", size: 13))
                 }
                 .padding(5)
             }

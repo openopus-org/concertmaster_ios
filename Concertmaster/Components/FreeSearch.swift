@@ -169,7 +169,7 @@ struct FreeSearch: View {
                                         Text("Composers".uppercased())
                                             
                                             .foregroundColor(Color(hex: 0x717171))
-                                            .font(.custom("Sanchez-Regular", size: 12))
+                                            .font(.custom("Sanchez-Regular", size: 11))
                                     ){
                                         ForEach(self.composers, id: \.id) { composer in
                                             Group {
@@ -189,7 +189,7 @@ struct FreeSearch: View {
                                         Text("Works".uppercased())
                                             
                                             .foregroundColor(Color(hex: 0x717171))
-                                            .font(.custom("Sanchez-Regular", size: 12))
+                                            .font(.custom("Sanchez-Regular", size: 11))
                                     ){
                                         ForEach(self.works, id: \.id) { work in
                                             NavigationLink(destination: WorkDetail(work: work, composer: work.composer!, isSearch: true).environmentObject(self.settingStore)) {
@@ -209,7 +209,7 @@ struct FreeSearch: View {
                                         Text("Recordings".uppercased())
                                             
                                             .foregroundColor(Color(hex: 0x717171))
-                                            .font(.custom("Sanchez-Regular", size: 12))
+                                            .font(.custom("Sanchez-Regular", size: 11))
                                     ){
                                         ForEach(self.recordings, id: \.id) { recording in
                                             Group {

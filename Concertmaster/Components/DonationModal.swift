@@ -36,7 +36,7 @@ struct DonationModal: View {
                 VStack(spacing: 20) {
                     Text("Thank you for using Concertmaster!")
                         .foregroundColor(Color(hex: 0xfce546))
-                        .font(.custom("ZillaSlab-Medium", size: 20))
+                        .font(.custom("Sanchez-Regular", size: 20))
                         .multilineTextAlignment(.center)
                         .lineLimit(20)
                     

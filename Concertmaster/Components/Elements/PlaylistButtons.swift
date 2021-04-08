@@ -70,7 +70,7 @@ struct PlaylistButtons: View {
                             
                             if self.isLoading {
                                 ActivityIndicator(isAnimating: self.isLoading)
-                                .configure { $0.color = .white; $0.style = .medium }
+                                .configure { $0.color = .black; $0.style = .medium }
                             } else {
                                 AnimatedRadioIcon(color: Color(hex: 0x000000), isAnimated: self.radioState.isActive && self.radioState.playlistId == self.playlistId)
                                     .frame(width: 40, height: 20)
@@ -79,7 +79,7 @@ struct PlaylistButtons: View {
                                     
                                 Text((self.radioState.isActive && self.radioState.playlistId == self.playlistId ? "stop radio" : "start radio").uppercased())
                                     .foregroundColor(.black)
-                                    .font(.custom("ZillaSlab-SemiBold", size: self.radioState.isActive && self.radioState.playlistId == self.playlistId ? 12 : 14))
+                                    .font(.custom("Sanchez-Regular", size: self.radioState.isActive && self.radioState.playlistId == self.playlistId ? 12 : 13))
                             }
                             
                             Spacer()
@@ -88,7 +88,7 @@ struct PlaylistButtons: View {
                     .padding(13)
                     .foregroundColor(.white)
                     .background(Color(hex: self.radioState.isActive && self.radioState.playlistId == self.playlistId ? 0x696969 : 0xfce546))
-                    //.cornerRadius(16)
+                    .cornerRadius(5)
             })
             .buttonStyle(BorderlessButtonStyle())
             
@@ -117,7 +117,7 @@ struct PlaylistButtons: View {
                         .padding(15)
                         .foregroundColor(.white)
                         .background(Color(hex: 0x2B2B2F))
-                        //.cornerRadius(16)
+                        .cornerRadius(5)
                 })
                 .buttonStyle(BorderlessButtonStyle())
             }

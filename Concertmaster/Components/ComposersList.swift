@@ -38,7 +38,7 @@ struct ComposersList: View {
             Text("Most Requested Composers".uppercased())
                 
                 .foregroundColor(Color(hex: 0x717171))
-                .font(.custom("Sanchez-Regular", size: 12))
+                .font(.custom("Sanchez-Regular", size: 11))
                 .padding(EdgeInsets(top: 12, leading: 20, bottom: 0, trailing: 0))
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(alignment: .top, spacing: 14) {

@@ -18,7 +18,7 @@ struct Loader: View {
                     Image("vertical-logo")
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 240, height: 128)
+                        .frame(width: 288, height: 154)
                     
                     Spacer()
                 }
@@ -28,7 +28,7 @@ struct Loader: View {
                     
                     ActivityIndicator(isAnimating: true)
                         .configure { $0.color = .white; $0.style = .large }
-                        .padding(.top, 244)
+                        .padding(.top, 292)
                     
                     Spacer()
                 }

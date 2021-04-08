@@ -26,6 +26,7 @@ struct ComposerBox: View {
                         .aspectRatio(contentMode: .fill)
                         .clipped()
                 }
+                .cornerRadius(5)
                 .frame(width: 52, height: 52)
                 Text(composer.name.uppercased())
                     .foregroundColor(Color(hex: 0xfce546))
@@ -44,7 +45,7 @@ struct ComposerBox: View {
         .frame(minWidth: 134, maxWidth: 134, minHeight: 174,  maxHeight: 174, alignment: .topLeading)
         .background(Color(hex: 0x202023))
         .padding(0)
-        //.cornerRadius(12)
+        .cornerRadius(5)
     }
 }
 

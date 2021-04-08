@@ -33,7 +33,7 @@ struct MiniComposerRow: View {
                     
                     Text(composer.name.uppercased())
                         .foregroundColor(Color(hex: 0xfce546))
-                        .font(.custom("ZillaSlab-Medium", size: 12))
+                        .font(.custom("ZillaSlab-SemiBold", size: 12))
                     
                     Text(composer.complete_name)
                         

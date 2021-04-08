@@ -37,7 +37,7 @@ struct TabButton: View {
                     
                     Text(label)
                         
-                        .font(.custom("Sanchez-Regular", size: 9))
+                        .font(.custom("Sanchez-Regular", size: 10))
                         .foregroundColor(Color(hex: self.AppState.currentTab == self.tab ? 0xfce546 : (self.radioState.isActive && tab == "radio" ? 0xFFFFFF : 0x7C726E)))
                         .padding(.top, icon == "radio" ? -14 : 0)
                 }

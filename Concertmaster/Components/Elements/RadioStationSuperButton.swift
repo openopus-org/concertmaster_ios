@@ -80,7 +80,7 @@ struct RadioStationSuperButton: View {
                             Rectangle()
                                 .fill(Color(hex: 0x2B2B2F))
                                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 138, maxHeight: 138, alignment: .topLeading)
-                                //.cornerRadius(20)
+                                .cornerRadius(5)
                         }) { img in
                             img.image
                                 .renderingMode(.original)
@@ -93,6 +93,7 @@ struct RadioStationSuperButton: View {
                             .opacity(0.8)
                             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 138, maxHeight: 138, alignment: .topLeading)
                     })
+                .cornerRadius(5)
                 .padding(0)
                 .clipped()
             })

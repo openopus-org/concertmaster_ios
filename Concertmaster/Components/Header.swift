@@ -13,7 +13,7 @@ struct Header: View {
         Image("logo")
             .resizable()
             .scaledToFit()
-            .frame(height: UIDevice.current.hasNotch ? 22 : 18)
+            .frame(height: UIDevice.current.hasNotch ? 20 : 16)
             .padding(.top, UIDevice.current.hasNotch ? 0 : 6)
     }
 }

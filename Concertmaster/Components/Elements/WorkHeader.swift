@@ -43,14 +43,14 @@ struct WorkHeader: View {
                     
                     Text(composer.name.uppercased())
                         .foregroundColor(Color(hex: 0xfce546))
-                        .font(.custom("ZillaSlab-Medium", size: 17))
+                        .font(.custom("ZillaSlab-SemiBold", size: 18))
                     
                     Group{
                         Text(work.title)
-                        .font(.custom("PetitaMedium", size: 17))
+                        .font(.custom("PetitaBold", size: 17))
                         if work.subtitle != "" {
                             Text(work.subtitle!)
-                            .font(.custom("PetitaMedium", size: 14))
+                            .font(.custom("PetitaMedium", size: 15))
                         }
                     }
                     .foregroundColor(.white)

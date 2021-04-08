@@ -88,9 +88,8 @@ struct RadioBuilder: View {
                 
                 Group {
                     Text("Composers and works".uppercased())
-                        
                         .foregroundColor(Color(hex: 0x717171))
-                        .font(.custom("Sanchez-Regular", size: 12))
+                        .font(.custom("Sanchez-Regular", size: 11))
                         .padding(.top, 20)
                     
                     ScrollView(.horizontal, showsIndicators: false) {
@@ -120,7 +119,6 @@ struct RadioBuilder: View {
                     }
                     
                     Text("and".uppercased())
-                        
                         .foregroundColor(Color(hex: 0x717171))
                         .font(.custom("Sanchez-Regular", size: 8))
                         .padding(4)
@@ -135,7 +133,7 @@ struct RadioBuilder: View {
                 Group {
                     Text("Periods".uppercased())
                         .foregroundColor(Color(hex: 0x717171))
-                        .font(.custom("Sanchez-Regular", size: 12))
+                        .font(.custom("Sanchez-Regular", size: 11))
                     
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(alignment: .top, spacing: 14) {
@@ -154,7 +152,6 @@ struct RadioBuilder: View {
                     }
                     
                     Text("and".uppercased())
-                        
                         .foregroundColor(Color(hex: 0x717171))
                         .font(.custom("Sanchez-Regular", size: 8))
                         .padding(4)
@@ -168,9 +165,8 @@ struct RadioBuilder: View {
                 
                 Group {
                     Text("Genres".uppercased())
-                        
                         .foregroundColor(Color(hex: 0x717171))
-                        .font(.custom("Sanchez-Regular", size: 12))
+                        .font(.custom("Sanchez-Regular", size: 11))
                     
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(alignment: .top, spacing: 14) {
@@ -214,7 +210,7 @@ struct RadioBuilder: View {
                                 
                                 if self.isLoading {
                                     ActivityIndicator(isAnimating: self.isLoading)
-                                    .configure { $0.color = .white; $0.style = .medium }
+                                    .configure { $0.color = .black; $0.style = .medium }
                                 } else {
                                     AnimatedRadioIcon(color: Color(hex: 0x000000), isAnimated: self.radioState.isActive)
                                         .frame(width: 40, height: 20)
@@ -223,7 +219,7 @@ struct RadioBuilder: View {
                                         
                                     Text((self.radioState.isActive ? "stop radio" : "start radio").uppercased())
                                         .foregroundColor(.black)
-                                        .font(.custom("ZillaSlab-SemiBold", size: self.radioState.isActive ? 12 : 14))
+                                        .font(.custom("Sanchez-Regular", size: self.radioState.isActive ? 12 : 13))
                                 }
                                 
                                 Spacer()
@@ -232,7 +228,7 @@ struct RadioBuilder: View {
                         .padding(13)
                         .foregroundColor(.white)
                         .background(Color(hex: self.radioState.isActive ? 0x696969 : 0xfce546))
-                        //.cornerRadius(16)
+                        .cornerRadius(5)
                 })
                 .padding(.top, 20)
                 .padding(.trailing, 20)

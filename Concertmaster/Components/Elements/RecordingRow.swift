@@ -80,7 +80,7 @@ struct RecordingRow: View {
                                     .font(.custom("PetitaBold", size: (self.recording.work != nil ? 12 : 13)))
                                 +
                                 Text(performer.readableRole)
-                                    .font(.custom("PetitaMedium", size: (self.recording.work != nil ? 12 : 13)))
+                                    .font(.custom("PetitaMedium", size: (self.recording.work != nil ? 11 : 12)))
                         }
                     }
                 }

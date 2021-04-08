@@ -198,6 +198,7 @@ struct RecordingMini: View {
 
             }
         }
+        .padding(.top, 2)
     }
 }
 

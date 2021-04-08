@@ -952,7 +952,7 @@ extension UIViewController {
         
         let toastLabel = UILabel()
         toastLabel.textColor = UIColor.white
-        toastLabel.font = UIFont(name: "ZillaSlab-Medium", size: 14.0)
+        toastLabel.font = UIFont(name: "Sanchez-Regular", size: 14.0)
         toastLabel.translatesAutoresizingMaskIntoConstraints = false
         toastLabel.textAlignment = .center
         toastLabel.text = message

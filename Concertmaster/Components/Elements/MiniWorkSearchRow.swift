@@ -28,7 +28,7 @@ struct MiniWorkSearchRow: View {
             VStack(alignment: .leading) {
                 Text(composer.name.uppercased())
                     .foregroundColor(Color(hex: 0xfce546))
-                    .font(.custom("ZillaSlab-Medium", size: 12))
+                    .font(.custom("ZillaSlab-SemiBold", size: 12))
                 Text(work.title)
                     .font(.custom("PetitaMedium", size: 12))
                 if work.subtitle != "" {

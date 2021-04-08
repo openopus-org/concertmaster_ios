@@ -39,7 +39,7 @@ struct PlaylistButton: View {
                 Text(playlist.name)
                     
                     .foregroundColor(Color(hex: (self.active ? 0x000000 : 0xfce546)))
-                    .font(.custom("ZillaSlab-Medium", size: 12))
+                    .font(.custom("ZillaSlab-SemiBold", size: 12))
                     .fixedSize(horizontal: false, vertical: true)
                     .lineLimit(20)
                 
@@ -54,7 +54,7 @@ struct PlaylistButton: View {
         }
         .frame(minWidth: 145, maxWidth: 145, minHeight: 130,  maxHeight: 130)
         .background(Color(hex: (self.active ? 0xfce546 : 0x202023)))
-        //.cornerRadius(13)
+        .cornerRadius(5)
     }
 }
 

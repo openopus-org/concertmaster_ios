@@ -20,7 +20,7 @@ struct Warning: View {
             VStack {
                 Text("warning".uppercased())
                     .foregroundColor(Color(hex: 0x717171))
-                    .font(.custom("ZillaSlab-Medium", size: 12))
+                    .font(.custom("Sanchez-Regular", size: 12))
                     .multilineTextAlignment(.leading)
                 
                 Text(appState.warningType == .notPremium ? "Concertmaster needs a Spotify Premium subscription to play music" : "Concertmaster needs the Spotify app installed on your device")
@@ -47,7 +47,7 @@ struct Warning: View {
                                 HStack {
                                     Spacer()
                                     Text(appState.warningType == .notPremium ? "Go Premium".uppercased() : "Install".uppercased())
-                                        .font(.custom("ZillaSlab-Medium", size: 13))
+                                        .font(.custom("Sanchez-Regular", size: 13))
                                     Spacer()
                                 }
                             }
@@ -66,7 +66,7 @@ struct Warning: View {
                                 HStack {
                                     Spacer()
                                     Text("close".uppercased())
-                                        .font(.custom("ZillaSlab-Medium", size: 13))
+                                        .font(.custom("Sanchez-Regular", size: 13))
                                     Spacer()
                                 }
                             }

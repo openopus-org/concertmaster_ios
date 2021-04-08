@@ -17,12 +17,12 @@ struct RecordingDetailTracks: View {
                 VStack {
                     if recording.work.composer!.id != "0" {
                         Text(recording.work.composer!.name.uppercased().trimmingCharacters(in: .whitespacesAndNewlines))
-                            .font(.custom("ZillaSlab-SemiBold", size: 13))
+                            .font(.custom("ZillaSlab-SemiBold", size: 14))
                             .foregroundColor(Color(hex: 0xfce546))
                     } else if recording.work.composer!.name != "None" {
                         ForEach(recording.work.composer!.name.components(separatedBy: CharacterSet(charactersIn: "&,")), id: \.self) { composer in
                             Text(composer.uppercased().trimmingCharacters(in: .whitespacesAndNewlines))
-                            .font(.custom("ZillaSlab-SemiBold", size: 13))
+                            .font(.custom("ZillaSlab-SemiBold", size: 14))
                             .foregroundColor(Color(hex: 0xfce546))
                         }
                     }
@@ -30,7 +30,7 @@ struct RecordingDetailTracks: View {
                 .padding(.top, 12)
                 
                 Text(recording.work.title)
-                    .font(.custom("PetitaMedium", size: 15))
+                    .font(.custom("PetitaBold", size: 16))
                     .padding(.bottom, 6)
                     .lineLimit(20)
                     .fixedSize(horizontal: false, vertical: true)

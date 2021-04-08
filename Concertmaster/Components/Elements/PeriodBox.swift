@@ -34,7 +34,7 @@ struct PeriodBox: View {
             })
         .padding(0)
         .clipped()
-        //.cornerRadius(12)
+        .cornerRadius(5)
     }
 }
 

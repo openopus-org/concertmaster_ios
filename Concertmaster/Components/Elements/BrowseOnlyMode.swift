@@ -26,7 +26,7 @@ struct BrowseOnlyMode: View {
                 
                 VStack(alignment: .leading) {
                     Text("Preview-only mode")
-                        .font(.custom("ZillaSlab-Medium", size: size == "min" ? 10 : 13))
+                        .font(.custom("Sanchez-Regular", size: size == "min" ? 10 : 13))
                         .padding(.top, size == "min" ? 0 : 2)
                     Text("Tap to enable playback")
                         .font(.custom("Sanchez-Regular", size: size == "min" ? 8 : 11))

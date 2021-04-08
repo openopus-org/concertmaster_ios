@@ -99,7 +99,7 @@ struct EditPlaylist: View {
             //}
             
             Text("Rename playlist".uppercased())
-                .font(.custom("ZillaSlab-Medium", size: 13))
+                .font(.custom("ZillaSlab-SemiBold", size: 13))
                 .foregroundColor(Color(hex: 0xfce546))
             Text("Change the name of this playlist")
                 .font(.custom("PetitaMedium", size: 16))
@@ -108,12 +108,12 @@ struct EditPlaylist: View {
             TextField(self.playlistName, text: $editPlaylistName)
                 .textFieldStyle(EditFieldStyle())
                 .background(
-                    RoundedRectangle(cornerRadius: 12)
+                    RoundedRectangle(cornerRadius: 5)
                         .foregroundColor(.black)
                 )
             
             Text("Delete playlist".uppercased())
-                .font(.custom("ZillaSlab-Medium", size: 13))
+                .font(.custom("ZillaSlab-SemiBold", size: 13))
                 .foregroundColor(Color(hex: 0xfce546))
                 .padding(.top, 26)
             HStack {
@@ -126,7 +126,7 @@ struct EditPlaylist: View {
             }
             
             Text("Remove recordings".uppercased())
-                .font(.custom("ZillaSlab-Medium", size: 13))
+                .font(.custom("ZillaSlab-SemiBold", size: 13))
                 .foregroundColor(Color(hex: 0xfce546))
                 .padding(.top, 26)
             Text("Remove selected recordings from this playlist")

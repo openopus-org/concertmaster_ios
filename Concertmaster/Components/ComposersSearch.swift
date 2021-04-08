@@ -65,7 +65,7 @@ struct ComposersSearch: View {
                     if self.composers.count > 0 {
                         Text("Composers".uppercased())
                         .foregroundColor(Color(hex: 0x717171))
-                        .font(.custom("Sanchez-Regular", size: 12))
+                        .font(.custom("Sanchez-Regular", size: 11))
                         .padding(EdgeInsets(top: 7, leading: 20, bottom: 0, trailing: 0))
                         List(self.composers, id: \.id) { composer in
                             NavigationLink(destination: ComposerDetail(composer: composer, isSearch: false).environmentObject(self.settingStore).environmentObject(self.AppState).environmentObject(self.search)) {

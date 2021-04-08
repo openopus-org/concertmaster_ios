@@ -47,7 +47,7 @@ struct RadioSwitcher: View {
         .frame(minWidth: 72, maxWidth: 72, minHeight: 72,  maxHeight: 72, alignment: .top)
         .background(Color(hex: self.isActive ? 0xfce546 : 0x202023))
         .padding(0)
-        //.cornerRadius(12)
+        .cornerRadius(5)
     }
 }
 

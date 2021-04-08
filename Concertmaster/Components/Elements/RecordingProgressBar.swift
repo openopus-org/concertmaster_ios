@@ -27,7 +27,7 @@ struct RecordingProgressBar: View {
                     if self.playState.preview {
                         HStack {
                             Text("preview".uppercased())
-                                .font(.custom("ZillaSlab-Medium", size: 10))
+                                .font(.custom("Sanchez-Regular", size: 10))
                                 .foregroundColor(Color(hex: 0xFCE546))
                         }
                         .padding(.init(top: 2, leading: 6, bottom: 2, trailing: 6))

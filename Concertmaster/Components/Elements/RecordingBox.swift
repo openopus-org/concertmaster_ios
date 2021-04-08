@@ -47,7 +47,7 @@ struct RecordingBox: View {
                     }
                     
                     Text(recording.work!.title)
-                        .font(.custom("PetitaMedium", size: 11))
+                        .font(.custom("PetitaMedium", size: 12))
                         .foregroundColor(.white)
                         .padding(.bottom, 6)
                         .lineLimit(20)
@@ -56,7 +56,7 @@ struct RecordingBox: View {
                 
                 if recording.observation != "" && recording.observation != nil {
                     Text(recording.observation ?? "")
-                    .font(.custom("PetitaMedium", size: 8))
+                    .font(.custom("PetitaMedium", size: 9))
                     .padding(.bottom, 6)
                 }
                 
@@ -64,7 +64,7 @@ struct RecordingBox: View {
                     Group {
                         if (self.recording.performers.count <= AppConstants.maxPerformers || AppConstants.mainPerformersList.contains(performer.role ?? "")) {
                                 Text(performer.name)
-                                    .font(.custom("PetitaBold", size: (self.recording.work != nil ? 9 : 9)))
+                                    .font(.custom("PetitaBold", size: (self.recording.work != nil ? 10 : 10)))
                                 +
                                 Text(performer.readableRole)
                                     .font(.custom("PetitaMedium", size: (self.recording.work != nil ? 9 : 9)))
@@ -81,7 +81,7 @@ struct RecordingBox: View {
         .padding(20)
         .frame(minWidth: 165, maxWidth: 165, minHeight: 300,  maxHeight: 300, alignment: .top)
         .background(Color(hex: 0x202023))
-        //.cornerRadius(20)
+        .cornerRadius(5)
     }
 }
 

@@ -112,27 +112,27 @@ struct RecordingWorkPerformers: View {
                             .padding(.top, 4)
                             .foregroundColor(.white)
                             .background(Color(hex: 0x4F4F4F))
-                            //.cornerRadius(16)
+                            .cornerRadius(3)
                         }
-                        .padding(.trailing, 8)
+                        .padding(.trailing, 13)
                     })
                 }
                 
                 VStack(alignment: .leading) {
                     if recording.work!.composer!.id != "0" {
                         Text(recording.work!.composer!.name.uppercased().trimmingCharacters(in: .whitespacesAndNewlines))
-                            .font(.custom("ZillaSlab-SemiBold", size: 16))
+                            .font(.custom("ZillaSlab-SemiBold", size: isPlayer ? 17 : 16))
                             .foregroundColor(isPlayer ? .black : Color(hex: 0xFCE546))
                     } else if recording.work!.composer!.name != "None" {
                         ForEach(recording.work!.composer!.name.components(separatedBy: CharacterSet(charactersIn: "&,")), id: \.self) { composer in
                             Text(composer.uppercased().trimmingCharacters(in: .whitespacesAndNewlines))
-                            .font(.custom("ZillaSlab-SemiBold", size: 16))
+                            .font(.custom("ZillaSlab-SemiBold", size: isPlayer ? 17 : 16))
                             .foregroundColor(isPlayer ? .black : Color(hex: 0xFCE546))
                         }
                     }
                     
                     Text(recording.work!.title)
-                        .font(.custom("PetitaMedium", size: 17))
+                        .font(.custom(isPlayer ? "PetitaMedium" : "PetitaBold", size: isPlayer ? 18 : 17))
                         .foregroundColor(isPlayer ? .black : .white)
                         .padding(.bottom, 4)
                         .lineLimit(20)
