@@ -230,7 +230,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
                                     
                                     if self.settingStore.lastPlayState.count > 0 {
                                         if self.settingStore.lastPlayState.first!.spotify_tracks!.firstIndex(of: currplayer.track.uri) == nil {
-                                            APIBearerPut("\(AppConstants.SpotifyAPI)/me/player/play?device_id=\($0.id)", body: "{ \"uris\": \(self.radioState.nextRecordings.count > 0 ? self.playState.recording.first!.jsonRadioTracks : self.playState.recording.first!.jsonTracks), \"offset\": { \"position\": 0 } }", bearer: self.settingStore.accessToken) { results in
+                                            APIBearerPut("\(AppConstants.SpotifyAPI)/me/player/play?device_id=\($0.id)", body: "{ \"uris\": \(self.radioState.nextRecordings.count > 0 || self.radioState.nextWorks.count > 0 ? self.playState.recording.first!.jsonRadioTracks : self.playState.recording.first!.jsonTracks), \"offset\": { \"position\": 0 } }", bearer: self.settingStore.accessToken) { results in
                                                 
                                                 //print(String(decoding: results, as: UTF8.self))
                                                 

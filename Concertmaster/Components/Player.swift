@@ -120,7 +120,7 @@ struct Player: View {
                                     self.playState.logAndPlay = true
                                     self.sessionManager?.initiateSession(with: AppConstants.SpotifyAuthScopes, options: .default)
                                 } else {
-                                    APIBearerPut("\(AppConstants.SpotifyAPI)/me/player/play?device_id=\(self.settingStore.deviceId)", body: "{ \"uris\": \(self.radioState.nextRecordings.count > 0 ? self.playState.recording.first!.jsonRadioTracks : self.playState.recording.first!.jsonTracks), \"offset\": { \"position\": 0 } }", bearer: self.settingStore.accessToken) { results in
+                                    APIBearerPut("\(AppConstants.SpotifyAPI)/me/player/play?device_id=\(self.settingStore.deviceId)", body: "{ \"uris\": \(self.radioState.nextRecordings.count > 0 || self.radioState.nextWorks.count > 0 ? self.playState.recording.first!.jsonRadioTracks : self.playState.recording.first!.jsonTracks), \"offset\": { \"position\": 0 } }", bearer: self.settingStore.accessToken) { results in
                                         //print(String(decoding: results, as: UTF8.self))
                                         
                                         DispatchQueue.main.async {
@@ -170,7 +170,7 @@ struct Player: View {
                                     randomRecording(workQueue: self.radioState.nextWorks, hideIncomplete:  self.settingStore.hideIncomplete, country: self.settingStore.country) { rec in
                                         if rec.count > 0 {
                                             DispatchQueue.main.async {
-                                                self.radioState.nextRecordings[0] = rec.first!
+                                                self.radioState.nextRecordings = [rec.first!]
                                                 self.radioState.canSkip = true
                                             }
                                         }
