@@ -116,12 +116,13 @@ struct Player: View {
                                 self.appState.noPreviewAvailable = true
                             }
                         } else {
-                            bgPlayer.play()
                             if UIApplication.shared.canOpenURL(URL(string: "spotify:")!) {
                                 if (!self.appRemote!.isConnected) {
                                     self.playState.logAndPlay = true
                                     self.sessionManager?.initiateSession(with: AppConstants.SpotifyAuthScopes, options: .default)
                                 } else {
+                                    bgPlayer.play()
+                                    
                                     APIBearerPut("\(AppConstants.SpotifyAPI)/me/player/play?device_id=\(self.settingStore.deviceId)", body: "{ \"uris\": \(self.radioState.nextRecordings.count > 0 || self.radioState.nextWorks.count > 0 ? self.playState.recording.first!.jsonRadioTracks : self.playState.recording.first!.jsonTracks), \"offset\": { \"position\": 0 } }", bearer: self.settingStore.accessToken) { results in
                                         //print(String(decoding: results, as: UTF8.self))
                                         
@@ -143,7 +144,6 @@ struct Player: View {
                                 
                                 // playing preview
                                 
-                                bgPlayer.disable()
                                 self.playState.preview = true
                                 
                                 if !self.playState.recording.first!.previewUrls.isEmpty {

@@ -16,6 +16,7 @@ struct RecordingProgressBars: View {
     @EnvironmentObject var playState: PlayState
     @EnvironmentObject var radioState: RadioState
     @EnvironmentObject var settingStore: SettingStore
+    @EnvironmentObject var bgPlayer: BGPlayer
     
     private var appRemote: SPTAppRemote? {
         get {
@@ -37,6 +38,8 @@ struct RecordingProgressBars: View {
                                         self.currentTrack[0].zero_index = 0
                                         
                                         if let offset = self.recording.tracks!.firstIndex(where: {$0.spotify_trackid == track.spotify_trackid}) {
+                                            
+                                            bgPlayer.play()
                                             
                                             APIBearerPut("\(AppConstants.SpotifyAPI)/me/player/play?device_id=\(self.settingStore.deviceId)", body: "{ \"uris\": \(self.radioState.nextRecordings.count > 0 || self.radioState.nextWorks.count > 0 ? self.playState.recording.first!.jsonRadioTracks : self.playState.recording.first!.jsonTracks), \"offset\": { \"position\": \(offset) } }", bearer: self.settingStore.accessToken) { results in
                                                 

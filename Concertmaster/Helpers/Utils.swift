@@ -347,7 +347,7 @@ extension Notification.Name {
 class BGPlayer: ObservableObject {
     var bgPlayer: AVAudioPlayer?
     
-    init() {
+    func play() {
         try! AVAudioSession.sharedInstance().setCategory(
             AVAudioSession.Category.playback,
             mode: AVAudioSession.Mode.default,
@@ -362,37 +362,10 @@ class BGPlayer: ObservableObject {
             try AVAudioSession.sharedInstance().setActive(true)
             bgPlayer = try AVAudioPlayer.init(contentsOf: url)
             bgPlayer?.numberOfLoops = -1
+            bgPlayer?.play()
         } catch {
             //
         }
-    }
-    
-    func play() {
-        bgPlayer?.play()
-    }
-    
-    func pause() {
-        bgPlayer?.pause()
-    }
-    
-    func disable() {
-        try! AVAudioSession.sharedInstance().setCategory(
-            AVAudioSession.Category.playback,
-            mode: AVAudioSession.Mode.default,
-            options: [
-                
-            ]
-        )
-    }
-    
-    func enable() {
-        try! AVAudioSession.sharedInstance().setCategory(
-            AVAudioSession.Category.playback,
-            mode: AVAudioSession.Mode.default,
-            options: [
-                AVAudioSession.CategoryOptions.mixWithOthers
-            ]
-        )
     }
 }
 

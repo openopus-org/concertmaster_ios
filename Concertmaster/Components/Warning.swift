@@ -29,7 +29,7 @@ struct Warning: View {
                     .padding(.top, 22)
                     .multilineTextAlignment(.center)
                 
-                Text("You can browse Concertmaster's catalogue, create playlists, favorite works, composers and recordings, but playback is restricted to 30-second samples.")
+                Text(appState.warningType == .notPremium ? "You can browse Concertmaster's catalogue, create playlists, favorite works, composers and recordings, but playback is restricted to 30-second samples." : "You can browse Concertmaster's catalogue, but playback is restricted to 30-second samples.")
                     .foregroundColor(Color.white)
                     .font(.custom("PetitaMedium", size: 14))
                     .padding(.top, 10)
