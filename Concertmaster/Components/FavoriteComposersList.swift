@@ -49,6 +49,7 @@ struct FavoriteComposersList: View {
                 }
             }
         }
+        .padding(.top, self.composers.count > 0 ? 0 : 1)
         .onAppear(perform: {
             if self.composers.count == 0 {
                 print("🆗 favorite composers loaded from view appearance")

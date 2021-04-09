@@ -48,13 +48,13 @@ struct DonationModal: View {
                     
                     Text("Concertmaster is a completely free and open project based on sheer love for classical music. But it runs on web servers that cost money, and its maintenance takes a lot of time.")
                         .foregroundColor(Color.white)
-                        .font(.custom("Sanchez-Regular", size: 14))
+                        .font(.custom("PetitaMedium", size: 15))
                         .multilineTextAlignment(.center)
                         .lineLimit(20)
                     
                     Text("Help keep Concertmaster free. Please donate and back our development and hosting costs!")
                         .foregroundColor(Color(hex: 0xfce546))
-                        .font(.custom("PetitaBold", size: 14))
+                        .font(.custom("PetitaBold", size: 15))
                         .multilineTextAlignment(.center)
                         .lineLimit(20)
                     
@@ -121,7 +121,7 @@ struct DonationModal: View {
                                             .font(.custom("PetitaBold", size: 15))
                                             .padding(10)
                                             .background(Color(hex: 0xfce546))
-                                            //.cornerRadius(16)
+                                            .cornerRadius(5)
                                     })
                                     .buttonStyle(BorderlessButtonStyle())
                             }

@@ -374,6 +374,26 @@ class BGPlayer: ObservableObject {
     func pause() {
         bgPlayer?.pause()
     }
+    
+    func disable() {
+        try! AVAudioSession.sharedInstance().setCategory(
+            AVAudioSession.Category.playback,
+            mode: AVAudioSession.Mode.default,
+            options: [
+                
+            ]
+        )
+    }
+    
+    func enable() {
+        try! AVAudioSession.sharedInstance().setCategory(
+            AVAudioSession.Category.playback,
+            mode: AVAudioSession.Mode.default,
+            options: [
+                AVAudioSession.CategoryOptions.mixWithOthers
+            ]
+        )
+    }
 }
 
 class PreviewBridge: ObservableObject {

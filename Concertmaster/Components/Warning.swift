@@ -29,7 +29,7 @@ struct Warning: View {
                     .padding(.top, 22)
                     .multilineTextAlignment(.center)
                 
-                Text("You can browse Concertmaster's catalogue, create playlists, favorite works, composers and recordings, but playback is restricted to 30 seconds samples.")
+                Text("You can browse Concertmaster's catalogue, create playlists, favorite works, composers and recordings, but playback is restricted to 30-second samples.")
                     .foregroundColor(Color.white)
                     .font(.custom("PetitaMedium", size: 14))
                     .padding(.top, 10)
@@ -47,14 +47,14 @@ struct Warning: View {
                                 HStack {
                                     Spacer()
                                     Text(appState.warningType == .notPremium ? "Go Premium".uppercased() : "Install".uppercased())
-                                        .font(.custom("Sanchez-Regular", size: 13))
+                                        .font(.custom("ZillaSlab-SemiBold", size: 13))
                                     Spacer()
                                 }
                             }
                             .padding(12)
                             .foregroundColor(.black)
                             .background(Color(hex: 0xfce546))
-                            //.cornerRadius(16)
+                            .cornerRadius(5)
                     })
                     
                     Button(
@@ -66,21 +66,21 @@ struct Warning: View {
                                 HStack {
                                     Spacer()
                                     Text("close".uppercased())
-                                        .font(.custom("Sanchez-Regular", size: 13))
+                                        .font(.custom("Sanchez-Regular", size: 11))
                                     Spacer()
                                 }
                             }
                             .padding(12)
                             .foregroundColor(.white)
                             .background(Color(hex: 0x555555))
-                            //.cornerRadius(16)
+                            .cornerRadius(5)
                     })
                 }
                 .padding(.top, 20)
             }
             .padding(25)
             .background(Color(hex: 0x2b2b2f))
-            //.cornerRadius(20)
+            .cornerRadius(5)
             .frame(maxWidth: 320)
             
             Spacer()

@@ -71,7 +71,7 @@ struct RecordingMiniView: View {
                                 .padding(.leading, 8)
                                 .padding(.trailing, 12)
                                 .background(Color.black)
-                                //.cornerRadius(14)
+                                .cornerRadius(5)
                                 .opacity(0.7)
                             }
                         }
@@ -83,7 +83,7 @@ struct RecordingMiniView: View {
 
                 } else {
                     Spacer()
-                    PreviewNotAvailable(size: "min")
+                    PreviewNotAvailable(size: "min", currentTrack: $currentTrack)
                     Spacer()
                 }
             }

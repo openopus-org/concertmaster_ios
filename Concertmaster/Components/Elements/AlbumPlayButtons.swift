@@ -76,8 +76,8 @@ struct AlbumPlayButtons: View {
                                     .padding(.leading, 0)
                                     
                                 Text(("stop radio").uppercased())
-                                    .foregroundColor(.white)
-                                    .font(.custom("Sanchez-Regular", size: self.radioState.isActive && self.radioState.playlistId == "album-\(self.album.spotify_albumid)" ? 12 : 13))
+                                    .foregroundColor(.black)
+                                    .font(.custom("Sanchez-Regular", size: self.radioState.isActive && self.radioState.playlistId == "album-\(self.album.spotify_albumid)" ? 11 : 12))
                             } else {
                                 Image("play")
                                     .resizable()

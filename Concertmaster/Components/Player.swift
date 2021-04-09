@@ -59,6 +59,7 @@ struct Player: View {
             if let cover = self.playState.recording.first!.cover {
                 imageGet(url: cover) { img in
                     DispatchQueue.main.async {
+                        print("HOOODASOODSAODSAJOJFOSDFJDSFJO", img)
                         songInfo[MPMediaItemPropertyArtist] = self.playState.recording.first!.work!.composer!.name as AnyObject
                         songInfo[MPMediaItemPropertyAlbumTitle] = self.playState.recording.first!.work!.title as AnyObject
                         songInfo[MPMediaItemPropertyArtwork] = img as AnyObject
@@ -70,6 +71,7 @@ struct Player: View {
                         }
                         
                         center.nowPlayingInfo = songInfo
+                        dump(center.nowPlayingInfo)
                     }
                 }
             }
@@ -141,6 +143,7 @@ struct Player: View {
                                 
                                 // playing preview
                                 
+                                bgPlayer.disable()
                                 self.playState.preview = true
                                 
                                 if !self.playState.recording.first!.previewUrls.isEmpty {
@@ -206,6 +209,18 @@ struct Player: View {
                         } else if self.radioState.isActive {
                             DispatchQueue.main.async {
                                 self.radioState.isActive = false
+                            }
+                        }
+                        
+                        // preview, radio but no previews?
+                        
+                        if self.appState.noPreviewAvailable && self.radioState.nextRecordings.count > 0 {
+                            print("⏭ Radio ON but NO previews, skipping right away")
+                            
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                                self.playState.autoplay = true
+                                self.currentTrack[0].track_position = 0
+                                self.playState.recording = [self.radioState.nextRecordings.removeFirst()]
                             }
                         }
                     }
@@ -324,7 +339,7 @@ struct Player: View {
                         if !self.appState.noPreviewAvailable {
                             RecordingPlaybackControl(currentTrack: $currentTrack)
                         } else {
-                            PreviewNotAvailable(size: "max")
+                            PreviewNotAvailable(size: "max", currentTrack: $currentTrack)
                         }
                     }
                     else {
@@ -427,6 +442,28 @@ struct Player: View {
                 
                 if self.playState.preview {
                     self.currentTrack[0].track_position = self.previewBridge.getCurrentPlaybackTime()
+                    
+                    if let currenttrack = self.currentTrack.first {
+                        if let firstrecording = self.playState.recording.first {
+                            if let firstrecordingtracks = firstrecording.tracks {
+                                if currenttrack.track_index == firstrecordingtracks.count - 1 {
+                                    // PREVIEW: last track
+                                    
+                                    if currenttrack.track_position >= 29 {
+                                        print("🚨🚨🚨🚨🚨🚨 LAST TRACK, LAST SEC 🚨🚨🚨🚨🚨🚨")
+                                        
+                                        if self.radioState.nextRecordings.count > 0 {
+                                            print("⏭ Radio ON, playing the next recording!")
+                                            self.previewBridge.stop()
+                                            self.playState.autoplay = true
+                                            self.currentTrack[0].track_position = 0
+                                            self.playState.recording = [self.radioState.nextRecordings.removeFirst()]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 } else {
                     self.currentTrack[0].track_position += 1
                     
@@ -442,10 +479,6 @@ struct Player: View {
                                         
                                         if self.radioState.nextRecordings.count > 0 {
                                             print("⏭ Radio ON, playing the next recording!")
-                                            
-                                            if self.playState.preview {
-                                                self.previewBridge.stop()
-                                            }
                                             
                                             self.playState.autoplay = true
                                             self.currentTrack[0].track_position = 0
@@ -484,16 +517,12 @@ struct Player: View {
                 
                 print("radio state: \(self.radioState.isActive)")
                 
-                if trackIndex == 0 {
-                    self.currentTrack[0].zero_index = 0
-                }
-                
+                self.currentTrack[0].zero_index = 0
                 self.currentTrack[0].track_index = trackIndex
                 self.currentTrack[0].track_position = 0
-                self.currentTrack[0].starting_point = (self.playState.recording.first!.tracks![trackIndex - self.currentTrack[0].zero_index].starting_point)
-                self.currentTrack[0].full_position = (self.playState.recording.first!.tracks![trackIndex - self.currentTrack[0].zero_index].starting_point)
-                self.currentTrack[0].track_length = (self.playState.recording.first!.tracks![trackIndex - self.currentTrack[0].zero_index].length)
-                
+                self.currentTrack[0].starting_point = (self.playState.recording.first!.tracks![trackIndex].starting_point)
+                self.currentTrack[0].full_position = (self.playState.recording.first!.tracks![trackIndex].starting_point)
+                self.currentTrack[0].track_length = (self.playState.recording.first!.tracks![trackIndex].length)
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name.previewPlayerStatusChanged)) { status in

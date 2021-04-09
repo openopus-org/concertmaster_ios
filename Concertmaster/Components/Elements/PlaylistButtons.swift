@@ -74,7 +74,7 @@ struct PlaylistButtons: View {
                             } else {
                                 AnimatedRadioIcon(color: Color(hex: 0x000000), isAnimated: self.radioState.isActive && self.radioState.playlistId == self.playlistId)
                                     .frame(width: 40, height: 20)
-                                    .padding(.trailing, self.radioState.isActive && self.radioState.playlistId == self.playlistId ? 3 : -10)
+                                    .padding(.trailing, self.radioState.isActive && self.radioState.playlistId == self.playlistId ? -2 : -10)
                                     .padding(.leading, self.radioState.isActive && self.radioState.playlistId == self.playlistId ? 0 : -10)
                                     
                                 Text((self.radioState.isActive && self.radioState.playlistId == self.playlistId ? "stop radio" : "start radio").uppercased())

@@ -27,12 +27,12 @@ struct RecordingProgressBar: View {
                     if self.playState.preview {
                         HStack {
                             Text("preview".uppercased())
-                                .font(.custom("Sanchez-Regular", size: 10))
+                                .font(.custom("Sanchez-Regular", size: 8))
                                 .foregroundColor(Color(hex: 0xFCE546))
                         }
                         .padding(.init(top: 2, leading: 6, bottom: 2, trailing: 6))
                         .background(Color.black)
-                        //.cornerRadius(12)
+                        .cornerRadius(3)
                         .opacity(0.7)
                     }
                 }
