@@ -86,9 +86,9 @@ struct RecordingsList: View {
                         ActivityIndicator(isAnimating: loading)
                             .configure { $0.color = .white; $0.style = .large }
                     } else if self.recordings.count > 0 {
-                        RecordingsDisclaimer(msg: "Those recordings were fetched automatically from the Spotify catalog. The list might be inaccurate or incomplete. Please reach us for requests, questions or suggestions.")
+                        RecordingsDisclaimer(msg: "Those recordings were fetched automatically from the Spotify catalogue. The list might be inaccurate or incomplete. Please reach us for requests, questions or suggestions.")
                     } else {
-                        ErrorMessage(msg: "Concertmaster couldn't find any recording of this work in the Spotify catalog. It might be an error, though. Please reach us if you know a recording. This will help us correct our algorithm.")
+                        ErrorMessage(msg: "Concertmaster couldn't find any recording of this work in the Spotify catalogue. It might be an error, though. Please reach us if you know a recording. This will help us correct our algorithm.")
                     }
                     Spacer()
                 }

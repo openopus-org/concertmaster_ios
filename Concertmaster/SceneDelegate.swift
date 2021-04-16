@@ -37,6 +37,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
     lazy var appRemote: SPTAppRemote = {
         let appRemote = SPTAppRemote(configuration: configuration, logLevel: .none)
         appRemote.delegate = self
+        
         return appRemote
     }()
     
@@ -155,7 +156,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
     func appRemote(_ appRemote: SPTAppRemote, didFailConnectionAttemptWithError error: Error?) {
         //
         
-        print ("⛔️ AppRemote error")
+        print ("⛔️ AppRemote error when connecting")
+        print ("log and play - ", playState.logAndPlay)
+        print ("has the token - ", !self.settingStore.accessToken.isEmpty)
         
         if self.playState.forceConnection {
             self.playState.logAndPlay = false
@@ -168,6 +171,37 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
                 if let tracks = firstrecording.tracks {
                     if let track = tracks.first {
                         self.playState.playerstate = PlayerState (isConnected: false, isPlaying: false, trackId: track.spotify_trackid, position: 0)
+                        
+                        // playing the music
+                        
+                        if playState.logAndPlay && !self.settingStore.accessToken.isEmpty {
+                            
+                            print("playing directly through the API, without the AppRemote working")
+                              
+                            APIBearerGet("\(AppConstants.SpotifyAPI)/me/player/devices", bearer: self.settingStore.accessToken) { results in
+                                print(String(decoding: results, as: UTF8.self))
+                                if let devicesData: Devices = safeJSON(results) {
+                                    devicesData.devices.forEach() {
+                                        if $0.is_active {
+                                            self.settingStore.deviceId = $0.id
+                                            print ("device id \($0.id)")
+                                                    
+                                            APIBearerPut("\(AppConstants.SpotifyAPI)/me/player/play?device_id=\($0.id)", body: "{ \"uris\": \(self.radioState.nextRecordings.count > 0 || self.radioState.nextWorks.count > 0 ? self.playState.recording.first!.jsonRadioTracks : self.playState.recording.first!.jsonTracks), \"offset\": { \"position\": 0 } }", bearer: self.settingStore.accessToken) { results in
+                                                
+                                                //print(String(decoding: results, as: UTF8.self))
+                                                
+                                                DispatchQueue.main.async {
+                                                    self.bgPlayer.play()
+                                                    print("log and play, auto play = false")
+                                                    self.playState.autoplay = false
+                                                    self.playState.logAndPlay = false
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             } else {
@@ -203,6 +237,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
               }
             })
         }
+        
+        // set shuffle/repeat off
+        
+        self.appRemote.playerAPI?.setShuffle(false, callback: {_,_ in
+            print("shuffle off")
+        })
+        self.appRemote.playerAPI?.setRepeatMode(.off, callback: { (_, _) in
+            print("repeat off")
+        })
         
         // say hi to spotify every 4 minutes
         
@@ -306,7 +349,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
             self.sessionManager.renewSession()
         }
         
-        if timeframe(timestamp: settingStore.lastLogged, minutes: AppConstants.minsToLogin)  {
+        if timeframe(timestamp: settingStore.lastLogged, minutes: self.settingStore.userType == "premium" ? AppConstants.minsToLogin : 0)  {
             APIpost("\(AppConstants.concBackend)/dyn/user/login/", parameters: ["token": session.accessToken ]) { results in
                 print("👀 User logged in")
                 //print(String(decoding: results, as: UTF8.self))
@@ -360,6 +403,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
                         }
                         
                         if let product = login.user.product {
+                            self.settingStore.userType = product
+                            
                             if product != "premium" {
                                 self.appState.showingWarning = true
                                 self.appState.warningType = .notPremium
@@ -382,6 +427,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
                     }
                 }
             }
+        } else if self.settingStore.userType == "premium" {
+            print("🟢 premium already logged, connecting!")
+            self.appRemote.connect()
         }
     }
 }

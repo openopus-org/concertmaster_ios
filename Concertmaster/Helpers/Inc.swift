@@ -9,7 +9,7 @@
 import Foundation
 
 struct AppConstants {
-    static let version = "1.21 beta"
+    static let version = "1.21.409 beta"
     static let openOpusBackend = "https://api.openopus.org"
     static let concBackend = "https://beta.api.concertmaster.app"
     static let concFrontend = "https://concertmaster.app"
@@ -30,7 +30,7 @@ struct AppConstants {
     static let minsToAskDonation = 7 * 24 * 60
     static let minsToAskDonationHasDonated = 30 * 24 * 60
     static let minsToReview = 2 * 24 * 60
-    static let minsToLogin = 0
+    static let minsToLogin = 2 * 60
     static let minsToToken = 4 * 60
     static let SpotifyClientID = "d51f903ebcac46d9a036b4a2da05b299"
     static let SpotifyRedirectURL = URL(string: "concertmaster-app://spotify-login-callback")!

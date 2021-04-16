@@ -24,7 +24,6 @@ final class AppState: ObservableObject  {
     @Published var isLoading = true
     @Published var showingWarning = false
     @Published var warningType = WarningType()
-    @Published var noSpotify = false
     @Published var noPreviewAvailable = false
     @Published var askDonation = false {
         didSet {
@@ -346,6 +345,7 @@ extension Notification.Name {
 
 class BGPlayer: ObservableObject {
     var bgPlayer: AVAudioPlayer?
+    var isPlaying = false
     
     func play() {
         try! AVAudioSession.sharedInstance().setCategory(
@@ -363,9 +363,15 @@ class BGPlayer: ObservableObject {
             bgPlayer = try AVAudioPlayer.init(contentsOf: url)
             bgPlayer?.numberOfLoops = -1
             bgPlayer?.play()
+            isPlaying = true
         } catch {
             //
         }
+    }
+    
+    func stop() {
+        bgPlayer?.stop()
+        isPlaying = false
     }
 }
 
@@ -729,6 +735,7 @@ final class SettingStore: ObservableObject {
     @UserDefault("concertmaster.firstUsage", defaultValue: true) var firstUsage: Bool
     @UserDefault("concertmaster.hideIncomplete", defaultValue: true) var hideIncomplete: Bool
     @UserDefault("concertmaster.hideHistorical", defaultValue: true) var hideHistorical: Bool
+    @UserDefault("concertmaster.userType", defaultValue: "notinstalled") var userType: String
     @UserDefault("concertmaster.userId", defaultValue: "") var userId: String {
         didSet {
             userIdDidChange.send()

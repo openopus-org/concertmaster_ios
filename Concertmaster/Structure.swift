@@ -62,7 +62,7 @@ struct Structure: View {
                             }
                         }
                         .onReceive(AppState.externalUrlWillChange, perform: {
-                            //print(self.AppState.externalUrl)
+                            print(self.AppState.externalUrl)
                             self.showExternalDetail = (self.AppState.externalUrl.count == 3)
                         })
                 }
@@ -123,7 +123,7 @@ struct Structure: View {
                 }
             }
             .onReceive(AppState.externalUrlWillChange, perform: {
-                //print(self.AppState.externalUrl)
+                print(self.AppState.externalUrl)
                 self.showExternalDetail = (self.AppState.externalUrl.count == 3)
             })
         }

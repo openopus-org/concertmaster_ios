@@ -59,7 +59,6 @@ struct Player: View {
             if let cover = self.playState.recording.first!.cover {
                 imageGet(url: cover) { img in
                     DispatchQueue.main.async {
-                        print("HOOODASOODSAODSAJOJFOSDFJDSFJO", img)
                         songInfo[MPMediaItemPropertyArtist] = self.playState.recording.first!.work!.composer!.name as AnyObject
                         songInfo[MPMediaItemPropertyAlbumTitle] = self.playState.recording.first!.work!.title as AnyObject
                         songInfo[MPMediaItemPropertyArtwork] = img as AnyObject
@@ -71,7 +70,6 @@ struct Player: View {
                         }
                         
                         center.nowPlayingInfo = songInfo
-                        dump(center.nowPlayingInfo)
                     }
                 }
             }
@@ -359,9 +357,12 @@ struct Player: View {
         })
         .onReceive(playState.playerstateDidChange, perform: {
             
+            /*
             appRemote?.playerAPI?.getPlayerState({ result, error in
                 //dump(result)
             })
+            */
+            
             
             if self.currentTrack.count > 0 {
                 
@@ -386,19 +387,25 @@ struct Player: View {
                                     print("🆗 started")
                                     self.currentTrack[0].loading = false
                                     self.timerHolder.start()
+                                
+                                    if !self.bgPlayer.isPlaying {
+                                        self.bgPlayer.play()
+                                    }
                             }
                             else {
                                 self.currentTrack[0].loading = false
                                 print("⛔️ stopped")
                                 self.timerHolder.stop()
+                                
+                                if self.bgPlayer.isPlaying {
+                                    self.bgPlayer.stop()
+                                }
                             }
                             
                             self.currentTrack[0].playing = playerstate.isPlaying
                             print("⏯ playing: ", playerstate.isPlaying)
                             dump(self.currentTrack)
                         } else {
-                            print("log and play ", self.playState.logAndPlay)
-                            print("auto play ", self.playState.autoplay)
                             if !self.playState.logAndPlay && !self.playState.autoplay && playerstate.trackId != AppConstants.SpotifySilentTrack {
                                 print("🔴 Not the right recording: ", playerstate.trackId)
                                 /*
@@ -411,6 +418,10 @@ struct Player: View {
                                 self.timerHolder.stop()
                                 self.playState.playerstate = PlayerState (isConnected: false, isPlaying: false, trackId: "", position: 0)
                                 self.currentTrack = [CurrentTrack]()
+                                
+                                if self.bgPlayer.isPlaying {
+                                    self.bgPlayer.stop()
+                                }
                             }
                         }
                     } else {
@@ -423,6 +434,12 @@ struct Player: View {
                                 self.currentTrack[0].playing = false
                                 self.currentTrack[0].track_position = 0
                                 self.currentTrack[0].full_position = 0
+                                
+                                if self.bgPlayer.isPlaying {
+                                    self.bgPlayer.stop()
+                                }
+                            } else {
+                                self.currentTrack[0].loading = false
                             }
                         }
                     }
