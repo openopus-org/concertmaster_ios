@@ -6,7 +6,7 @@ It's splitted in several projects. **This one provides only the iOS app.** (Ther
 
 ## Usage
 
-It's an iOS app. When it's ready, it'll be available on the App Store.
+It's an iOS app. You can get it directly on the [App Store](https://apps.apple.com/app/concertmaster-player/id1561622325?l=en).
 
 The player itself is full of features, so there is a [wiki](https://getconcertmaster.com/help) explaining them all.
 

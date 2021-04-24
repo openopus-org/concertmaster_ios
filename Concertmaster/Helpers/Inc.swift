@@ -9,9 +9,9 @@
 import Foundation
 
 struct AppConstants {
-    static let version = "1.21.409 beta"
+    static let version = "1.21.417"
     static let openOpusBackend = "https://api.openopus.org"
-    static let concBackend = "https://beta.api.concertmaster.app"
+    static let concBackend = "https://api.concertmaster.app"
     static let concFrontend = "https://concertmaster.app"
     static let concShortFrontend = "https://cmas.me/r"
     static let concNoCoverImg = concFrontend + "/img/nocover.png"
@@ -34,7 +34,7 @@ struct AppConstants {
     static let minsToToken = 4 * 60
     static let SpotifyClientID = "d51f903ebcac46d9a036b4a2da05b299"
     static let SpotifyRedirectURL = URL(string: "concertmaster-app://spotify-login-callback")!
-    static let concTokenAPI = "https://beta.api.concertmaster.app/dyn/token/"
+    static let concTokenAPI = "https://api.concertmaster.app/dyn/token/"
     static let SpotifyAuthScopes: SPTScope = [.appRemoteControl, .userReadPlaybackState, .userModifyPlaybackState, .userReadCurrentlyPlaying, .streaming, .userReadEmail, .userReadPrivate]
     static let SpotifySilentPlaylist = "spotify:playlist:0MrWndPwlGqGr4VzjoIbU3"
     static let SpotifySilentTrack = "spotify:track:647hR0e3Rp07l8MtPSMu2s"
